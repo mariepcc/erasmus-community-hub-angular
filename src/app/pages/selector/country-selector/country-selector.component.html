@@ -1,2 +1,19 @@
-<p>country-selector works!</p>
-<div #box class="box">Animate me! </div>
+<div class="gallery" #galleryWrapper>
+  <ul class="cards" #cardsList>
+    <li #cardItem>Poland 🇵🇱</li>
+    <li #cardItem>Spain 🇪🇸</li>
+    <li #cardItem>Italy 🇮🇹</li>
+    <li #cardItem>France 🇫🇷</li>
+    <li #cardItem>Germany 🇩🇪</li>
+    <li #cardItem>Portugal 🇵🇹</li>
+    <li #cardItem>Netherlands 🇳🇱</li>
+    <li #cardItem>Greece 🇬🇷</li>
+    <li #cardItem>Sweden 🇸🇪</li>
+    <li #cardItem>Norway 🇳🇴</li>
+  </ul>
+  <div class="actions">
+    <button (click)="prev()">Prev</button>
+    <button (click)="next()">Next</button>
+  </div>
+  <div class="drag-proxy"></div>
+</div>
