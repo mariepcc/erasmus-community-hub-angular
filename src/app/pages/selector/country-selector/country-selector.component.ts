@@ -9,13 +9,14 @@ import {
   ViewChildren,
   QueryList,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { Draggable, ScrollTrigger } from 'gsap/all';
 
 @Component({
   selector: 'app-country-selector',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './country-selector.component.html',
   styleUrl: './country-selector.component.css',
 })
@@ -23,6 +24,8 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('galleryWrapper') galleryWrapper!: ElementRef;
   @ViewChild('cardsList') cardsList!: ElementRef;
   @ViewChildren('cardItem') cardItems!: QueryList<ElementRef>;
+
+  public selectedCountries: string[] = [];
 
   private platformId = inject(PLATFORM_ID);
   private ctx?: gsap.Context;
@@ -51,6 +54,23 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
 
   prev() {
     if (this.moveToOffset) this.moveToOffset(this.currentOffset - this.spacing);
+  }
+
+  toggleCountry(countryName: string) {
+    const index = this.selectedCountries.indexOf(countryName);
+    if (index > -1) {
+      this.selectedCountries.splice(index, 1);
+    } else {
+      this.selectedCountries.push(countryName);
+    }
+  }
+
+  isSelected(countryName: string): boolean {
+    return this.selectedCountries.includes(countryName);
+  }
+
+  confirmSelection() {
+    console.log('Wybrane kraje:', this.selectedCountries);
   }
 
   private initSeamlessLoop() {
@@ -125,6 +145,14 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
         pin: this.galleryWrapper.nativeElement,
       });
 
+      const getSafeScroll = (progress: number) => {
+        return gsap.utils.clamp(
+          1,
+          trigger.end - 1,
+          gsap.utils.wrap(0, 1, progress) * trigger.end
+        );
+      };
+
       const wrap = (iterationDelta: number, scrollTo: number) => {
         iteration += iterationDelta;
         trigger.scroll(scrollTo);
@@ -133,13 +161,14 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
 
       const scrollToOffset = (offset: number) => {
         const snappedTime = snapTime(offset);
-        let progress =
+        const progress =
           (snappedTime - seamlessLoop.duration() * iteration) /
           seamlessLoop.duration();
+        const scroll = getSafeScroll(progress);
 
-        const rawScroll = gsap.utils.wrap(0, 1, progress);
-        const scroll = rawScroll * trigger.end;
-
+        if (progress >= 1 || progress < 0) {
+          return wrap(Math.floor(progress), scroll);
+        }
         trigger.scroll(scroll);
       };
 
@@ -211,4 +240,15 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
       );
     return seamlessLoop;
   }
+
+  countries = [
+    { name: 'Poland', flag: '🇵🇱', img: 'assets/images/poland.jpg' },
+    { name: 'Spain', flag: '🇪🇸', img: 'assets/images/spain.jpg' },
+    { name: 'Italy', flag: '🇮🇹', img: 'assets/images/italy.jpg' },
+    { name: 'Germany', flag: '🇩🇪', img: 'assets/images/germany.jpg' },
+    { name: 'France', flag: '🇫🇷', img: 'assets/images/france.jpg' },
+    { name: 'Greece', flag: '🇬🇷', img: 'assets/images/greece.jpg' },
+    { name: 'Netherlands', flag: '🇳🇱', img: 'assets/images/netherlands.jpg' },
+    { name: 'Sweden', flag: '🇸🇪', img: 'assets/images/sweden.jpg' },
+  ];
 }
