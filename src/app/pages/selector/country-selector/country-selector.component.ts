@@ -103,7 +103,7 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
         ).fromTo(
           element,
           { xPercent: 400 },
-          { xPercent: -400, duration: 1, ease: 'none', immediateRender: false },
+          { xPercent: -500, duration: 1, ease: 'none', immediateRender: false },
           0
         );
         return tl;
@@ -174,6 +174,10 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
 
       this.moveToOffset = scrollToOffset;
 
+      ScrollTrigger.addEventListener('scrollEnd', () =>
+        scrollToOffset(scrub.vars['offset'])
+      );
+
       Draggable.create('.drag-proxy', {
         type: 'x',
         trigger: this.cardsList.nativeElement,
@@ -242,13 +246,13 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
   }
 
   countries = [
-    { name: 'Poland', flag: '🇵🇱', img: '/assets/images/poland.jpg' },
-    { name: 'Spain', flag: '🇪🇸', img: '/assets/images/spain.jpg' },
-    { name: 'Italy', flag: '🇮🇹', img: '/assets/images/italy.jpg' },
-    { name: 'Germany', flag: '🇩🇪', img: '/assets/images/germany.jpg' },
-    { name: 'France', flag: '🇫🇷', img: '/assets/images/france.jpg' },
-    { name: 'Greece', flag: '🇬🇷', img: '/assets/images/greece.jpg' },
-    { name: 'Netherlands', flag: '🇳🇱', img: '/assets/images/netherlands.jpg' },
-    { name: 'Sweden', flag: '🇸🇪', img: '/assets/images/sweden.jpg' },
+    { name: 'Poland', flag: '🇵🇱', img: '/images/poland.jpg' },
+    { name: 'Spain', flag: '🇪🇸', img: '/images/spain.jpg' },
+    { name: 'Italy', flag: '🇮🇹', img: '/images/italy.jpg' },
+    { name: 'Germany', flag: '🇩🇪', img: '/images/germany.jpg' },
+    { name: 'France', flag: '🇫🇷', img: '/images/france.jpg' },
+    { name: 'Greece', flag: '🇬🇷', img: '/images/greece.jpg' },
+    { name: 'Netherlands', flag: '🇳🇱', img: '/images/netherlands.jpg' },
+    { name: 'Sweden', flag: '🇸🇪', img: '/images/sweden.jpg' },
   ];
 }
