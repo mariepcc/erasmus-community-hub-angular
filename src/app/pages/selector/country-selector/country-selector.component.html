@@ -1,16 +1,28 @@
 <div class="gallery" #galleryWrapper>
   <ul class="cards" #cardsList>
-    <li #cardItem>Poland 🇵🇱</li>
-    <li #cardItem>Spain 🇪🇸</li>
-    <li #cardItem>Italy 🇮🇹</li>
-    <li #cardItem>France 🇫🇷</li>
-    <li #cardItem>Germany 🇩🇪</li>
-    <li #cardItem>Portugal 🇵🇹</li>
-    <li #cardItem>Netherlands 🇳🇱</li>
-    <li #cardItem>Greece 🇬🇷</li>
-    <li #cardItem>Sweden 🇸🇪</li>
-    <li #cardItem>Norway 🇳🇴</li>
-  </ul>
+  <li #cardItem *ngFor="let country of countries" 
+      (click)="toggleCountry(country.name)"
+      [class.selected]="isSelected(country.name)"
+      [style.backgroundImage]="'url(' + country.img + ')'">
+    
+    <div class="card-overlay">
+      <div class="card-content">
+        <span class="flag">{{ country.flag }}</span>
+        <h3 class="country-name">{{ country.name }}</h3>
+      </div>
+    </div>
+
+    <div class="selection-indicator" *ngIf="isSelected(country.name)">
+      <i class="check-icon">✓</i>
+    </div>
+  </li>
+</ul>
+  <div class="next-step-container" *ngIf="selectedCountries.length > 0">
+    <button class="confirm-btn" (click)="confirmSelection()">
+    Continue with {{ selectedCountries.length }} countries
+  </button>
+  </div>
+  <img src="assets/images/poland.jpg" alt="test" style="width: 100px; height: 100px; position: fixed; top: 0; left: 0; z-index: 99999;">
   <div class="actions">
     <button (click)="prev()">Prev</button>
     <button (click)="next()">Next</button>

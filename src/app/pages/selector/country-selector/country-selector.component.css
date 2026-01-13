@@ -21,20 +21,84 @@
 
 .cards li {
   list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 14rem;
-  aspect-ratio: 9/16;
-  text-align: center;
-  line-height: 18rem;
-  font-size: 2rem;
+  width: 16rem; /* Slightly wider for better proportions */
+  aspect-ratio: 10 / 14;
   position: absolute;
-  background-size: contain;
-  background-repeat: no-repeat;
-  top: 0;
-  left: 0;
-  border-radius: 0.8rem;
-  background-color: rgb(170, 197, 230);
+  border-radius: 20px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.2) 40%,
+    transparent 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.card-content {
+  color: white;
+  text-align: left;
+}
+
+.flag {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.country-name {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.cards li.selected {
+  border: 4px solid #88ce02; /* Zielona ramka */
+  box-shadow: 0 0 20px rgba(136, 206, 2, 0.5);
+  transform: scale(1.05); /* Lekkie powiększenie (GSAP to nadpisze podczas ruchu, ale w spoczynku zadziała) */
+}
+
+.cards li.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #88ce02;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  line-height: 30px;
+  font-size: 1.2rem;
+}
+
+.confirm-btn {
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 9999;
+  pointer-events: all;
+
 }
 
 .actions {

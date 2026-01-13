@@ -242,13 +242,13 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
   }
 
   countries = [
-    { name: 'Poland', flag: '🇵🇱', img: 'assets/images/poland.jpg' },
-    { name: 'Spain', flag: '🇪🇸', img: 'assets/images/spain.jpg' },
-    { name: 'Italy', flag: '🇮🇹', img: 'assets/images/italy.jpg' },
-    { name: 'Germany', flag: '🇩🇪', img: 'assets/images/germany.jpg' },
-    { name: 'France', flag: '🇫🇷', img: 'assets/images/france.jpg' },
-    { name: 'Greece', flag: '🇬🇷', img: 'assets/images/greece.jpg' },
-    { name: 'Netherlands', flag: '🇳🇱', img: 'assets/images/netherlands.jpg' },
-    { name: 'Sweden', flag: '🇸🇪', img: 'assets/images/sweden.jpg' },
+    { name: 'Poland', flag: '🇵🇱', img: '/assets/images/poland.jpg' },
+    { name: 'Spain', flag: '🇪🇸', img: '/assets/images/spain.jpg' },
+    { name: 'Italy', flag: '🇮🇹', img: '/assets/images/italy.jpg' },
+    { name: 'Germany', flag: '🇩🇪', img: '/assets/images/germany.jpg' },
+    { name: 'France', flag: '🇫🇷', img: '/assets/images/france.jpg' },
+    { name: 'Greece', flag: '🇬🇷', img: '/assets/images/greece.jpg' },
+    { name: 'Netherlands', flag: '🇳🇱', img: '/assets/images/netherlands.jpg' },
+    { name: 'Sweden', flag: '🇸🇪', img: '/assets/images/sweden.jpg' },
   ];
 }
