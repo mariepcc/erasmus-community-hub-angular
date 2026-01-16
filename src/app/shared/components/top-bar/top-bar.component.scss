@@ -1,0 +1,252 @@
+/* ===================================== */
+/* src/app/shared/components/top-bar/top-bar.component.scss */
+/* ===================================== */
+.header {
+  height: 70px;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border-gray);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 0 0 auto;
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--primary-blue);
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: var(--light-blue);
+  }
+}
+
+.logo {
+  font-size: 32px;
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-blue);
+}
+
+.header-center {
+  flex: 1;
+  max-width: 600px;
+  margin: 0 30px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: var(--background);
+  border-radius: 24px;
+  padding: 4px;
+  border: 2px solid var(--border-gray);
+  transition: border-color 0.3s ease;
+
+  &:focus-within {
+    border-color: var(--secondary-blue);
+  }
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 10px 20px;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 15px;
+  outline: none;
+}
+
+.search-btn {
+  background-color: var(--secondary-blue);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary-blue);
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 0 0 auto;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  position: relative;
+
+  &:hover {
+    background-color: var(--light-blue);
+  }
+}
+
+.notification-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: var(--danger-red);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-section {
+  position: relative;
+}
+
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 24px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--light-blue);
+  }
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--secondary-blue);
+}
+
+.username {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.dropdown-arrow {
+  font-size: 12px;
+  color: var(--text-gray);
+}
+
+.profile-menu {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  overflow: hidden;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 15px;
+
+  &:hover {
+    background-color: var(--light-blue);
+  }
+
+  &.logout {
+    color: var(--danger-red);
+  }
+}
+
+.menu-icon {
+  font-size: 18px;
+}
+
+.menu-divider {
+  height: 1px;
+  background-color: var(--border-gray);
+  margin: 8px 0;
+}
+
+@media (max-width: 1024px) {
+  .menu-btn {
+    display: block;
+  }
+
+  .header-title {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 15px;
+  }
+
+  .header-center {
+    margin: 0 15px;
+  }
+
+  .username {
+    display: none;
+  }
+
+  .dropdown-arrow {
+    display: none;
+  }
+}

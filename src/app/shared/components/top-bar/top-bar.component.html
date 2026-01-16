@@ -1,0 +1,62 @@
+<!-- ===================================== -->
+<!-- src/app/shared/components/top-bar/top-bar.component.html -->
+<!-- ===================================== -->
+<header class="header">
+  <div class="header-left">
+    <button class="menu-btn" (click)="onToggleSidebar()">
+      ☰
+    </button>
+    <span class="logo">🎓</span>
+    <span class="header-title">Erasmus Community Hub</span>
+  </div>
+
+  <div class="header-center">
+    <div class="search-container">
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Search communities, posts, users..." 
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="onSearch()"
+      />
+      <button class="search-btn" (click)="onSearch()">
+        🔍
+      </button>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <button class="icon-btn" (click)="onToggleChat()" *ngIf="currentUser">
+      💬
+      <span class="notification-badge">3</span>
+    </button>
+    
+    <button class="icon-btn" *ngIf="currentUser">
+      👥
+    </button>
+
+    <div class="profile-section" *ngIf="currentUser">
+      <div class="profile-trigger" (click)="toggleProfile()">
+        <img [src]="currentUser.avatar" alt="Profile" class="profile-avatar" />
+        <span class="username">{{ currentUser.username }}</span>
+        <span class="dropdown-arrow">▼</span>
+      </div>
+      
+      <div class="profile-menu" *ngIf="showProfileMenu">
+        <a href="#" class="menu-item">
+          <span class="menu-icon">👤</span>
+          My Profile
+        </a>
+        <a href="#" class="menu-item">
+          <span class="menu-icon">⚙️</span>
+          Settings
+        </a>
+        <div class="menu-divider"></div>
+        <button class="menu-item logout" (click)="logout()">
+          <span class="menu-icon">🚪</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

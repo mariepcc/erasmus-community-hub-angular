@@ -1,0 +1,136 @@
+// ===================================== 
+// src/app/shared/components/post-card/post-card.component.scss
+// =====================================
+
+.post-card {
+  background-color: var(--white);
+  border: 1px solid var(--border-gray);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--secondary-blue);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+  }
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--light-blue);
+}
+
+.author-info {
+  flex: 1;
+}
+
+.author-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-gray);
+}
+
+.community {
+  font-weight: 600;
+  color: var(--secondary-blue);
+  
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.separator {
+  color: var(--text-gray);
+}
+
+.timestamp {
+  color: var(--text-gray);
+}
+
+.post-content {
+  margin-bottom: 12px;
+  
+  p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    margin: 0;
+  }
+}
+
+.post-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-gray);
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-gray);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  .icon {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background-color: var(--light-blue);
+    color: var(--primary-blue);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+@media (max-width: 768px) {
+  .post-card {
+    padding: 12px;
+  }
+
+  .action-btn {
+    padding: 8px;
+    
+    .text {
+      display: none;
+    }
+    
+    .icon {
+      font-size: 20px;
+    }
+  }
+}

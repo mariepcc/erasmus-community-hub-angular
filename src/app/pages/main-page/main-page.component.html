@@ -1,0 +1,35 @@
+<!-- ===================================== -->
+<!-- src/app/pages/main-page/main-page.component.html -->
+<!-- ===================================== -->
+
+<div class="main-page">
+  <!-- Page Title -->
+  <div class="page-header">
+    <h1>Home Feed</h1>
+    <p>What's happening in your Erasmus community</p>
+  </div>
+
+  <!-- Create Post -->
+  <app-create-post></app-create-post>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading">
+    <div class="loader"></div>
+    <p>Loading posts...</p>
+  </div>
+
+  <!-- Posts Feed -->
+  <div *ngIf="!isLoading" class="posts-feed">
+    <app-post-card 
+      *ngFor="let post of posts" 
+      [post]="post">
+    </app-post-card>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="posts.length === 0">
+      <div class="empty-icon">📭</div>
+      <h3>No posts yet</h3>
+      <p>Be the first to share something with the community!</p>
+    </div>
+  </div>
+</div>

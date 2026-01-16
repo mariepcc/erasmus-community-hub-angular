@@ -1,0 +1,176 @@
+/* ===================================== */
+/* src/app/shared/components/sidebar/sidebar.component.scss */
+/* ===================================== */
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background-color: var(--white);
+  border-right: 1px solid var(--border-gray);
+  padding: 20px;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--light-blue);
+}
+
+.logo {
+  font-size: 32px;
+}
+
+.sidebar-header h2 {
+  color: var(--primary-blue);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sidebar-nav {
+  margin-bottom: 30px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-bottom: 8px;
+  font-weight: 500;
+
+  &:hover {
+    background-color: var(--light-blue);
+    color: var(--primary-blue);
+    transform: translateX(5px);
+  }
+
+  &.active {
+    background-color: #5D87FF;
+    color: white;
+  }
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.communities-section {
+  margin-top: 30px;
+}
+
+.section-title {
+  color: var(--primary-blue);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.communities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.country-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background-color: var(--light-blue);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: #5D87FF;
+    color: white;
+  }
+}
+
+.country-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flag {
+  font-size: 24px;
+}
+
+.country-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.toggle-icon {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+
+  &.expanded {
+    transform: rotate(90deg);
+  }
+}
+
+.cities-list {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0 8px 20px;
+  background-color: #f9fafb;
+}
+
+.city-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  color: var(--text-dark);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  margin-bottom: 4px;
+
+  &:hover {
+    background-color: var(--light-blue);
+    color: var(--primary-blue);
+    transform: translateX(5px);
+  }
+}
+
+.city-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.member-count {
+  font-size: 12px;
+  color: var(--text-gray);
+  background-color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+  }
+}

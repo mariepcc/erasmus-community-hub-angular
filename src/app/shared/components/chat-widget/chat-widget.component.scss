@@ -1,0 +1,44 @@
+/* ===================================== */
+/* src/app/shared/components/chat-widget/chat-widget.component.scss */
+/* ===================================== */
+.chat-widget {
+  position: fixed;
+  right: -400px;
+  top: 70px;
+  width: 400px;
+  height: calc(100vh - 70px);
+  background-color: var(--white);
+  border-left: 1px solid var(--border-gray);
+  transition: right 0.3s ease;
+  z-index: 999;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+
+  &.open {
+    right: 0;
+  }
+}
+
+.chat-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border-gray);
+
+  h3 {
+    color: var(--primary-blue);
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+.chat-content {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-gray);
+}
+
+@media (max-width: 768px) {
+  .chat-widget {
+    width: 100%;
+    right: -100%;
+  }
+}
+
