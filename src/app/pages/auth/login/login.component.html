@@ -1,0 +1,90 @@
+<div class="h-screen flex overflow-hidden">
+  <!-- Left side - Login form -->
+  <div class="w-full lg:w-1/2 bg-white flex items-center justify-center p-8">
+    <div class="w-full" style="max-width: 420px;">
+      <!-- Header -->
+      <div class="mb-4">
+        <h1 class="text-gray-900 text-xl font-bold mb-1">Witaj z powrotem!</h1>
+        <p class="text-gray-500 text-xs">Zaloguj się lub załóż konto, aby poznać innych studentów</p>
+      </div>
+      
+      <form (ngSubmit)="onLogin()">
+        <!-- Email field -->
+        <div class="mb-3">
+          <label for="email" class="block text-gray-900 text-xs font-medium mb-1">
+            E-mail
+          </label>
+          <input
+            type="email"
+            id="email"
+            [(ngModel)]="email"
+            name="email"
+            class="w-full px-3 py-2 rounded-md bg-white text-gray-900 text-xs border border-gray-500 focus:border-blue-700 focus:outline-none transition-colors"
+            required
+          />
+        </div>
+
+        <!-- Password field -->
+        <div class="mb-1.5">
+          <label for="password" class="block text-gray-900 text-xs font-medium mb-1">
+            Hasło
+          </label>
+          <input
+            type="password"
+            id="password"
+            [(ngModel)]="password"
+            name="password"
+            class="w-full px-3 py-2 rounded-md bg-white text-gray-900 text-xs border border-gray-500 focus:border-blue-700 focus:outline-none transition-colors"
+            required
+          />
+        </div>
+
+        <!-- Forgot password link -->
+        <div class="text-right mb-4">
+          <button
+            type="button"
+            (click)="onForgotPassword()"
+            class="text-gray-600 hover:text-gray-800 text-xs underline transition-colors"
+          >
+            Zapomniałeś hasła?
+          </button>
+        </div>
+
+        <!-- Login button -->
+        <button
+          type="submit"
+          class="w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-2 text-sm rounded-md transition-colors mb-4"
+        >
+          Zaloguj się
+        </button>
+
+        <!-- Sign up section -->
+        <div class="bg-blue-50 border border-blue-400 rounded-md p-4 -mx-5">
+          <h2 class="text-gray-900 font-bold mb-2 text-center" style="font-size: 18px;">Nowy na Erasmusie?</h2>
+          <p class="text-gray-800 text-center mb-1.5 leading-snug" style="font-size: 15px;">
+            Załóż konto, wybierz swoje miasto lub uczelnię i dołącz do społeczności studentów z całej Europy.
+          </p>
+          <p class="text-gray-800 text-center mb-3 leading-snug" style="font-size: 15px;">
+            Wymieniaj się doświadczeniami, pytaniami i planuj wspólne wydarzenia!
+          </p>
+          <button
+            type="button"
+            (click)="onSignUp()"
+            class="w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-2 text-sm rounded-md transition-colors"
+          >
+            Zarejestruj się
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Right side - Image section -->
+  <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-500 to-blue-600 items-center justify-center overflow-hidden">
+    <img 
+      src="assets/loginimg/loginimg.png"
+      alt="Erasmus students" 
+      class="w-full h-full object-cover"
+    />
+  </div>
+</div>

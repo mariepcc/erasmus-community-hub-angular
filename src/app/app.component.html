@@ -1,23 +1,24 @@
-<div class="app-container">
-  <!-- Sidebar - lewy pasek -->
+<!-- Layout tylko jeśli nie jesteśmy na /login -->
+<div class="app-container" *ngIf="!isLoginPage()">
   <app-sidebar [class.open]="isSidebarOpen"></app-sidebar>
   
   <div class="main-content">
-    <!-- Top Bar - górny pasek -->
     <app-top-bar 
       (toggleSidebar)="toggleSidebar()"
       (toggleChat)="toggleChat()">
     </app-top-bar>
 
-    <!-- NAJWAŻNIEJSZE: Content Area z router-outlet -->
     <main class="content-area">
-      <!-- To pokazuje MainPageComponent! -->
       <router-outlet></router-outlet>
     </main>
   </div>
 
-  <!-- Chat Widget - prawy pasek -->
   <app-chat-widget [isOpen]="isChatOpen"></app-chat-widget>
+</div>
+
+<!-- Jeśli /login -->
+<div *ngIf="isLoginPage()">
+  <router-outlet></router-outlet>
 </div>
 
 <!-- Mobile Overlay -->

@@ -1,9 +1,9 @@
 // ===================================== 
 // src/app/app.component.ts
 // =====================================
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { ChatWidgetComponent } from './shared/components/chat-widget/chat-widget.component';
@@ -22,14 +22,12 @@ import { AuthService } from './core/services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   isSidebarOpen = false;
   isChatOpen = false;
   isAuthenticated = false;
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {
+  constructor(private authService: AuthService, private router: Router) {
     this.authService.isAuthenticated$.subscribe(
       isAuth => this.isAuthenticated = isAuth
     );
@@ -41,5 +39,10 @@ export class AppComponent implements OnInit {
 
   toggleChat(): void {
     this.isChatOpen = !this.isChatOpen;
+  }
+
+  // Funkcja do sprawdzania, czy jesteśmy na stronie login
+  isLoginPage(): boolean {
+    return this.router.url === '/login';
   }
 }
