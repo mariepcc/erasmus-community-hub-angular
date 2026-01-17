@@ -10,6 +10,7 @@ import {
   QueryList,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 import { gsap } from 'gsap';
 import { Draggable, ScrollTrigger } from 'gsap/all';
 
@@ -21,6 +22,8 @@ import { Draggable, ScrollTrigger } from 'gsap/all';
   styleUrl: './country-selector.component.css',
 })
 export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
+  private router = inject(Router);
+
   @ViewChild('galleryWrapper') galleryWrapper!: ElementRef;
   @ViewChild('cardsList') cardsList!: ElementRef;
   @ViewChildren('cardItem') cardItems!: QueryList<ElementRef>;
@@ -32,7 +35,8 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
 
   private moveToOffset?: (offset: number) => void;
   private currentOffset = 0;
-  private spacing = 0;
+  private spacing = 0.1;
+  private scrollEndCallback?: gsap.Callback;
 
   constructor() {
     gsap.registerPlugin(ScrollTrigger, Draggable);
@@ -45,15 +49,27 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.ctx) this.ctx.revert();
+    if (this.ctx) {
+      this.ctx.revert();
+    }
+
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+
+    if (this.scrollEndCallback) {
+      ScrollTrigger.removeEventListener('scrollEnd', this.scrollEndCallback);
+    }
   }
 
   next() {
-    if (this.moveToOffset) this.moveToOffset(this.currentOffset + this.spacing);
+    if (this.moveToOffset) {
+      this.moveToOffset(this.currentOffset + this.spacing);
+    }
   }
 
   prev() {
-    if (this.moveToOffset) this.moveToOffset(this.currentOffset - this.spacing);
+    if (this.moveToOffset) {
+      this.moveToOffset(this.currentOffset - this.spacing);
+    }
   }
 
   toggleCountry(countryName: string) {
@@ -71,6 +87,9 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
 
   confirmSelection() {
     console.log('Wybrane kraje:', this.selectedCountries);
+    this.router.navigate(['/city-selector'], {
+      queryParams: { countries: this.selectedCountries },
+    });
   }
 
   private initSeamlessLoop() {
@@ -103,7 +122,7 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
         ).fromTo(
           element,
           { xPercent: 400 },
-          { xPercent: -500, duration: 1, ease: 'none', immediateRender: false },
+          { xPercent: -400, duration: 1, ease: 'none', immediateRender: false },
           0
         );
         return tl;
@@ -129,9 +148,9 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
         onUpdate: (self) => {
           const scroll = self.scroll();
 
-          if (scroll > self.end - 1) {
+          if (scroll > self.end - 2) {
             wrap(1, 2);
-          } else if (scroll < 1 && self.direction < 0) {
+          } else if (scroll < 2 && self.direction < 0) {
             wrap(-1, self.end - 2);
           } else {
             const newOffset =
@@ -159,6 +178,9 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
         trigger.update();
       };
 
+      this.scrollEndCallback = () => scrollToOffset(scrub.vars['offset']);
+      ScrollTrigger.addEventListener('scrollEnd', this.scrollEndCallback);
+
       const scrollToOffset = (offset: number) => {
         const snappedTime = snapTime(offset);
         const progress =
@@ -174,19 +196,15 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
 
       this.moveToOffset = scrollToOffset;
 
-      ScrollTrigger.addEventListener('scrollEnd', () =>
-        scrollToOffset(scrub.vars['offset'])
-      );
-
       Draggable.create('.drag-proxy', {
         type: 'x',
         trigger: this.cardsList.nativeElement,
         onPress() {
-          (this as any).startOffset = scrub.vars['offset'];
+          this['startOffset'] = scrub.vars['offset'];
         },
         onDrag() {
           const newOffset =
-            (this as any).startOffset + (this['startX'] - this['x']) * 0.001;
+            this['startOffset'] + (this['startX'] - this['x']) * 0.001;
           scrub.vars['offset'] = newOffset;
           scrub.invalidate().restart();
         },
@@ -203,7 +221,7 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
     animateFunc: Function
   ) {
     let overlap = Math.ceil(1 / spacing);
-    let startTime = items.length * spacing + 0.5;
+    let startTime = items.length * spacing;
     let loopTime = (items.length + overlap) * spacing + 1;
     let rawSequence = gsap.timeline({ paused: true });
     let seamlessLoop = gsap.timeline({
@@ -246,12 +264,14 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
   }
 
   countries = [
-    { name: 'Poland', flag: '🇵🇱', img: '/images/poland.jpg' },
     { name: 'Spain', flag: '🇪🇸', img: '/images/spain.jpg' },
     { name: 'Italy', flag: '🇮🇹', img: '/images/italy.jpg' },
-    { name: 'Germany', flag: '🇩🇪', img: '/images/germany.jpg' },
-    { name: 'France', flag: '🇫🇷', img: '/images/france.jpg' },
+    { name: 'Portugal', flag: '🇵🇹', img: '/images/portugal.jpg' },
     { name: 'Greece', flag: '🇬🇷', img: '/images/greece.jpg' },
+    { name: 'France', flag: '🇫🇷', img: '/images/france.jpg' },
+    { name: 'Germany', flag: '🇩🇪', img: '/images/germany.jpg' },
+    { name: 'Czech Republic', flag: '🇨🇿', img: '/images/czechrepublic.jpg' },
+    { name: 'Poland', flag: '🇵🇱', img: '/images/poland.jpg' },
     { name: 'Netherlands', flag: '🇳🇱', img: '/images/netherlands.jpg' },
     { name: 'Sweden', flag: '🇸🇪', img: '/images/sweden.jpg' },
   ];

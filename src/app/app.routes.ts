@@ -1,19 +1,28 @@
-import { Routes } from "@angular/router";
-import { RegisterComponent } from "./pages/auth/register/register.component";
-import { MainPageComponent } from "./pages/main-page/main-page.component";
-import { CountrySelectorComponent } from "./pages/selector/country-selector/country-selector.component";
+import { Routes } from '@angular/router';
+import { RegisterComponent } from './pages/auth/register/register.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
+import { CountrySelectorComponent } from './pages/selector/country-selector/country-selector.component';
+import { CitySelectorComponent } from './pages/selector/city-selector/city-selector.component';
 
 export const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: MainPageComponent,
   },
   {
-    path: "register",
+    path: 'register',
     component: RegisterComponent,
   },
   {
-    path: "country-selector",
+    path: 'country-selector',
     component: CountrySelectorComponent,
+  },
+  {
+    path: 'city-selector',
+    component: CitySelectorComponent,
+  },
+  {
+    path: 'main-page',
+    component: MainPageComponent,
   },
 ];

@@ -42,13 +42,14 @@
 .cards {
   position: absolute; 
   top: 40%;           
-  left: 50%;         
+  left: 44%;         
   list-style: none;
 }
 
 .cards li {
   list-style: none;
-  width: 16rem;
+  width: 300px;
+  height: 400px;
   aspect-ratio: 10 / 14;
   position: absolute;
   left: 50%;
@@ -60,7 +61,6 @@
   background-position: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   cursor: pointer;
-  border: 2px solid transparent;
   transition: border-color 0.3s ease;
 }
 
@@ -131,7 +131,7 @@
   transform: translateX(-50%);
   z-index: 10000;
   padding: 14px 40px;
-  background: linear-gradient(135deg, #3c72dd 0%, #588bd9 100%);
+  background: linear-gradient(135deg, #5D87FF 0%, #588bd9 100%);
   color: white;
   border: none;
   border-radius: 50px;
