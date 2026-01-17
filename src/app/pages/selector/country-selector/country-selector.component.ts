@@ -118,12 +118,12 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
             repeat: 1,
             ease: 'power1.in',
             immediateRender: false,
-          }
+          },
         ).fromTo(
           element,
           { xPercent: 400 },
           { xPercent: -400, duration: 1, ease: 'none', immediateRender: false },
-          0
+          0,
         );
         return tl;
       };
@@ -148,9 +148,9 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
         onUpdate: (self) => {
           const scroll = self.scroll();
 
-          if (scroll > self.end - 2) {
+          if (scroll > self.end - 1) {
             wrap(1, 2);
-          } else if (scroll < 2 && self.direction < 0) {
+          } else if (scroll < 1 && self.direction < 0) {
             wrap(-1, self.end - 2);
           } else {
             const newOffset =
@@ -168,7 +168,7 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
         return gsap.utils.clamp(
           1,
           trigger.end - 1,
-          gsap.utils.wrap(0, 1, progress) * trigger.end
+          gsap.utils.wrap(0, 1, progress) * trigger.end,
         );
       };
 
@@ -218,7 +218,7 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
   private buildSeamlessLoop(
     items: any[],
     spacing: number,
-    animateFunc: Function
+    animateFunc: Function,
   ) {
     let overlap = Math.ceil(1 / spacing);
     let startTime = items.length * spacing;
@@ -258,7 +258,7 @@ export class CountrySelectorComponent implements AfterViewInit, OnDestroy {
           duration: startTime - (overlap * spacing + 1),
           immediateRender: false,
           ease: 'none',
-        }
+        },
       );
     return seamlessLoop;
   }
