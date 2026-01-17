@@ -1,44 +1,52 @@
-<!-- src/app/shared/components/sidebar/sidebar.component.html -->
-<aside class="sidebar">
+<aside class="sidebar" [class.open]="isOpen">
   <div class="sidebar-header">
-    <div class="logo">🎓</div>
-    <h2>Erasmus Hub</h2>
+    <img src="/images/logo.png" alt="Erasmus Hub Logo" class="logo" />
   </div>
 
   <nav class="sidebar-nav">
     <a routerLink="/home" routerLinkActive="active" class="nav-item">
-      <span class="icon">🏠</span>
+      <lucide-icon [img]="HomeIcon" class="icon"></lucide-icon>
       <span>Home</span>
     </a>
-    <a href="#" class="nav-item">
-      <span class="icon">👤</span>
+    <a routerLink="/my-profile" routerLinkActive="active" class="nav-item">
+      <lucide-icon [img]="UserIcon" class="icon"></lucide-icon>
       <span>My Profile</span>
     </a>
-    <a href="#" class="nav-item">
-      <span class="icon">👥</span>
+    <a routerLink="/friends" routerLinkActive="active" class="nav-item">
+      <lucide-icon [img]="UsersIcon" class="icon"></lucide-icon>
       <span>Friends</span>
     </a>
   </nav>
 
   <div class="communities-section">
-    <h3 class="section-title">Communities</h3>
+    <div class="section-header">
+      <h3 class="section-title">Communities</h3>
+      <button class="add-community-btn" title="Create Community">
+        <lucide-icon [img]="PlusIcon" [size]="18"></lucide-icon>
+      </button>
+    </div>
 
-    
     <div class="communities-list">
       <div *ngFor="let country of countries" class="community-item">
-        <div class="country-header" (click)="toggleCountry(country.code)">
+        <div class="country-header" (click)="toggleCountry(country.code)" [class.active]="country.isExpanded">
           <div class="country-info">
-            <span class="flag">{{ country.flag }}</span>
+            <img [src]="'https://hatscripts.github.io/circle-flags/flags/' + country.code.toLowerCase() + '.svg'" 
+                 [alt]="country.name + ' flag'" 
+                 class="flag" />
             <span class="country-name">{{ country.name }}</span>
           </div>
-          <span class="toggle-icon" [class.expanded]="country.isExpanded">
-            {{ country.isExpanded ? '▼' : '▶' }}
-          </span>
+          <lucide-icon 
+            [img]="ChevronRightIcon" 
+            class="toggle-icon" 
+            [class.expanded]="country.isExpanded"
+            [size]="16">
+          </lucide-icon>
         </div>
-        
+
         <div class="cities-list" *ngIf="country.isExpanded">
           <a *ngFor="let city of country.cities" 
-             href="#" 
+             [routerLink]="['/community', country.code.toLowerCase(), city.name.toLowerCase()]" 
+             routerLinkActive="city-active"
              class="city-item">
             <span class="city-name">{{ city.name }}</span>
             <span class="member-count">{{ city.memberCount }}</span>

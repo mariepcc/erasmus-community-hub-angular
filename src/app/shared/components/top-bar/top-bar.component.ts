@@ -1,39 +1,49 @@
-// ===================================== 
 // src/app/shared/components/top-bar/top-bar.component.ts
-// =====================================
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LucideAngularModule, Search, Bell, MessageCircle, Plus, Menu, ChevronDown, Moon, Sun, LogOut } from 'lucide-angular';
 import { AuthService } from '../../../core/services/auth.service';
-import { User } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-top-bar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss']
 })
 export class TopBarComponent implements OnInit {
   @Output() toggleSidebar = new EventEmitter<void>();
   @Output() toggleChat = new EventEmitter<void>();
+  @Output() toggleNotifications = new EventEmitter<void>();
+  @Output() createPost = new EventEmitter<void>();
   
-  currentUser: User | null = null;
-  searchQuery: string = '';
-  showProfileMenu = false;
+  // Dodane inputy żeby wiedzieć czy okna są otwarte
+  @Input() isChatOpen = false;
+  @Input() isNotificationsOpen = false;
 
-  constructor(private authService: AuthService) {}
+  readonly SearchIcon = Search;
+  readonly BellIcon = Bell;
+  readonly MessageCircleIcon = MessageCircle;
+  readonly PlusIcon = Plus;
+  readonly MenuIcon = Menu;
+  readonly ChevronDownIcon = ChevronDown;
+  readonly MoonIcon = Moon;
+  readonly SunIcon = Sun;
+  readonly LogOutIcon = LogOut;
+
+  currentUser: any = null;
+  notificationCount = 3;
+  isProfileOpen = false;
+  isDarkMode = false;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.authService.currentUser$.subscribe(
-      user => this.currentUser = user
-    );
-  }
-
-  onSearch(): void {
-    if (this.searchQuery.trim()) {
-      console.log('Searching for:', this.searchQuery);
-    }
+    this.currentUser = this.authService.getCurrentUser();
   }
 
   onToggleSidebar(): void {
@@ -44,12 +54,35 @@ export class TopBarComponent implements OnInit {
     this.toggleChat.emit();
   }
 
+  onToggleNotifications(): void {
+    this.toggleNotifications.emit();
+  }
+
+  onCreatePost(): void {
+    this.createPost.emit();
+  }
+
   toggleProfile(): void {
-    this.showProfileMenu = !this.showProfileMenu;
+    this.isProfileOpen = !this.isProfileOpen;
+  }
+
+  toggleDarkMode(): void {
+    this.isDarkMode = !this.isDarkMode;
+    document.body.classList.toggle('dark-mode', this.isDarkMode);
+    this.isProfileOpen = false;
   }
 
   logout(): void {
     this.authService.logout();
-    this.showProfileMenu = false;
+    this.router.navigate(['/login']);
+    this.isProfileOpen = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.profile-dropdown')) {
+      this.isProfileOpen = false;
+    }
   }
 }

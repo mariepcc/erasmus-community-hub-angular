@@ -1,60 +1,66 @@
-<!-- ===================================== -->
-<!-- src/app/shared/components/top-bar/top-bar.component.html -->
-<!-- ===================================== -->
-<header class="header">
-  <div class="header-left">
-    <button class="menu-btn" (click)="onToggleSidebar()">
-      ☰
+<header class="top-bar">
+  <div class="top-bar-left">
+    <button class="menu-toggle" (click)="onToggleSidebar()">
+      <lucide-icon [img]="MenuIcon" [size]="24"></lucide-icon>
     </button>
-    <span class="logo">🎓</span>
-    <span class="header-title">Erasmus Community Hub</span>
-  </div>
 
-  <div class="header-center">
-    <div class="search-container">
-      <input 
-        type="text" 
-        class="search-input" 
-        placeholder="Search communities, posts, users..." 
-        [(ngModel)]="searchQuery"
-        (keyup.enter)="onSearch()"
-      />
-      <button class="search-btn" (click)="onSearch()">
-        🔍
-      </button>
+    <div class="brand">
+      <img src="/images/logo.png" alt="Logo" class="brand-logo" />
+      <h1 class="brand-name">
+        <span class="gradient-text">ERASMUS COMMUNITYHUB</span>
+      </h1>
     </div>
   </div>
 
-  <div class="header-right">
-    <button class="icon-btn" (click)="onToggleChat()" *ngIf="currentUser">
-      💬
-      <span class="notification-badge">3</span>
-    </button>
-    
-    <button class="icon-btn" *ngIf="currentUser">
-      👥
+  <div class="top-bar-center">
+    <div class="search-bar">
+      <lucide-icon [img]="SearchIcon" class="search-icon" [size]="20"></lucide-icon>
+      <input type="text" placeholder="Search communities, people, events..." />
+    </div>
+  </div>
+
+  <div class="top-bar-right">
+    <button class="action-btn create-btn" (click)="onCreatePost()" title="Create Post">
+      <lucide-icon [img]="PlusIcon" [size]="20"></lucide-icon>
+      <span class="btn-text">Create</span>
     </button>
 
-    <div class="profile-section" *ngIf="currentUser">
-      <div class="profile-trigger" (click)="toggleProfile()">
-        <img [src]="currentUser.avatar" alt="Profile" class="profile-avatar" />
-        <span class="username">{{ currentUser.username }}</span>
-        <span class="dropdown-arrow">▼</span>
-      </div>
-      
-      <div class="profile-menu" *ngIf="showProfileMenu">
-        <a href="#" class="menu-item">
-          <span class="menu-icon">👤</span>
-          My Profile
-        </a>
-        <a href="#" class="menu-item">
-          <span class="menu-icon">⚙️</span>
-          Settings
-        </a>
-        <div class="menu-divider"></div>
-        <button class="menu-item logout" (click)="logout()">
-          <span class="menu-icon">🚪</span>
-          Logout
+    <button 
+      class="action-btn icon-btn" 
+      [class.active]="isNotificationsOpen"
+      (click)="onToggleNotifications()" 
+      title="Notifications">
+      <lucide-icon [img]="BellIcon" [size]="22"></lucide-icon>
+      <span class="notification-badge" *ngIf="notificationCount > 0">
+        {{ notificationCount }}
+      </span>
+    </button>
+
+    <button 
+      class="action-btn icon-btn" 
+      [class.active]="isChatOpen"
+      (click)="onToggleChat()" 
+      title="Messages">
+      <lucide-icon [img]="MessageCircleIcon" [size]="22"></lucide-icon>
+    </button>
+
+    <div class="profile-dropdown" [class.open]="isProfileOpen">
+      <button class="profile-btn" (click)="toggleProfile()">
+        <img [src]="currentUser?.avatar || '/images/default-avatar.png'" 
+             [alt]="currentUser?.username" 
+             class="user-avatar" />
+        <lucide-icon [img]="ChevronDownIcon" class="chevron" [size]="18"></lucide-icon>
+      </button>
+
+      <div class="dropdown-menu" *ngIf="isProfileOpen">
+        <button class="dropdown-item" (click)="toggleDarkMode()">
+          <lucide-icon [img]="isDarkMode ? SunIcon : MoonIcon" [size]="18"></lucide-icon>
+          <span>{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</span>
+        </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item logout" (click)="logout()">
+          <lucide-icon [img]="LogOutIcon" [size]="18"></lucide-icon>
+          <span>Log Out</span>
         </button>
       </div>
     </div>

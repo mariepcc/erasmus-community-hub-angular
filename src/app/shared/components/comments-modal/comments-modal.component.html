@@ -1,0 +1,63 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div class="header-info">
+        <h3>Comments</h3>
+        <span class="badge">{{ post.comments.length }}</span>
+      </div>
+      <button class="close-btn" (click)="onClose()">
+        <lucide-icon [img]="XIcon" [size]="22"></lucide-icon>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="post-context">
+        <p>{{ post.content }}</p>
+      </div>
+
+      <div class="comments-list">
+        <div *ngFor="let comment of post.comments" class="comment-item">
+          <img [src]="comment.author.avatar" [alt]="comment.author.username" class="avatar">
+          <div class="comment-wrapper">
+            <div class="comment-bubble">
+              <div class="comment-meta">
+                <span class="username">{{ comment.author.username }}</span>
+                <span class="date">{{ comment.timestamp | date:'shortTime' }}</span>
+              </div>
+              <p class="content">{{ comment.content }}</p>
+            </div>
+            <div class="comment-actions">
+              <button class="like-btn">
+                <lucide-icon [img]="HeartIcon" [size]="14"></lucide-icon>
+                <span>{{ comment.likes }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="post.comments.length === 0" class="empty-state">
+          <lucide-icon [img]="MessageIcon" [size]="48"></lucide-icon>
+          <p>No comments yet. Start the conversation!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <img [src]="currentUser.avatar" class="user-avatar" *ngIf="currentUser">
+      <div class="input-container">
+        <textarea 
+          [(ngModel)]="newCommentText" 
+          placeholder="Write a comment..." 
+          (keyup.enter)="addComment()"
+          rows="1">
+        </textarea>
+        <button 
+          class="send-btn" 
+          [disabled]="!newCommentText.trim()"
+          (click)="addComment()">
+          <lucide-icon [img]="SendIcon" [size]="18"></lucide-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,205 @@
+/* src/app/pages/friends/friends.component.scss */
+.friends-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding: 40px 32px;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 50%, #e5e7eb 100%);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e5e7eb;
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    lucide-icon {
+      color: #5D87FF;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 0 0 4px 0;
+      letter-spacing: -0.5px;
+    }
+
+    p {
+      font-size: 16px;
+      color: var(--text-gray);
+      margin: 0;
+    }
+  }
+
+  .btn-primary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.search-section {
+  margin-bottom: 24px;
+
+  .search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+
+    lucide-icon {
+      position: absolute;
+      left: 16px;
+      color: var(--text-gray);
+      z-index: 1;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px 14px 48px;
+      border: 1px solid var(--border-gray);
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      background-color: var(--white);
+      transition: all 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #5D87FF;
+        box-shadow: 0 0 0 3px rgba(93, 135, 255, 0.1);
+      }
+
+      &::placeholder {
+        color: var(--text-gray);
+      }
+    }
+  }
+}
+
+.friends-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.friend-card {
+  background: white;
+  border: 1px solid var(--border-gray);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .friend-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+    border: 3px solid rgba(93, 135, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .friend-info {
+    margin-bottom: 16px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0 0 4px 0;
+    }
+
+    p {
+      font-size: 14px;
+      color: var(--text-gray);
+      margin: 0;
+    }
+  }
+
+  .btn-secondary {
+    width: 100%;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+
+  lucide-icon {
+    color: var(--text-gray);
+    opacity: 0.3;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 24px;
+    color: var(--text-dark);
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    font-size: 16px;
+    color: var(--text-gray);
+    margin: 0 0 24px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    padding: 30px 20px;
+
+    .header-content {
+      flex-direction: column;
+    }
+  }
+
+  .friends-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.friend-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .btn-primary-light {
+    background: #5d87ff15;
+    color: #5d87ff;
+    border: none;
+    &:hover { background: #9aa1b425; }
+  }
+}

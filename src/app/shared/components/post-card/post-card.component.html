@@ -1,50 +1,43 @@
-<!-- ===================================== -->
 <!-- src/app/shared/components/post-card/post-card.component.html -->
-<!-- ===================================== -->
-
-<div class="post-card bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-
+<div class="post-card">
   <!-- Post Header -->
-  <div class="post-header flex items-center space-x-3 mb-3">
-    <img
-      [src]="post.author.avatar"
-      [alt]="post.author.username + ' profile picture'"
-      [title]="post.author.username + ' profile'"
-      class="author-avatar w-10 h-10 rounded-full object-cover"
-    />
+  <div class="post-header">
+    <img [src]="post.author.avatar" 
+         [alt]="post.author.username" 
+         class="author-avatar" />
     <div class="author-info">
-      <div class="author-name font-semibold text-slate-800">{{ post.author.username }}</div>
-      <div class="post-meta text-sm text-slate-500 flex items-center space-x-1">
-        <span class="community font-medium">r/{{ post.community }}</span>
-        <span class="separator">•</span>
-        <span class="timestamp">{{ getTimeAgo(post.timestamp) }}</span>
-      </div>
+      <h4 class="author-name">{{ post.author.username }}</h4>
+      <span class="post-time">{{ post.timestamp | date: 'short' }}</span>
     </div>
   </div>
 
   <!-- Post Content -->
-  <div class="post-content text-slate-700 mb-4">
-    <p>{{ post.content }}</p>
+  <div class="post-content">
+    <p>{{ post.content }}</p> 
   </div>
 
   <!-- Post Actions -->
-  <div class="post-actions flex items-center space-x-4 border-t pt-2 text-slate-600">
-
-    <button class="action-btn flex items-center space-x-1 hover:text-blue-600 transition-colors" (click)="likePost()">
-      <span class="icon">👍</span>
-      <span class="text text-sm">{{ post.likes }} Likes</span>
+  <div class="post-actions">
+    <button 
+      class="action-btn" 
+      [class.active]="isLiked"
+      (click)="toggleLike()">
+      <lucide-icon [img]="HeartIcon" [size]="20"></lucide-icon>
+      <span>{{ post.likes || 0 }}</span>
     </button>
 
-    <button class="action-btn flex items-center space-x-1 hover:text-blue-600 transition-colors">
-      <span class="icon">💬</span>
-      <span class="text text-sm">{{ post.comments.length }} Comments</span>
+    <button 
+      class="action-btn" 
+      (click)="openComments()">
+      <lucide-icon [img]="MessageCircleIcon" [size]="20"></lucide-icon>
+      <span>{{ post.comments.length || 0 }}</span>
     </button>
 
-    <button class="action-btn flex items-center space-x-1 hover:text-blue-600 transition-colors">
-      <span class="icon">↗️</span>
-      <span class="text text-sm">Share</span>
+    <button 
+      class="action-btn" 
+      (click)="sharePost()">
+      <lucide-icon [img]="Share2Icon" [size]="20"></lucide-icon>
+      <span>Share</span>
     </button>
-
   </div>
-
 </div>

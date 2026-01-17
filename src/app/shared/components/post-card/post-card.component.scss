@@ -1,136 +1,244 @@
-// ===================================== 
 // src/app/shared/components/post-card/post-card.component.scss
-// =====================================
 
 .post-card {
-  background-color: var(--white);
-  border: 1px solid var(--border-gray);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
 
   &:hover {
-    border-color: var(--secondary-blue);
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+    border-color: rgba(93, 135, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(93, 135, 255, 0.12);
+    transform: translateY(-2px);
+
+    &::before {
+      transform: scaleX(1);
+    }
   }
 }
 
 .post-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 14px;
+  margin-bottom: 18px;
 }
 
 .author-avatar {
-  width: 40px;
-  height: 40px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--light-blue);
-}
+  border: 3px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)) border-box;
+  transition: all 0.3s ease;
+  cursor: pointer;
 
-.author-info {
-  flex: 1;
-}
-
-.author-name {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 2px;
-}
-
-.post-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--text-gray);
-}
-
-.community {
-  font-weight: 600;
-  color: var(--secondary-blue);
-  
   &:hover {
-    text-decoration: underline;
-    cursor: pointer;
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px rgba(93, 135, 255, 0.3);
   }
 }
 
-.separator {
-  color: var(--text-gray);
+.author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.timestamp {
+.author-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+  transition: color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--primary-blue);
+  }
+}
+
+.post-time {
+  font-size: 13px;
   color: var(--text-gray);
+  font-weight: 500;
 }
 
 .post-content {
-  margin-bottom: 12px;
+  margin-bottom: 18px;
   
   p {
     font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--text-dark);
     margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
 }
 
 .post-actions {
   display: flex;
-  gap: 8px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border-gray);
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .action-btn {
-  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: none;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  font-family: 'League Spartan', sans-serif;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(249, 250, 251, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: var(--text-gray);
-  cursor: pointer;
-  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 
-  .icon {
-    font-size: 18px;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(93, 135, 255, 0.1), rgba(59, 130, 246, 0.08));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  lucide-icon {
+    color: var(--text-gray);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  span {
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
   }
 
   &:hover {
-    background-color: var(--light-blue);
+    background: linear-gradient(135deg, rgba(93, 135, 255, 0.12), rgba(59, 130, 246, 0.08));
+    border-color: rgba(93, 135, 255, 0.4);
     color: var(--primary-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(93, 135, 255, 0.15);
+
+    &::before {
+      opacity: 1;
+    }
+
+    lucide-icon {
+      color: var(--primary-blue);
+      transform: scale(1.1);
+    }
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: translateY(0) scale(0.98);
+  }
+
+  // Like button when active
+  &.active {
+    color: var(--danger-red);
+    border-color: rgba(239, 68, 68, 0.4);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(239, 68, 68, 0.08));
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+
+    lucide-icon {
+      color: var(--danger-red);
+      fill: var(--danger-red);
+      animation: heartBeat 0.5s ease;
+    }
+
+    &:hover {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(239, 68, 68, 0.12));
+      box-shadow: 0 6px 16px rgba(239, 68, 68, 0.2);
+    }
   }
 }
 
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.3);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+// Responsive Design
 @media (max-width: 768px) {
   .post-card {
-    padding: 12px;
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .author-avatar {
+    width: 48px;
+    height: 48px;
   }
 
   .action-btn {
-    padding: 8px;
-    
-    .text {
-      display: none;
+    padding: 8px 14px;
+    font-size: 13px;
+
+    lucide-icon {
+      width: 18px;
+      height: 18px;
     }
-    
-    .icon {
-      font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-card {
+    padding: 16px;
+  }
+
+  .post-actions {
+    gap: 8px;
+  }
+
+  .action-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 8px;
+    min-width: 0;
+
+    span {
+      display: none;
     }
   }
 }

@@ -1,3 +1,4 @@
+// src/app/core/models/post.model.ts
 import { User } from './user.model';
 
 export interface Post {
@@ -9,7 +10,9 @@ export interface Post {
   likes: number;
   comments: Comment[];
   community: string;
-  likedBy?: string[];
+  likedBy: string[];
+  communityId: string; 
+  tags?: string[];
 }
 
 export interface Comment {

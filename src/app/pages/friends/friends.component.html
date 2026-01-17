@@ -1,0 +1,56 @@
+<!-- src/app/pages/friends/friends.component.html -->
+<div class="friends-page">
+  <div class="page-header">
+    <div class="header-content">
+      <lucide-icon [img]="UsersIcon" [size]="32"></lucide-icon>
+      <div>
+        <h1>Friends</h1>
+        <p>Connect with your Erasmus community</p>
+      </div>
+    </div>
+    <button class="btn btn-primary">
+      <lucide-icon [img]="UserPlusIcon" [size]="20"></lucide-icon>
+      <span>Find Friends</span>
+    </button>
+  </div>
+
+  <div class="friends-content">
+    <div class="search-section">
+      <div class="search-bar">
+        <lucide-icon [img]="SearchIcon" [size]="20"></lucide-icon>
+        <input type="text" placeholder="Search friends..." />
+      </div>
+    </div>
+
+    <div class="friends-grid">
+  <div *ngFor="let friend of friends" class="friend-card">
+    <img [src]="friend.avatar" [alt]="friend.name" class="friend-avatar" />
+    <div class="friend-info">
+      <h3>{{ friend.name }}</h3>
+      <p>{{ friend.location }}</p>
+    </div>
+    
+    <div class="friend-actions">
+      <button class="btn btn-secondary" (click)="navigateToProfile(friend.id)">
+        <lucide-icon [img]="EyeIcon" [size]="16"></lucide-icon>
+        <span>See Profile</span>
+      </button>
+      <button class="btn btn-primary-light">
+        <lucide-icon [img]="MessageIcon" [size]="16"></lucide-icon>
+        <span>Message</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+    <div class="empty-state" *ngIf="friends.length === 0">
+      <lucide-icon [img]="UsersIcon" [size]="64"></lucide-icon>
+      <h3>No friends yet</h3>
+      <p>Start connecting with other Erasmus students!</p>
+      <button class="btn btn-primary">
+        <lucide-icon [img]="UserPlusIcon" [size]="20"></lucide-icon>
+        <span>Find Friends</span>
+      </button>
+    </div>
+  </div>
+</div>

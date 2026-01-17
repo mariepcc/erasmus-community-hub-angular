@@ -1,23 +1,17 @@
-<!-- ===================================== -->
-<!-- src/app/pages/main-page/components/create-post/create-post.component.html -->
-<!-- ===================================== -->
-
 <div class="create-post-card" *ngIf="currentUser">
-  <!-- Collapsed State -->
   <div class="create-post-collapsed" *ngIf="!isExpanded" (click)="expandEditor()">
     <img [src]="currentUser.avatar" 
-         [alt]="currentUser.username + '\'s profile picture'" 
+         [alt]="currentUser.username + ' avatar'" 
          class="user-avatar" />
     <div class="post-placeholder">
       What's on your mind, {{ currentUser.username }}?
     </div>
   </div>
 
-  <!-- Expanded State -->
   <div class="create-post-expanded" *ngIf="isExpanded">
     <div class="post-header">
       <img [src]="currentUser.avatar" 
-           alt="" 
+           [alt]="currentUser.username" 
            class="user-avatar-small" />
       <span class="username">{{ currentUser.username }}</span>
     </div>
@@ -31,13 +25,15 @@
     </textarea>
 
     <div class="post-actions">
-      <button class="btn btn-secondary" (click)="cancel()">
+      <button class="btn btn-secondary" (click)="cancel()" type="button">
         Cancel
       </button>
       <button 
         class="btn btn-primary" 
         (click)="createPost()"
-        [disabled]="!postContent.trim()">
+        [disabled]="!postContent || !postContent.trim()"
+        type="button"
+        title="Post your message">
         Post
       </button>
     </div>

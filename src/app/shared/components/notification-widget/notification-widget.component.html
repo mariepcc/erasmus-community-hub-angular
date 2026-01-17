@@ -1,0 +1,44 @@
+<!-- src/app/shared/components/notification-widget/notification-widget.component.html -->
+<div class="notification-widget" [class.open]="isOpen">
+  <div class="notification-header">
+    <div class="header-left">
+      <lucide-icon [img]="BellIcon" [size]="20"></lucide-icon>
+      <h3>Notifications</h3>
+    </div>
+    <button class="mark-all-read" (click)="markAllAsRead()">
+      Mark all as read
+    </button>
+  </div>
+
+  <div class="notification-content">
+    <div *ngFor="let notification of notifications" 
+         class="notification-item"
+         [class.unread]="!notification.read"
+         (click)="markAsRead(notification.id)">
+      <img [src]="notification.user.avatar" 
+           [alt]="notification.user.name" 
+           class="notification-avatar" />
+      
+      <div class="notification-body">
+        <div class="notification-icon" [ngSwitch]="notification.type">
+          <lucide-icon *ngSwitchCase="'like'" [img]="HeartIcon" [size]="16"></lucide-icon>
+          <lucide-icon *ngSwitchCase="'comment'" [img]="MessageCircleIcon" [size]="16"></lucide-icon>
+          <lucide-icon *ngSwitchCase="'follow'" [img]="UserPlusIcon" [size]="16"></lucide-icon>
+          <lucide-icon *ngSwitchCase="'event'" [img]="CalendarIcon" [size]="16"></lucide-icon>
+        </div>
+        
+        <div class="notification-text">
+          <p>{{ notification.message }}</p>
+          <span class="notification-time">{{ notification.time }}</span>
+        </div>
+      </div>
+
+      <div class="unread-dot" *ngIf="!notification.read"></div>
+    </div>
+
+    <div class="empty-state" *ngIf="notifications.length === 0">
+      <lucide-icon [img]="BellIcon" [size]="48"></lucide-icon>
+      <p>No notifications yet</p>
+    </div>
+  </div>
+</div>

@@ -1,63 +1,82 @@
+// src/app/pages/main-page/components/create-post/create-post.component.scss
+
 .create-post-card {
-  background-color: var(--white);
-  border: 1px solid var(--border-gray);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 
   &:hover {
-    border-color: var(--secondary-blue);
+    border-color: rgba(93, 135, 255, 0.3);
+    box-shadow: 0 4px 16px rgba(93, 135, 255, 0.08);
   }
 }
 
 .create-post-collapsed {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   cursor: text;
 }
 
 .user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)) border-box;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.user-avatar-small {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--light-blue);
-}
-
-.user-avatar-small {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
+  border: 2px solid rgba(93, 135, 255, 0.2);
 }
 
 .post-placeholder {
   flex: 1;
-  padding: 12px 20px;
-  background-color: var(--background);
-  border: 1px solid var(--border-gray);
-  border-radius: 24px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, rgba(249, 250, 251, 0.8), rgba(243, 244, 246, 0.9));
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 28px;
   color: var(--text-gray);
   font-size: 15px;
   cursor: text;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
 
   &:hover {
-    background-color: #e5e7eb;
-    border-color: var(--secondary-blue);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(249, 250, 251, 0.95));
+    border-color: rgba(93, 135, 255, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(93, 135, 255, 0.1);
   }
 }
 
 .create-post-expanded {
-  animation: slideDown 0.2s ease;
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-12px);
   }
   to {
     opacity: 1;
@@ -68,10 +87,10 @@
 .post-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-gray);
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .username {
@@ -82,19 +101,23 @@
 
 .post-textarea {
   width: 100%;
-  border: 1px solid var(--border-gray);
-  border-radius: 8px;
-  padding: 12px;
-  font-family: 'League Spartan', sans-serif;
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: 'DM Sans', sans-serif;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.7;
   resize: vertical;
   outline: none;
-  margin-bottom: 12px;
-  transition: border-color 0.2s ease;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  background: rgba(249, 250, 251, 0.5);
+  min-height: 100px;
 
   &:focus {
-    border-color: var(--secondary-blue);
+    border-color: var(--primary-blue);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(93, 135, 255, 0.1);
   }
 
   &::placeholder {
@@ -105,57 +128,91 @@
 .post-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border-gray);
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .btn {
-  padding: 10px 24px;
-  border-radius: 8px;
+  padding: 11px 28px;
+  border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
-  font-family: 'League Spartan', sans-serif;
+  font-family: 'DM Sans', sans-serif;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
 
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.97);
   }
 }
 
 .btn-secondary {
-  background-color: transparent;
+  background: rgba(249, 250, 251, 0.9);
   color: var(--text-dark);
-  border: 1px solid var(--border-gray);
+  border: 1px solid rgba(229, 231, 235, 0.8);
 
   &:hover {
-    background-color: var(--background);
+    background: rgba(243, 244, 246, 0.95);
+    border-color: rgba(209, 213, 219, 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   }
 }
 
 .btn-primary {
-  background-color: var(--secondary-blue);
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
   color: white;
+  box-shadow: 0 4px 12px rgba(93, 135, 255, 0.3);
 
   &:hover {
-    background-color: var(--primary-blue);
+    background: linear-gradient(135deg, var(--secondary-blue), var(--hover-blue));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(93, 135, 255, 0.4);
   }
 
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
   }
 }
 
 @media (max-width: 768px) {
   .create-post-card {
-    padding: 12px;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .user-avatar {
+    width: 44px;
+    height: 44px;
   }
 
   .btn {
-    padding: 8px 16px;
+    padding: 9px 20px;
     font-size: 13px;
   }
 }

@@ -1,31 +1,85 @@
-// ===================================== 
 // src/app/shared/components/sidebar/sidebar.component.ts
-// =====================================
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CommunityService } from '../../../core/services/community.service';
-import { Country } from '../../../core/models/community.model';
+import { LucideAngularModule, Home, User, Users, Plus, ChevronRight } from 'lucide-angular';
+
+interface City {
+  name: string;
+  memberCount: string;
+}
+
+interface Country {
+  code: string;
+  name: string;
+  cities: City[];
+  isExpanded: boolean;
+}
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LucideAngularModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
-  countries: Country[] = [];
+export class SidebarComponent {
+  @Input() isOpen = false; // DODANE - kontroluje widoczność na mobile
+  
+  // Ikony dostępne w template
+  readonly HomeIcon = Home;
+  readonly UserIcon = User;
+  readonly UsersIcon = Users;
+  readonly PlusIcon = Plus;
+  readonly ChevronRightIcon = ChevronRight;
 
-  constructor(private communityService: CommunityService) {}
-
-  ngOnInit(): void {
-    this.communityService.getCountries().subscribe(
-      countries => this.countries = countries
-    );
-  }
+  countries: Country[] = [
+    {
+      code: 'ES',
+      name: 'Spain',
+      isExpanded: false,
+      cities: [
+        { name: 'Madrid', memberCount: '1.2k' },
+        { name: 'Barcelona', memberCount: '980' },
+        { name: 'Valencia', memberCount: '450' }
+      ]
+    },
+    {
+      code: 'FR',
+      name: 'France',
+      isExpanded: false,
+      cities: [
+        { name: 'Paris', memberCount: '1.5k' },
+        { name: 'Lyon', memberCount: '620' },
+        { name: 'Marseille', memberCount: '530' }
+      ]
+    },
+    {
+      code: 'IT',
+      name: 'Italy',
+      isExpanded: false,
+      cities: [
+        { name: 'Rome', memberCount: '890' },
+        { name: 'Milan', memberCount: '750' },
+        { name: 'Florence', memberCount: '420' }
+      ]
+    },
+    {
+      code: 'DE',
+      name: 'Germany',
+      isExpanded: false,
+      cities: [
+        { name: 'Berlin', memberCount: '1.1k' },
+        { name: 'Munich', memberCount: '680' },
+        { name: 'Hamburg', memberCount: '540' }
+      ]
+    }
+  ];
 
   toggleCountry(countryCode: string): void {
-    this.communityService.toggleCountry(countryCode);
+    const country = this.countries.find(c => c.code === countryCode);
+    if (country) {
+      country.isExpanded = !country.isExpanded;
+    }
   }
 }

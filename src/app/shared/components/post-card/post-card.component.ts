@@ -1,34 +1,54 @@
-// ===================================== 
-// src/app/shared/components/post-card/post-card.component.ts
-// =====================================
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Post } from '../../../core/models/post.model';
-import { PostService } from '../../../core/services/post.service';
+import { LucideAngularModule, Heart, MessageCircle, Share2 } from 'lucide-angular';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss']
 })
 export class PostCardComponent {
   @Input() post!: Post;
+  @Output() viewComments = new EventEmitter<Post>();
+  
+  readonly HeartIcon = Heart;
+  readonly MessageCircleIcon = MessageCircle;
+  readonly Share2Icon = Share2;
 
-  constructor(private postService: PostService) {}
+  constructor(private authService: AuthService) {}
 
-  likePost(): void {
-    this.postService.likePost(this.post.id);
+  get isLiked(): boolean {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser || !this.post?.likedBy) return false;
+    return this.post.likedBy.includes(currentUser.id);
   }
 
-  getTimeAgo(date: Date): string {
-    const now = new Date();
-    const diff = Math.floor((now.getTime() - new Date(date).getTime()) / 1000);
+  toggleLike(): void {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser || !this.post) return;
     
-    if (diff < 60) return 'Just now';
-    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-    if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-    return `${Math.floor(diff / 86400)}d ago`;
+    if (!this.post.likedBy) {
+      this.post.likedBy = [];
+    }
+
+    if (this.isLiked) {
+      this.post.likedBy = this.post.likedBy.filter(id => id !== currentUser.id);
+      this.post.likes = Math.max(0, (this.post.likes || 1) - 1);
+    } else {
+      this.post.likedBy.push(currentUser.id);
+      this.post.likes = (this.post.likes || 0) + 1;
+    }
+  }
+
+  openComments(): void {
+    this.viewComments.emit(this.post);
+  }
+
+  sharePost(): void {
+    console.log('Share post:', this.post?.id);
   }
 }

@@ -1,0 +1,75 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Create Post</h2>
+      <button class="close-btn" (click)="onClose()">
+        <lucide-icon [img]="XIcon" [size]="20"></lucide-icon>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="post-actions-bar">
+        <div class="community-selector">
+          <select class="hidden-select" [(ngModel)]="selectedCommunity">
+            <option *ngFor="let comm of communities" [ngValue]="comm">{{ comm.name }}</option>
+          </select>
+          <div class="selector-badge">
+            <div class="comm-icon-wrapper">
+              <img *ngIf="selectedCommunity.image" [src]="selectedCommunity.image">
+              <lucide-icon *ngIf="selectedCommunity.isPublic" [img]="GlobeIcon" [size]="14"></lucide-icon>
+            </div>
+            <span>{{ selectedCommunity.name }}</span>
+            <lucide-icon [img]="ChevronDownIcon" [size]="14"></lucide-icon>
+          </div>
+        </div>
+
+        <div class="tag-selector">
+          <button class="add-tag-btn" type="button">
+            <lucide-icon [img]="TagIcon" [size]="14"></lucide-icon>
+            <span>Add Tags</span>
+          </button>
+          <div class="tag-dropdown">
+            <div *ngFor="let tag of availableTags" 
+                 (click)="toggleTag(tag)" 
+                 class="tag-option"
+                 [class.selected]="selectedTags.includes(tag)">
+              {{ tag }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="active-tags" *ngIf="selectedTags.length > 0">
+        <span *ngFor="let tag of selectedTags" class="tag-pill">
+          {{ tag }}
+          <lucide-icon [img]="XIcon" [size]="12" (click)="toggleTag(tag)"></lucide-icon>
+        </span>
+      </div>
+
+      <textarea 
+        class="post-textarea" 
+        [(ngModel)]="postContent"
+        [placeholder]="'What\'s on your mind, ' + currentUser?.username + '?'"
+        rows="5">
+      </textarea>
+
+      <div class="post-assets">
+        <button class="asset-btn" type="button">
+          <lucide-icon [img]="ImageIcon" [size]="18"></lucide-icon>
+          <span>Photo/Video</span>
+        </button>
+        <button class="asset-btn" type="button">
+          <lucide-icon [img]="SmileIcon" [size]="18"></lucide-icon>
+          <span>Feeling/Activity</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="onClose()">Cancel</button>
+      <button class="btn-primary" (click)="createPost()" [disabled]="!postContent.trim()">
+        Post
+      </button>
+    </div>
+  </div>
+</div>

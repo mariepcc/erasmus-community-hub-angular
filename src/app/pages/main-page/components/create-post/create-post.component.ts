@@ -32,12 +32,13 @@ export class CreatePostComponent implements OnInit {
   }
 
   createPost(): void {
-    const trimmed = this.postContent.trim();
-    if (trimmed) {
-      this.postService.createPost(trimmed);
-      this.resetEditor();
-    }
+  const trimmed = this.postContent.trim();
+  if (trimmed) {
+    // Dodajemy 'public' jako domyślne communityId, jeśli post jest tworzony szybko z głównego paska
+    this.postService.createPost(trimmed, 'public', []);
+    this.postContent = '';
   }
+}
 
   cancel(): void {
     this.resetEditor();
