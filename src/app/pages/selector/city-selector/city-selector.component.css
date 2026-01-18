@@ -188,14 +188,6 @@
   transition: all 0.2s ease;
 }
 
-.arrow.prev {
-  margin-right: -20px;
-}
-
-.arrow.next {
-  margin-left: -20px;
-}
-
 .arrow:hover {
   transform: scale(1.1);
   background: #f8faff;
