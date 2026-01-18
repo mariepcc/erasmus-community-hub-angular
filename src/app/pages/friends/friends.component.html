@@ -1,4 +1,3 @@
-<!-- src/app/pages/friends/friends.component.html -->
 <div class="friends-page">
   <div class="page-header">
     <div class="header-content">
@@ -8,7 +7,7 @@
         <p>Connect with your Erasmus community</p>
       </div>
     </div>
-    <button class="btn btn-primary">
+    <button class="btn-primary-main">
       <lucide-icon [img]="UserPlusIcon" [size]="20"></lucide-icon>
       <span>Find Friends</span>
     </button>
@@ -23,33 +22,64 @@
     </div>
 
     <div class="friends-grid">
-  <div *ngFor="let friend of friends" class="friend-card">
-    <img [src]="friend.avatar" [alt]="friend.name" class="friend-avatar" />
-    <div class="friend-info">
-      <h3>{{ friend.name }}</h3>
-      <p>{{ friend.location }}</p>
-    </div>
-    
-    <div class="friend-actions">
-      <button class="btn btn-secondary" (click)="navigateToProfile(friend.id)">
-        <lucide-icon [img]="EyeIcon" [size]="16"></lucide-icon>
-        <span>See Profile</span>
-      </button>
-      <button class="btn btn-primary-light">
-        <lucide-icon [img]="MessageIcon" [size]="16"></lucide-icon>
-        <span>Message</span>
-      </button>
+      <div *ngFor="let friend of friends" class="friend-card">
+        <div class="friend-avatar-wrapper">
+          <img [src]="friend.avatar" [alt]="friend.username" class="friend-img" />
+          <span class="status-indicator" [class.online]="friend.isOnline"></span>
+        </div>
+        
+        <div class="friend-info">
+          <h3>{{ friend.username }}</h3>
+          <p class="location">{{ friend.city }}, {{ friend.country }}</p>
+        </div>
+        
+        <div class="friend-actions">
+          <button class="btn-action profile" (click)="navigateToProfile(friend.id)">
+            <lucide-icon [img]="EyeIcon" [size]="16"></lucide-icon>
+            <span>Profile</span>
+          </button>
+          
+          <button class="btn-action message" (click)="openChat(friend)">
+            <lucide-icon [img]="MessageIcon" [size]="16"></lucide-icon>
+            <span>Message</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-    <div class="empty-state" *ngIf="friends.length === 0">
-      <lucide-icon [img]="UsersIcon" [size]="64"></lucide-icon>
-      <h3>No friends yet</h3>
-      <p>Start connecting with other Erasmus students!</p>
-      <button class="btn btn-primary">
-        <lucide-icon [img]="UserPlusIcon" [size]="20"></lucide-icon>
-        <span>Find Friends</span>
+<div class="mini-chat-overlay" *ngIf="activeChatUser">
+  <div class="mini-chat-window">
+    <div class="chat-header">
+      <div class="user-info">
+        <img [src]="activeChatUser.avatar" alt="">
+        <div>
+          <h4>{{ activeChatUser.username }}</h4>
+          <span class="status-text">Active now</span>
+        </div>
+      </div>
+      <button class="close-btn" (click)="closeChat()">
+        <lucide-icon [img]="CloseIcon" [size]="18"></lucide-icon>
+      </button>
+    </div>
+
+    <div class="chat-messages">
+      <div *ngFor="let msg of chatMessages" 
+           [ngClass]="{'sent': msg.isMine, 'received': !msg.isMine}" class="message">
+        <div class="bubble">
+          {{ msg.content }}
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-footer">
+      <input type="text" 
+             placeholder="Type a message..." 
+             [(ngModel)]="newMessageContent" 
+             (keyup.enter)="sendMessage()">
+      <button class="send-btn" (click)="sendMessage()">
+        <lucide-icon [img]="SendIcon" [size]="18"></lucide-icon>
       </button>
     </div>
   </div>

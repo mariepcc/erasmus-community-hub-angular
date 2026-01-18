@@ -1,5 +1,3 @@
-// src/app/pages/main-page/components/create-post/create-post.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -34,7 +32,6 @@ export class CreatePostComponent implements OnInit {
   createPost(): void {
   const trimmed = this.postContent.trim();
   if (trimmed) {
-    // Dodajemy 'public' jako domyślne communityId, jeśli post jest tworzony szybko z głównego paska
     this.postService.createPost(trimmed, 'public', []);
     this.postContent = '';
   }

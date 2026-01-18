@@ -1,5 +1,5 @@
 .main-page {
-  max-width: 1200px; /* SZERSZE POSTY */
+  max-width: 1200px; 
   width: 100%;
   margin: 0 auto;
   padding: 24px 20px;
@@ -9,7 +9,6 @@
   margin-bottom: 32px;
   text-align: center;
   padding: 50px 20px;
-  /* Nowoczesny, szary gradient */
   background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 50%, #e5e7eb 100%);
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -32,7 +31,7 @@
 .posts-feed {
   display: flex;
   flex-direction: column;
-  gap: 24px; /* Większy odstęp między szerokimi postami */
+  gap: 24px; 
 }
 
 .loading {
@@ -47,7 +46,7 @@
   width: 45px;
   height: 45px;
   border: 4px solid #f3f4f6;
-  border-top-color: #6b7280; /* Szary loader */
+  border-top-color: #6b7280; 
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -79,7 +78,6 @@
   }
 }
 
-// Responsywność dla szerszego układu
 @media (max-width: 1280px) {
   .main-page {
     max-width: 95%;

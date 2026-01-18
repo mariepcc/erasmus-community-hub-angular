@@ -2,7 +2,7 @@
   <div class="modal-container" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2>Create Post</h2>
-      <button class="close-btn" (click)="onClose()">
+      <button class="close-btn" (click)="onClose()" aria-label="Close modal">
         <lucide-icon [img]="XIcon" [size]="20"></lucide-icon>
       </button>
     </div>
@@ -10,12 +10,15 @@
     <div class="modal-body">
       <div class="post-actions-bar">
         <div class="community-selector">
-          <select class="hidden-select" [(ngModel)]="selectedCommunity">
+          <select 
+            class="hidden-select" 
+            [(ngModel)]="selectedCommunity" 
+            aria-label="Select community to post in">
             <option *ngFor="let comm of communities" [ngValue]="comm">{{ comm.name }}</option>
           </select>
           <div class="selector-badge">
             <div class="comm-icon-wrapper">
-              <img *ngIf="selectedCommunity.image" [src]="selectedCommunity.image">
+              <img *ngIf="selectedCommunity.image" [src]="selectedCommunity.image" alt="Community icon">
               <lucide-icon *ngIf="selectedCommunity.isPublic" [img]="GlobeIcon" [size]="14"></lucide-icon>
             </div>
             <span>{{ selectedCommunity.name }}</span>
@@ -24,7 +27,7 @@
         </div>
 
         <div class="tag-selector">
-          <button class="add-tag-btn" type="button">
+          <button class="add-tag-btn" type="button" aria-label="Add tags to post">
             <lucide-icon [img]="TagIcon" [size]="14"></lucide-icon>
             <span>Add Tags</span>
           </button>
@@ -42,7 +45,7 @@
       <div class="active-tags" *ngIf="selectedTags.length > 0">
         <span *ngFor="let tag of selectedTags" class="tag-pill">
           {{ tag }}
-          <lucide-icon [img]="XIcon" [size]="12" (click)="toggleTag(tag)"></lucide-icon>
+          <lucide-icon [img]="XIcon" [size]="12" (click)="toggleTag(tag)" aria-label="Remove tag"></lucide-icon>
         </span>
       </div>
 
@@ -50,6 +53,7 @@
         class="post-textarea" 
         [(ngModel)]="postContent"
         [placeholder]="'What\'s on your mind, ' + currentUser?.username + '?'"
+        aria-label="Post content"
         rows="5">
       </textarea>
 

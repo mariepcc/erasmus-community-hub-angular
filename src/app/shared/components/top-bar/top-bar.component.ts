@@ -1,4 +1,3 @@
-// src/app/shared/components/top-bar/top-bar.component.ts
 import { Component, EventEmitter, Output, Input, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -43,8 +42,11 @@ export class TopBarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.currentUser = this.authService.getCurrentUser();
-  }
+  this.currentUser = this.authService.getCurrentUser();
+if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+  const data = localStorage.getItem('user');
+}  if (this.isDarkMode) document.body.classList.add('dark-mode');
+}
 
   onToggleSidebar(): void {
     this.toggleSidebar.emit();
@@ -67,10 +69,11 @@ export class TopBarComponent implements OnInit {
   }
 
   toggleDarkMode(): void {
-    this.isDarkMode = !this.isDarkMode;
-    document.body.classList.toggle('dark-mode', this.isDarkMode);
-    this.isProfileOpen = false;
-  }
+   this.isDarkMode = !this.isDarkMode;
+   document.body.classList.toggle('dark-mode', this.isDarkMode);
+   localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+   this.isProfileOpen = false;
+}
 
   logout(): void {
     this.authService.logout();
@@ -85,4 +88,6 @@ export class TopBarComponent implements OnInit {
       this.isProfileOpen = false;
     }
   }
+
+  
 }

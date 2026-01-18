@@ -1,4 +1,3 @@
-// src/app/core/services/post.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Post } from '../models/post.model';

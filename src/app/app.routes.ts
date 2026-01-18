@@ -19,6 +19,11 @@ export const routes: Routes = [
     path: 'friends',
     loadComponent: () => import('./pages/friends/friends.component').then(m => m.FriendsComponent)
   },
+  // NOWA TRASA MUSI BYĆ TUTAJ (przed **)
+  {
+    path: 'user/:id',
+    loadComponent: () => import('./pages/user/user.component').then(m => m.UserComponent)
+  },
   {
     path: '**',
     redirectTo: '/home'

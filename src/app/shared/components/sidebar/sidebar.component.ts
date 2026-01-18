@@ -1,4 +1,3 @@
-// src/app/shared/components/sidebar/sidebar.component.ts
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -24,9 +23,8 @@ interface Country {
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-  @Input() isOpen = false; // DODANE - kontroluje widoczność na mobile
+  @Input() isOpen = false; 
   
-  // Ikony dostępne w template
   readonly HomeIcon = Home;
   readonly UserIcon = User;
   readonly UsersIcon = Users;

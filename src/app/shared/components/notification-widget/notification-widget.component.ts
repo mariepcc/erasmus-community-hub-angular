@@ -1,4 +1,3 @@
-// src/app/shared/components/notification-widget/notification-widget.component.ts
 import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Bell, Heart, MessageCircle, UserPlus, Calendar } from 'lucide-angular';
@@ -90,7 +89,6 @@ export class NotificationWidgetComponent {
     this.notifications.forEach(n => n.read = true);
   }
 
-  // Zamknij przy kliknięciu poza widget
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;

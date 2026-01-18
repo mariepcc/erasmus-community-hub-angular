@@ -22,12 +22,10 @@ export class CommentsModalComponent implements OnInit { // Implementuj OnInit
   readonly HeartIcon = Heart;
 
   newCommentText = '';
-  currentUser: any = null; // Zmień na samą deklarację
-
+  currentUser: any = null; 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Przypisanie robimy tutaj, gdy authService jest już zainicjalizowany
     this.currentUser = this.authService.getCurrentUser();
   }
 

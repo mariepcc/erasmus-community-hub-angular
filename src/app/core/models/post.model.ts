@@ -1,4 +1,3 @@
-// src/app/core/models/post.model.ts
 import { User } from './user.model';
 
 export interface Post {

@@ -1,8 +1,67 @@
 <div class="chat-widget" [class.open]="isOpen">
-  <div class="chat-header">
-    <h3>Messages</h3>
+  <div class="chats-sidebar">
+    <div class="sidebar-header">
+      <h3>Chats</h3>
+      <button class="new-chat-btn">
+        <lucide-icon [img]="MessageSquarePlusIcon" [size]="20"></lucide-icon>
+      </button>
+    </div>
+    <div class="chats-list">
+      <div 
+        *ngFor="let contact of contacts" 
+        class="chat-item" 
+        [class.active]="selectedContact.id === contact.id"
+        (click)="selectContact(contact)"
+      >
+        <img [src]="contact.avatar" alt="avatar" />
+        <div class="chat-item-info">
+          <div class="name-row">
+            <span class="name">{{ contact.name }}</span>
+            <span class="meta-time">{{ contact.lastMsgTime }}</span>
+          </div>
+          <span class="last-msg">{{ contact.messages[contact.messages.length - 1].text || 'No messages yet' }}</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="chat-content">
-    <p>Chat coming soon! 💬</p>
+
+  <div class="chat-main">
+    <div class="chat-header">
+      <div class="user-info">
+        <div class="status-dot"></div>
+        <h3>{{ selectedContact.name }}</h3>
+      </div>
+      <div class="header-actions">
+        <button class="close-btn" (click)="close.emit()">
+          <lucide-icon [img]="XIcon" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="chat-content" #scrollContainer>
+      <div class="message-list">
+        <div *ngFor="let msg of selectedContact.messages" [class]="'message ' + msg.type">
+          <img *ngIf="msg.type === 'received'" [src]="selectedContact.avatar" class="chat-avatar" />
+          <div class="message-bubble">
+            {{ msg.text }}
+            <span class="time">{{ msg.time }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-footer">
+      <div class="input-wrapper">
+        <input 
+          type="text" 
+          placeholder="Type a message..." 
+          [(ngModel)]="newMessage" 
+          (keyup.enter)="sendMessage()"
+        />
+        <button class="send-btn" (click)="sendMessage()" [disabled]="!newMessage.trim()">
+          <lucide-icon [img]="SendIcon" [size]="18"></lucide-icon>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

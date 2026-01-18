@@ -1,0 +1,65 @@
+<div class="profile-page">
+  <div class="cover-photo"></div>
+  
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="avatar-section">
+        <img [src]="user?.avatar" class="profile-avatar" />
+      </div>
+      
+      <div class="profile-info">
+        <h1>{{ user?.name }}</h1>
+        <div class="profile-meta">
+          <div class="meta-item">
+            <lucide-icon [img]="MapPinIcon" [size]="16"></lucide-icon>
+            <span>{{ user?.location }}</span>
+          </div>
+          <div class="meta-item">
+            <lucide-icon [img]="CalendarIcon" [size]="16"></lucide-icon>
+            <span>Joined Jan 2025</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="user-actions">
+        <button class="btn btn-primary" (click)="toggleFollow()">
+          <lucide-icon [img]="UserPlusIcon" [size]="20"></lucide-icon>
+          {{ isFollowing ? 'Following' : 'Follow' }}
+        </button>
+        <button class="btn btn-secondary">
+          <lucide-icon [img]="MessageIcon" [size]="20"></lucide-icon>
+          Send Message
+        </button>
+      </div>
+    </div>
+
+    <div class="profile-tabs">
+      <button class="tab-item" [class.active]="activeTab === 'activity'" (click)="activeTab = 'activity'">
+        <lucide-icon [img]="ActivityIcon" [size]="18"></lucide-icon>
+        <span>Activity</span>
+      </button>
+      <button class="tab-item" [class.active]="activeTab === 'posts'" (click)="activeTab = 'posts'">
+        <lucide-icon [img]="PostsIcon" [size]="18"></lucide-icon>
+        <span>Posts</span>
+      </button>
+    </div>
+
+    <div class="tab-content">
+      <div *ngIf="activeTab === 'activity'" class="activity-feed">
+        <div class="activity-item" *ngFor="let act of activities">
+          <div class="activity-icon-wrapper">
+            <lucide-icon [img]="act.icon" [size]="16"></lucide-icon>
+          </div>
+          <div class="activity-text">
+            <p><strong>{{ user?.name }}</strong> {{ act.text }}</p>
+            <span class="activity-date">{{ act.date }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="activeTab === 'posts'" class="empty-tab">
+        <p>{{ user?.name }} hasn't posted anything yet.</p>
+      </div>
+    </div>
+  </div>
+</div>
