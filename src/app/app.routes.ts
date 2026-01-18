@@ -1,18 +1,24 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from "./pages/auth/login/login.component";
-import { MainPageComponent } from "./pages/main-page/main-page.component";
+import { RegisterComponent } from './pages/auth/register/register.component';
+import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
+
 
 export const routes: Routes = [
   {
-    path: '',           // strona główna
-    component: MainPageComponent
-  },
-  {
-    path: 'login',      // osobna strona login
+    path: '',
     component: LoginComponent,
   },
   {
-    path: '**',         // catch-all, np. 404
+    path: 'register',
+    component: RegisterComponent
+  },
+    {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: '**',
     redirectTo: ''
   }
 ];

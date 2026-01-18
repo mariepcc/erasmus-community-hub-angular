@@ -1,0 +1,294 @@
+<div class="h-screen flex overflow-hidden relative">
+  <div class="absolute inset-0" style="background-color: red;">
+    <img 
+      src="images/register_background.png"
+      alt="Background" 
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <div class="relative z-10 w-full flex items-start justify-center overflow-y-auto">
+    <div class="bg-white w-full max-w-md lg:max-w-lg xl:max-w-2xl 2xl:max-w-3xl min-h-screen p-6 lg:p-8 2xl:p-10">
+      <div class="mb-6">
+        <h1 class="text-gray-900 text-xl lg:text-2xl 2xl:text-3xl font-bold mb-2">Create an account at Erasmus Community Hub</h1>
+        <p class="text-gray-600 text-xs lg:text-sm 2xl:text-base">Join the student community from around the world and start sharing experiences!</p>
+      </div>
+      
+      <form (ngSubmit)="onRegister()">
+        <div class="grid grid-cols-2 gap-3 lg:gap-4 mb-4">
+          <div>
+            <label for="firstName" class="block text-gray-900 text-xs lg:text-sm 2xl:text-base font-medium mb-1.5">
+              First name
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              [(ngModel)]="firstName"
+              name="firstName"
+              (input)="showFirstNameError = false"
+              [class.border-red-500]="showFirstNameError"
+              class="w-full px-3 lg:px-3 2xl:px-4 py-2 lg:py-2.5 2xl:py-3 rounded-md bg-white text-gray-900 text-xs lg:text-sm 2xl:text-base border border-gray-300 focus:border-blue-700 focus:outline-none transition-colors"
+              required
+            />
+            <p *ngIf="showFirstNameError" class="text-red-600 text-xs lg:text-sm mt-1">
+              First name is required
+            </p>
+          </div>
+
+          <div>
+            <label for="lastName" class="block text-gray-900 text-xs lg:text-sm 2xl:text-base font-medium mb-1.5">
+              Last name
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              [(ngModel)]="lastName"
+              name="lastName"
+              (input)="showLastNameError = false"
+              [class.border-red-500]="showLastNameError"
+              class="w-full px-3 lg:px-3 2xl:px-4 py-2 lg:py-2.5 2xl:py-3 rounded-md bg-white text-gray-900 text-xs lg:text-sm 2xl:text-base border border-gray-300 focus:border-blue-700 focus:outline-none transition-colors"
+              required
+            />
+            <p *ngIf="showLastNameError" class="text-red-600 text-xs lg:text-sm mt-1">
+              Last name is required
+            </p>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="email" class="block text-gray-900 text-xs lg:text-sm 2xl:text-base font-medium mb-1.5">
+            Email address
+          </label>
+          <input
+            type="email"
+            id="email"
+            [(ngModel)]="email"
+            name="email"
+            (input)="showEmailError = false"
+            [class.border-red-500]="showEmailError"
+            class="w-full px-3 lg:px-3 2xl:px-4 py-2 lg:py-2.5 2xl:py-3 rounded-md bg-white text-gray-900 text-xs lg:text-sm 2xl:text-base border border-gray-300 focus:border-blue-700 focus:outline-none transition-colors"
+            required
+          />
+          <p *ngIf="showEmailError" class="text-red-600 text-xs lg:text-sm mt-1">
+            Please enter a valid email address
+          </p>
+        </div>
+
+        <div class="mb-2">
+          <label for="password" class="block text-gray-900 text-xs lg:text-sm 2xl:text-base font-medium mb-1.5">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            [(ngModel)]="password"
+            name="password"
+            class="w-full px-3 lg:px-3 2xl:px-4 py-2 lg:py-2.5 2xl:py-3 rounded-md bg-white text-gray-900 text-xs lg:text-sm 2xl:text-base border border-gray-300 focus:border-blue-700 focus:outline-none transition-colors"
+            required
+          />
+        </div>
+
+        <div class="mb-4" *ngIf="password.length > 0">
+          <p class="text-xs lg:text-sm 2xl:text-base font-medium text-gray-700 mb-2">Password must contain:</p>
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span [class]="passwordLength ? 'text-green-600' : 'text-red-600'" class="text-xs lg:text-sm">
+                {{ passwordLength ? '✓' : '✗' }}
+              </span>
+              <span [class]="passwordLength ? 'text-green-600' : 'text-gray-600'" class="text-xs lg:text-sm">
+                8-20 characters
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span [class]="hasLetters ? 'text-green-600' : 'text-red-600'" class="text-xs lg:text-sm">
+                {{ hasLetters ? '✓' : '✗' }}
+              </span>
+              <span [class]="hasLetters ? 'text-green-600' : 'text-gray-600'" class="text-xs lg:text-sm">
+                At least one letter
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span [class]="hasNumbers ? 'text-green-600' : 'text-red-600'" class="text-xs lg:text-sm">
+                {{ hasNumbers ? '✓' : '✗' }}
+              </span>
+              <span [class]="hasNumbers ? 'text-green-600' : 'text-gray-600'" class="text-xs lg:text-sm">
+                At least one number
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span [class]="hasNoSpaces ? 'text-green-600' : 'text-red-600'" class="text-xs lg:text-sm">
+                {{ hasNoSpaces ? '✓' : '✗' }}
+              </span>
+              <span [class]="hasNoSpaces ? 'text-green-600' : 'text-gray-600'" class="text-xs lg:text-sm">
+                No spaces
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-gray-500 text-xs lg:text-sm mb-4">Password should be 8-20 characters long, contain letters and numbers, without spaces, special characters and emojis.</p>
+
+        <div class="grid grid-cols-2 gap-3 lg:gap-4 mb-4">
+          <div>
+            <label for="country" class="block text-gray-900 text-xs lg:text-sm 2xl:text-base font-medium mb-1.5">
+              Country
+            </label>
+            <select
+              id="country"
+              [(ngModel)]="country"
+              name="country"
+              class="w-full px-3 lg:px-3 2xl:px-4 py-2 lg:py-2.5 2xl:py-3 rounded-md bg-white text-gray-900 text-xs lg:text-sm 2xl:text-base border border-gray-300 focus:border-blue-700 focus:outline-none transition-colors"
+              [disabled]="isLoadingCountries"
+              required
+            >
+              <option value="" disabled selected>
+                {{ isLoadingCountries ? 'Loading countries...' : 'Select...' }}
+              </option>
+              <option *ngFor="let countryItem of countries" [value]="countryItem.cca2">
+                {{ countryItem.name.common }}
+              </option>
+            </select>
+            <p *ngIf="isLoadingCountries" class="text-xs lg:text-sm text-gray-500 mt-1">
+              Loading countries...
+            </p>
+          </div>
+
+          <div>
+            <label for="university" class="block text-gray-900 text-xs lg:text-sm 2xl:text-base font-medium mb-1.5">
+              University
+            </label>
+            <select
+              id="university"
+              [(ngModel)]="university"
+              name="university"
+              class="w-full px-3 lg:px-3 2xl:px-4 py-2 lg:py-2.5 2xl:py-3 rounded-md bg-white text-gray-900 text-xs lg:text-sm 2xl:text-base border border-gray-300 focus:border-blue-700 focus:outline-none transition-colors"
+              required
+            >
+              <option value="" disabled selected>Select...</option>
+              <option value="uw">University of Warsaw</option>
+              <option value="pw">Warsaw University of Technology</option>
+              <option value="uj">Jagiellonian University</option>
+              <option value="pk">Cracow University of Technology</option>
+              <option value="sggw">Warsaw University of Life Sciences</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <div class="flex items-center gap-4 lg:gap-6">
+            <label class="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                [(ngModel)]="gender"
+                class="w-4 h-4 lg:w-5 lg:h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+              />
+              <span class="ml-2 text-xs lg:text-sm 2xl:text-base text-gray-900">Male</span>
+            </label>
+            <label class="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                name="gender"
+                value="female"
+                [(ngModel)]="gender"
+                class="w-4 h-4 lg:w-5 lg:h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+              />
+              <span class="ml-2 text-xs lg:text-sm 2xl:text-base text-gray-900">Female</span>
+            </label>
+            <label class="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                name="gender"
+                value="other"
+                [(ngModel)]="gender"
+                class="w-4 h-4 lg:w-5 lg:h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+              />
+              <span class="ml-2 text-xs lg:text-sm 2xl:text-base text-gray-900">Other</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-6 flex items-center gap-4">
+          <div class="relative">
+            <div class="w-20 h-20 lg:w-24 lg:h-24 2xl:w-28 2xl:h-28 bg-gray-300 rounded-lg overflow-hidden flex items-center justify-center">
+              <img 
+                *ngIf="profileImage" 
+                [src]="profileImage" 
+                alt="Profile" 
+                class="w-full h-full object-cover"
+              />
+              <svg *ngIf="!profileImage" class="w-10 h-10 lg:w-12 lg:h-12 2xl:w-14 2xl:h-14 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="cursor-pointer">
+              <span class="px-4 lg:px-6 py-1.5 lg:py-2 2xl:py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-xs lg:text-sm 2xl:text-base font-medium inline-block">
+                Choose file
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                (change)="onFileSelected($event)"
+                class="hidden"
+              />
+            </label>
+            <button
+              *ngIf="profileImage"
+              type="button"
+              (click)="removeImage()"
+              class="text-xs lg:text-sm 2xl:text-base text-blue-700 underline hover:text-blue-900 text-left"
+            >
+              Remove file
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-6 space-y-3">
+          <label class="flex items-start cursor-pointer">
+            <input
+              type="checkbox"
+              [(ngModel)]="acceptTerms"
+              name="acceptTerms"
+              class="w-4 h-4 lg:w-5 lg:h-5 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              required
+            />
+            <span class="ml-3 text-xs lg:text-sm 2xl:text-base text-gray-900">I accept the terms and privacy policy</span>
+          </label>
+          <label class="flex items-start cursor-pointer">
+            <input
+              type="checkbox"
+              [(ngModel)]="receiveNotifications"
+              name="receiveNotifications"
+              class="w-4 h-4 lg:w-5 lg:h-5 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+            />
+            <span class="ml-3 text-xs lg:text-sm 2xl:text-base text-gray-900">I want to receive notifications about updates</span>
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="!acceptTerms || !isPasswordValid"
+          class="w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-2.5 lg:py-3 2xl:py-3.5 text-sm lg:text-base 2xl:text-lg rounded-lg transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed mb-4"
+        >
+          Sign up
+        </button>
+
+        <div class="text-center pb-8">
+          <p class="text-xs lg:text-sm 2xl:text-base text-gray-600">
+            Already have an account? 
+            <button
+              type="button"
+              (click)="goToLogin()"
+              class="text-blue-700 font-semibold hover:text-blue-900 underline ml-1"
+            >
+              Log in
+            </button>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

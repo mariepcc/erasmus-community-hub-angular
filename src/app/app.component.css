@@ -1,6 +1,4 @@
-/* ===================================== */
-/* src/app/app.component.css */
-/* ===================================== */
+
 .app-container {
   display: flex;
   min-height: 100vh;
@@ -38,7 +36,6 @@
   to { opacity: 1; }
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .main-content {
     margin-left: 0;

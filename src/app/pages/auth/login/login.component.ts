@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -13,21 +15,20 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
+constructor(private router: Router) {}
+
   onLogin() {
     console.log('Login attempt:', {
       email: this.email,
       password: this.password
     });
-    // Tutaj dodasz logikę logowania
   }
 
-  onForgotPassword() {
-    console.log('Forgot password clicked');
-    // Tutaj dodasz logikę resetowania hasła
-  }
+onForgotPassword() {
+  this.router.navigate(['/forgot-password']);
+}
 
   onSignUp() {
-    console.log('Sign up clicked');
-    // Tutaj dodasz nawigację do rejestracji
-  }
+  this.router.navigate(['/register']);
+}
 }

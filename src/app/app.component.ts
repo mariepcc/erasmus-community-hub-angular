@@ -4,10 +4,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, Router } from '@angular/router';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
-import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
-import { ChatWidgetComponent } from './shared/components/chat-widget/chat-widget.component';
-import { AuthService } from './core/services/auth.service';
+//import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+//import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
+//import { ChatWidgetComponent } from './shared/components/chat-widget/chat-widget.component';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +14,9 @@ import { AuthService } from './core/services/auth.service';
   imports: [
     CommonModule,
     RouterOutlet,
-    SidebarComponent,
-    TopBarComponent,
-    ChatWidgetComponent
+    //SidebarComponent,
+    //TopBarComponent,
+    //ChatWidgetComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -25,13 +24,8 @@ import { AuthService } from './core/services/auth.service';
 export class AppComponent {
   isSidebarOpen = false;
   isChatOpen = false;
-  isAuthenticated = false;
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.authService.isAuthenticated$.subscribe(
-      isAuth => this.isAuthenticated = isAuth
-    );
-  }
+  constructor(private router: Router) {}
 
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
@@ -41,8 +35,10 @@ export class AppComponent {
     this.isChatOpen = !this.isChatOpen;
   }
 
-  // Funkcja do sprawdzania, czy jesteśmy na stronie login
-  isLoginPage(): boolean {
-    return this.router.url === '/login';
+  isAuthPage(): boolean {
+    return this.router.url === '/' ||
+           this.router.url === '/login' || 
+           this.router.url === '/register' || 
+           this.router.url === '/forgot-password';
   }
 }
