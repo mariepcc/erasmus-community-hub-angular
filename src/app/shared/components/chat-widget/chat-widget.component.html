@@ -1,5 +1,5 @@
 <div class="chat-widget" [class.open]="isOpen">
-  <div class="chats-sidebar">
+  <div class="chats-sidebar" [class.hidden]="isMobileView && showChatMain">
     <div class="sidebar-header">
       <h3>Chats</h3>
       <button class="new-chat-btn">
@@ -25,9 +25,12 @@
     </div>
   </div>
 
-  <div class="chat-main">
+  <div class="chat-main" [class.visible]="!isMobileView || showChatMain">
     <div class="chat-header">
       <div class="user-info">
+        <button class="back-btn" *ngIf="isMobileView" (click)="toggleMobileView()">
+          <lucide-icon [img]="ArrowLeftIcon" [size]="20"></lucide-icon>
+        </button>
         <div class="status-dot"></div>
         <h3>{{ selectedContact.name }}</h3>
       </div>

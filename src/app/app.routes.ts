@@ -1,5 +1,5 @@
-// src/app/app.routes.ts
 import { Routes } from '@angular/router';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -19,13 +19,20 @@ export const routes: Routes = [
     path: 'friends',
     loadComponent: () => import('./pages/friends/friends.component').then(m => m.FriendsComponent)
   },
-  // NOWA TRASA MUSI BYĆ TUTAJ (przed **)
   {
     path: 'user/:id',
     loadComponent: () => import('./pages/user/user.component').then(m => m.UserComponent)
   },
-  {
-    path: '**',
-    redirectTo: '/home'
+  { 
+    path: 'community/:id', 
+    loadComponent: () => import('./pages/community/community.component').then(m => m.CommunityComponent) 
+  },
+  { 
+    path: '404', 
+    component: NotFoundComponent 
+  },
+  { 
+    path: '**', 
+    redirectTo: '/404' 
   }
 ];

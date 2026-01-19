@@ -15,7 +15,7 @@
 
   <div class="post-actions">
     <button 
-      class="action-btn" 
+      class="action-btn like-btn" 
       [class.active]="isLiked"
       (click)="toggleLike()">
       <lucide-icon [img]="HeartIcon" [size]="20"></lucide-icon>
@@ -23,17 +23,25 @@
     </button>
 
     <button 
-      class="action-btn" 
+      class="action-btn comment-btn" 
       (click)="openComments()">
       <lucide-icon [img]="MessageCircleIcon" [size]="20"></lucide-icon>
       <span>{{ post.comments.length || 0 }}</span>
     </button>
 
     <button 
-      class="action-btn" 
+      class="action-btn share-btn" 
       (click)="sharePost()">
       <lucide-icon [img]="Share2Icon" [size]="20"></lucide-icon>
       <span>Share</span>
+    </button>
+
+    <button 
+      class="action-btn save-btn" 
+      [class.saved]="isSaved"
+      (click)="toggleSave()">
+      <lucide-icon [img]="isSaved ? BookmarkCheckIcon : BookmarkIcon" [size]="20"></lucide-icon>
+      <span>{{ isSaved ? 'Saved' : 'Save' }}</span>
     </button>
   </div>
 </div>

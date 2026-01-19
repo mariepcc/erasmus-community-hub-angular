@@ -1,4 +1,8 @@
-<div class="app-container">
+<ng-container *ngIf="isNotFoundPage">
+  <router-outlet></router-outlet>
+</ng-container>
+
+<div class="app-container" *ngIf="!isNotFoundPage">
   <app-sidebar [isOpen]="isSidebarOpen" [class.open]="isSidebarOpen"></app-sidebar>
 
   <div class="main-content">
@@ -19,6 +23,9 @@
        (click)="toggleSidebar()">
   </div>
 </div>
-<app-chat-widget [isOpen]="isChatOpen" (close)="closeChat()"></app-chat-widget>
-<app-notification-widget [isOpen]="isNotificationsOpen" (close)="closeNotifications()"></app-notification-widget>
-<app-create-post-modal *ngIf="isCreatePostOpen" (close)="closeCreatePost()"></app-create-post-modal>
+
+<ng-container *ngIf="!isNotFoundPage">
+  <app-chat-widget [isOpen]="isChatOpen" (close)="closeChat()"></app-chat-widget>
+  <app-notification-widget [isOpen]="isNotificationsOpen" (close)="closeNotifications()"></app-notification-widget>
+  <app-create-post-modal *ngIf="isCreatePostOpen" (close)="closeCreatePost()"></app-create-post-modal>
+</ng-container>

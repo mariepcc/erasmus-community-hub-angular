@@ -1,26 +1,12 @@
 <div class="friends-page">
   <div class="page-header">
     <div class="header-content">
-      <lucide-icon [img]="UsersIcon" [size]="32"></lucide-icon>
-      <div>
-        <h1>Friends</h1>
-        <p>Connect with your Erasmus community</p>
-      </div>
+      <h1>Friends</h1>
+      <p>Connect with your Erasmus community</p>
     </div>
-    <button class="btn-primary-main">
-      <lucide-icon [img]="UserPlusIcon" [size]="20"></lucide-icon>
-      <span>Find Friends</span>
-    </button>
   </div>
 
   <div class="friends-content">
-    <div class="search-section">
-      <div class="search-bar">
-        <lucide-icon [img]="SearchIcon" [size]="20"></lucide-icon>
-        <input type="text" placeholder="Search friends..." />
-      </div>
-    </div>
-
     <div class="friends-grid">
       <div *ngFor="let friend of friends" class="friend-card">
         <div class="friend-avatar-wrapper">

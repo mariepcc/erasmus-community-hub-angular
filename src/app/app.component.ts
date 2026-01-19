@@ -1,7 +1,7 @@
-// src/app/app.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router'; // Dodano NavigationEnd
+import { filter } from 'rxjs/operators'; // Dodano filter
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { ChatWidgetComponent } from './shared/components/chat-widget/chat-widget.component';
@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
   isNotificationsOpen = false;
   isCreatePostOpen = false;
   isAuthenticated = false;
+  isNotFoundPage = false; // Nowa zmienna
 
   constructor(
     private authService: AuthService,
@@ -40,6 +41,13 @@ export class AppComponent implements OnInit {
     this.authService.isAuthenticated$.subscribe(
       isAuth => this.isAuthenticated = isAuth
     );
+
+    // Sprawdzaj trasę przy każdej zmianie, aby ukryć paski na 404
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      this.isNotFoundPage = event.urlAfterRedirects === '/404';
+    });
   }
 
   toggleSidebar(): void {
@@ -48,33 +56,16 @@ export class AppComponent implements OnInit {
 
   toggleChat(): void {
     this.isChatOpen = !this.isChatOpen;
-    // Zamknij notifications gdy otwieramy chat
-    if (this.isChatOpen) {
-      this.isNotificationsOpen = false;
-    }
+    if (this.isChatOpen) this.isNotificationsOpen = false;
   }
 
   toggleNotifications(): void {
     this.isNotificationsOpen = !this.isNotificationsOpen;
-    // Zamknij chat gdy otwieramy notifications
-    if (this.isNotificationsOpen) {
-      this.isChatOpen = false;
-    }
+    if (this.isNotificationsOpen) this.isChatOpen = false;
   }
 
-  closeChat(): void {
-    this.isChatOpen = false;
-  }
-
-  closeNotifications(): void {
-    this.isNotificationsOpen = false;
-  }
-
-  openCreatePost(): void {
-    this.isCreatePostOpen = true;
-  }
-
-  closeCreatePost(): void {
-    this.isCreatePostOpen = false;
-  }
+  closeChat(): void { this.isChatOpen = false; }
+  closeNotifications(): void { this.isNotificationsOpen = false; }
+  openCreatePost(): void { this.isCreatePostOpen = true; }
+  closeCreatePost(): void { this.isCreatePostOpen = false; }
 }

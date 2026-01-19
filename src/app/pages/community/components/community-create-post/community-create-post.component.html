@@ -1,0 +1,57 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Create New Post</h2>
+      <button class="close-btn" (click)="closeModal()">
+        <lucide-icon [img]="XIcon" [size]="20"></lucide-icon>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="post-actions-bar">
+        <div class="community-indicator">
+          <lucide-icon [img]="GlobeIcon" [size]="16"></lucide-icon>
+          r/{{ communityName }}
+        </div>
+
+        <div class="tag-selector-wrapper">
+          <button class="add-tag-btn" (click)="toggleTagMenu($event)">
+            <lucide-icon [img]="TagIcon" [size]="16"></lucide-icon>
+            Tags
+          </button>
+          
+          <div class="tag-dropdown" *ngIf="isTagMenuOpen">
+            <div 
+              *ngFor="let tag of availableTags" 
+              class="tag-option" 
+              [class.selected]="selectedTags.includes(tag)"
+              (click)="toggleTag(tag)">
+              {{ tag }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="selected-tags-area" *ngIf="selectedTags.length > 0">
+        <div class="active-tags-list">
+          <span *ngFor="let tag of selectedTags" class="tag-pill">
+            #{{ tag }}
+            <lucide-icon [img]="XIcon" [size]="14" (click)="toggleTag(tag)"></lucide-icon>
+          </span>
+        </div>
+      </div>
+
+      <textarea [(ngModel)]="postContent" class="post-textarea" placeholder="What's on your mind?"></textarea>
+      
+      <div class="post-assets">
+        <button class="asset-btn"><lucide-icon [img]="ImageIcon" [size]="18"></lucide-icon> Image</button>
+        <button class="asset-btn"><lucide-icon [img]="SmileIcon" [size]="18"></lucide-icon> Emoji</button>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeModal()">Cancel</button>
+      <button class="btn-primary" [disabled]="!postContent.trim()" (click)="submitPost()">Post</button>
+    </div>
+  </div>
+</div>

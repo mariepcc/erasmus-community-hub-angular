@@ -210,3 +210,7 @@ body.dark-mode .dropdown-item {
 body.dark-mode .dropdown-item:hover {
   background: rgba(93, 135, 255, 0.15);
 }
+body.no-scroll {
+  overflow: hidden !important;
+  padding-right: 15px; 
+}

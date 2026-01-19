@@ -1,12 +1,10 @@
 <div class="profile-page">
   <div class="cover-photo"></div>
-  
   <div class="profile-container">
     <div class="profile-header">
       <div class="avatar-section">
         <img [src]="user?.avatar" class="profile-avatar" />
       </div>
-      
       <div class="profile-info">
         <h1>{{ user?.name }}</h1>
         <div class="profile-meta">
@@ -20,19 +18,17 @@
           </div>
         </div>
       </div>
-      
       <div class="user-actions">
         <button class="btn btn-primary" (click)="toggleFollow()">
           <lucide-icon [img]="UserPlusIcon" [size]="20"></lucide-icon>
-          {{ isFollowing ? 'Following' : 'Follow' }}
+          <span>{{ isFollowing ? 'Following' : 'Follow' }}</span>
         </button>
-        <button class="btn btn-secondary">
+        <button class="btn btn-secondary" (click)="openChat()">
           <lucide-icon [img]="MessageIcon" [size]="20"></lucide-icon>
-          Send Message
+          <span>Send Message</span>
         </button>
       </div>
     </div>
-
     <div class="profile-tabs">
       <button class="tab-item" [class.active]="activeTab === 'activity'" (click)="activeTab = 'activity'">
         <lucide-icon [img]="ActivityIcon" [size]="18"></lucide-icon>
@@ -43,7 +39,6 @@
         <span>Posts</span>
       </button>
     </div>
-
     <div class="tab-content">
       <div *ngIf="activeTab === 'activity'" class="activity-feed">
         <div class="activity-item" *ngFor="let act of activities">
@@ -56,10 +51,39 @@
           </div>
         </div>
       </div>
-
       <div *ngIf="activeTab === 'posts'" class="empty-tab">
         <p>{{ user?.name }} hasn't posted anything yet.</p>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="mini-chat-overlay" *ngIf="activeChatUser">
+  <div class="mini-chat-window">
+    <div class="chat-header">
+      <div class="user-info">
+        <img [src]="activeChatUser.avatar" alt="">
+        <div>
+          <h4>{{ activeChatUser.name }}</h4>
+          <span class="status-text">Active now</span>
+        </div>
+      </div>
+      <button class="close-btn" (click)="closeChat()">
+        <lucide-icon [img]="CloseIcon" [size]="18"></lucide-icon>
+      </button>
+    </div>
+    <div class="chat-messages">
+      <div *ngFor="let msg of chatMessages" [ngClass]="{'sent': msg.isMine, 'received': !msg.isMine}" class="message">
+        <div class="bubble">
+          {{ msg.content }}
+        </div>
+      </div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" placeholder="Type a message..." [(ngModel)]="newMessageContent" (keyup.enter)="sendMessage()">
+      <button class="send-btn" (click)="sendMessage()">
+        <lucide-icon [img]="SendIcon" [size]="18"></lucide-icon>
+      </button>
     </div>
   </div>
 </div>

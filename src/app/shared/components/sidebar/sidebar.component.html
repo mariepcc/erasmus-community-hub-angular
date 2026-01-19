@@ -21,7 +21,7 @@
   <div class="communities-section">
     <div class="section-header">
       <h3 class="section-title">Communities</h3>
-      <button class="add-community-btn" title="Create Community">
+      <button class="add-community-btn">
         <lucide-icon [img]="PlusIcon" [size]="18"></lucide-icon>
       </button>
     </div>
@@ -30,22 +30,15 @@
       <div *ngFor="let country of countries" class="community-item">
         <div class="country-header" (click)="toggleCountry(country.code)" [class.active]="country.isExpanded">
           <div class="country-info">
-            <img [src]="'https://hatscripts.github.io/circle-flags/flags/' + country.code.toLowerCase() + '.svg'" 
-                 [alt]="country.name + ' flag'" 
-                 class="flag" />
+            <img [src]="'https://hatscripts.github.io/circle-flags/flags/' + country.code.toLowerCase() + '.svg'" class="flag" />
             <span class="country-name">{{ country.name }}</span>
           </div>
-          <lucide-icon 
-            [img]="ChevronRightIcon" 
-            class="toggle-icon" 
-            [class.expanded]="country.isExpanded"
-            [size]="16">
-          </lucide-icon>
+          <lucide-icon [img]="ChevronRightIcon" class="toggle-icon" [class.expanded]="country.isExpanded" [size]="16"></lucide-icon>
         </div>
 
         <div class="cities-list" *ngIf="country.isExpanded">
           <a *ngFor="let city of country.cities" 
-             [routerLink]="['/community', country.code.toLowerCase(), city.name.toLowerCase()]" 
+             [routerLink]="['/community', city.name.toLowerCase()]" 
              routerLinkActive="city-active"
              class="city-item">
             <span class="city-name">{{ city.name }}</span>

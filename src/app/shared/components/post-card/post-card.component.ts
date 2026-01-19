@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Post } from '../../../core/models/post.model';
-import { LucideAngularModule, Heart, MessageCircle, Share2 } from 'lucide-angular';
+import { LucideAngularModule, Heart, MessageCircle, Share2, Bookmark, BookmarkCheck } from 'lucide-angular';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -18,6 +18,10 @@ export class PostCardComponent {
   readonly HeartIcon = Heart;
   readonly MessageCircleIcon = MessageCircle;
   readonly Share2Icon = Share2;
+  readonly BookmarkIcon = Bookmark;
+  readonly BookmarkCheckIcon = BookmarkCheck;
+
+  isSaved: boolean = false;
 
   constructor(private authService: AuthService) {}
 
@@ -42,6 +46,11 @@ export class PostCardComponent {
       this.post.likedBy.push(currentUser.id);
       this.post.likes = (this.post.likes || 0) + 1;
     }
+  }
+
+  toggleSave(): void {
+    this.isSaved = !this.isSaved;
+    console.log('Post save status:', this.isSaved);
   }
 
   openComments(): void {

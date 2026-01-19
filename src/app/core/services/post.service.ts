@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Post } from '../models/post.model';
 import { AuthService } from './auth.service';
 
@@ -18,7 +18,12 @@ export class PostService {
     return this.postsSubject.asObservable();
   }
 
-  // Zaktualizowana metoda przyjmująca 3 parametry
+  getPostsByCommunity(communityId: string): Observable<Post[]> {
+    return this.postsSubject.asObservable().pipe(
+      map(posts => posts.filter(p => p.communityId === communityId))
+    );
+  }
+
   createPost(content: string, communityId: string, tags: string[] = []): void {
     const currentUser = this.authService.getCurrentUser();
     if (!currentUser) return;
@@ -30,7 +35,7 @@ export class PostService {
       timestamp: new Date(),
       likes: 0,
       comments: [],
-      community: communityId === 'public' ? 'Public' : communityId, // Prosta logika nazwy
+      community: communityId,
       communityId: communityId,
       tags: tags,
       likedBy: []
@@ -59,29 +64,29 @@ export class PostService {
   }
 
   private initializeMockPosts(): void {
-  this.posts = [
-    {
-      id: '1',
-      author: {
-        id: '2',
-        username: 'Sarah Johnson',
-        email: 'sarah@example.com', // Dodane
-        avatar: 'https://i.pravatar.cc/150?img=5',
-        university: 'Complutense University', // Dodane
-        country: 'Spain', // Dodane
-        city: 'Madrid',
-        isOnline: true
-      },
-      content: 'Just arrived in Madrid! Any recommendations for the best tapas places? 🇪🇸',
-      timestamp: new Date(Date.now() - 3600000),
-      likes: 12,
-      comments: [],
-      community: 'Madrid',
-      communityId: 'es-mad',
-      tags: ['Advice'],
-      likedBy: []
-    }
-  ];
-  this.postsSubject.next(this.posts);
-}
+    this.posts = [
+      {
+        id: '1',
+        author: {
+          id: '2',
+          username: 'Sarah Johnson',
+          email: 'sarah@example.com',
+          avatar: 'https://i.pravatar.cc/150?img=5',
+          university: 'Complutense University',
+          country: 'Spain',
+          city: 'Madrid',
+          isOnline: true
+        },
+        content: 'Just arrived in Madrid! Any recommendations for the best tapas places? 🇪🇸',
+        timestamp: new Date(Date.now() - 3600000),
+        likes: 12,
+        comments: [],
+        community: 'Madrid',
+        communityId: 'es-mad',
+        tags: ['Advice'],
+        likedBy: []
+      }
+    ];
+    this.postsSubject.next(this.posts);
+  }
 }

@@ -1,0 +1,100 @@
+<div class="community-container" *ngIf="city">
+  <header class="community-header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="city-badge"><span class="dot"></span> Erasmus Destination</div>
+        <h1>r/{{ city.name }}</h1>
+        <p class="subtitle">{{ city.country }} Community Hub</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-create-post" (click)="openCreateModal()">
+          <lucide-icon [img]="PlusIcon" [size]="18"></lucide-icon>
+          Create Post
+        </button>
+        <button class="btn-join" [class.joined]="isJoined" (click)="toggleJoin()">
+          <lucide-icon [img]="isJoined ? CheckIcon : PlusIcon" [size]="18"></lucide-icon>
+          {{ isJoined ? 'Joined' : 'Join' }}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="community-grid">
+    <main class="main-feed">
+      <div class="sort-bar">
+        <div class="sort-options">
+          <button [class.active]="sortBy === 'new'" (click)="setSort('new')">
+            <lucide-icon [img]="ClockIcon" [size]="18"></lucide-icon> New
+          </button>
+          <button [class.active]="sortBy === 'best'" (click)="setSort('best')">
+            <lucide-icon [img]="FlameIcon" [size]="18"></lucide-icon> Best
+          </button>
+        </div>
+      </div>
+
+      <div class="posts-list">
+        <ng-container *ngIf="posts$ | async as posts; else loading">
+          <div *ngIf="posts.length === 0" class="empty-state">
+            <lucide-icon [img]="InboxIcon" [size]="64"></lucide-icon>
+            <h3>No posts yet in {{ city.name }}</h3>
+            <p>Be the first to share your Erasmus experience!</p>
+            <p class="hint">Click "Create Post" above to start the conversation.</p>
+          </div>
+
+          <div *ngFor="let post of posts" class="post-card-simple">
+            <div class="post-header-info">
+              <img [src]="post.author.avatar" class="mini-avatar" *ngIf="post.author.avatar">
+              <span class="post-author">u/{{ post.author.username }}</span>
+              <span class="post-time">• {{ post.timestamp | date:'shortTime' }}</span>
+            </div>
+            <p class="post-content">{{ post.content }}</p>
+            <div class="post-tags" *ngIf="post.tags?.length">
+              <span *ngFor="let tag of post.tags" class="mini-tag">#{{ tag }}</span>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #loading>
+          <div class="loading-state">Loading posts...</div>
+        </ng-template>
+      </div>
+    </main>
+
+    <aside class="community-sidebar">
+      <div class="glass-card about-card">
+        <div class="card-header">
+          <lucide-icon [img]="InfoIcon" [size]="20"></lucide-icon>
+          <h3>About Community</h3>
+        </div>
+        <p class="community-desc">{{ city.description }}</p>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-value">1.6k</span>
+            <span class="stat-label">Erasmus</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-value">42</span>
+            <span class="stat-label">Online</span>
+          </div>
+        </div>
+        <div class="community-meta">
+          <div class="meta-item">
+            <lucide-icon [img]="CalendarIcon" [size]="16"></lucide-icon>
+            <span>Created Jan 18, 2026</span>
+          </div>
+          <div class="meta-item">
+            <lucide-icon [img]="ShieldIcon" [size]="16"></lucide-icon>
+            <span>Public Community</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <app-community-create-post 
+    *ngIf="isCreateModalOpen" 
+    [communityId]="city.id" 
+    [communityName]="city.name"
+    (close)="closeCreateModal($event)">
+  </app-community-create-post>
+</div>

@@ -1,0 +1,30 @@
+<div class="not-found-container">
+  <div class="glass-card">
+    <div class="error-visual">
+      <div class="glow-circle"></div>
+      <lucide-icon [img]="MapOffIcon" [size]="80"></lucide-icon>
+      <h1 class="glitch" data-text="404">404</h1>
+    </div>
+
+    <div class="content">
+      <h2>Lost in Campus?</h2>
+      <p>The page you are looking for has traveled abroad or never existed in our community.</p>
+      
+      <div class="actions">
+        <button class="btn-back" onclick="history.back()">
+          <lucide-icon [img]="ArrowLeftIcon" [size]="18"></lucide-icon>
+          Go Back
+        </button>
+        <a routerLink="/" class="btn-home">
+          <lucide-icon [img]="HomeIcon" [size]="18"></lucide-icon>
+          Home Feed
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="background-decor">
+    <div class="shape s1"></div>
+    <div class="shape s2"></div>
+  </div>
+</div>
