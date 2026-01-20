@@ -11,22 +11,6 @@ import { authGuard } from '../guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
-    children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'forgot-password', component: ForgotPasswordComponent },
-    ],
-  },
-  {
-    path: '',
-    canActivate: [authGuard],
-    children: [
-      { path: 'country-selector', component: CountrySelectorComponent },
-      { path: 'city-selector', component: CitySelectorComponent },
-    ],
-  },
-  {
-    path: '',
     component: LayoutComponent,
     canActivate: [authGuard],
     children: [
@@ -65,6 +49,23 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: '',
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+    ],
+  },
+  {
+    path: '',
+    canActivate: [authGuard],
+    children: [
+      { path: 'country-selector', component: CountrySelectorComponent },
+      { path: 'city-selector', component: CitySelectorComponent },
+    ],
+  },
+
   {
     path: '404',
     component: NotFoundComponent,

@@ -5,10 +5,12 @@ import { ChatWidgetComponent } from '../chat-widget/chat-widget.component';
 import { NotificationWidgetComponent } from '../notification-widget/notification-widget.component';
 import { CreatePostModalComponent } from '../create-post-modal/create-post-modal.component';
 import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
   imports: [
+    CommonModule,
     RouterOutlet,
     SidebarComponent,
     TopBarComponent,
@@ -24,7 +26,6 @@ export class LayoutComponent {
   isChatOpen = false;
   isNotificationsOpen = false;
   isCreatePostOpen = false;
-  isAuthenticated = false;
   isNotFoundPage = false;
 
   toggleSidebar(): void {

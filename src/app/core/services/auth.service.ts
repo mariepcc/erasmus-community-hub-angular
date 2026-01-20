@@ -49,9 +49,7 @@ export class AuthService {
       this.firebaseAuth,
       email,
       password,
-    ).then(() => {
-      //
-    });
+    ).then(() => {});
     return from(promise);
   }
 

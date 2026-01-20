@@ -1,17 +1,15 @@
 .app-container {
   display: flex;
-  min-height: 100vh;
+  width: 100%;
   background-color: #f8fafc;
   position: relative;
 }
 
 .main-content {
   flex: 1;
-  margin-left: 280px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  transition: margin-left 0.3s ease;
 }
 
 .content-area {
@@ -24,7 +22,6 @@
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.6);
-  /* Najpierw prefixy, potem standardowa właściwość */
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   z-index: 110;
@@ -55,7 +52,7 @@
   }
 
   app-sidebar {
-    position: fixed !important;
+    display: block;
     left: 0 !important;
     top: 0 !important;
     transform: translateX(-100%) !important;
