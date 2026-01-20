@@ -1,0 +1,128 @@
+<div class="login-screen">
+  <div class="login-card">
+    <div class="card-left">
+      <div class="branding">
+        <img src="/images/logo.png" alt="Logo" class="brand-logo" />
+        <span class="logo-text">Erasmus <span>CommunityHub</span></span>
+      </div>
+      
+      <div class="content-center">
+        <h1>Start Your Adventure.</h1>
+        <p>Join thousands of students and start sharing your global experiences today.</p>
+      </div>
+
+      <div class="air-traffic">
+        <div class="plane p-extra-large"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-large-1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-large-2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-medium-1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-medium-2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-medium-3"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-small-1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-small-2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-tiny-1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-tiny-2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="cloud c1"></div>
+        <div class="cloud c2"></div>
+      </div>
+    </div>
+
+    <div class="card-right">
+      <div class="form-container">
+        <div class="flex-spacer"></div>
+
+        <div class="signin-header">
+          <h2>Create Account</h2>
+          <div class="accent-line"></div>
+        </div>
+
+        <form class="login-form">
+          <div class="input-group">
+            <label>Email Address</label>
+            <div class="input-wrapper">
+              <lucide-icon [img]="MailIcon" [size]="18"></lucide-icon>
+              <input type="email" placeholder="name@example.com" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-group">
+              <label>First Name</label>
+              <div class="input-wrapper">
+                <lucide-icon [img]="UserIcon" [size]="18"></lucide-icon>
+                <input type="text" placeholder="John" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label>Last Name</label>
+              <div class="input-wrapper">
+                <lucide-icon [img]="UserIcon" [size]="18"></lucide-icon>
+                <input type="text" placeholder="Doe" />
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Password</label>
+            <div class="input-wrapper">
+              <lucide-icon [img]="LockIcon" [size]="18"></lucide-icon>
+              <input type="password" placeholder="Min. 8 characters" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-group">
+              <label>Country</label>
+              <div class="input-wrapper">
+                <lucide-icon [img]="GlobeIcon" [size]="18"></lucide-icon>
+                <select>
+                  <option value="" disabled selected>Select...</option>
+                  <option value="pl">Poland</option>
+                  <option value="es">Spain</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>University</label>
+              <div class="input-wrapper">
+                <lucide-icon [img]="SchoolIcon" [size]="18"></lucide-icon>
+                <select>
+                  <option value="" disabled selected>Select...</option>
+                  <option value="uw">UW</option>
+                  <option value="pw">PW</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Gender</label>
+            <div class="gender-selection">
+              <label class="radio-item"><input type="radio" name="gender" value="male" /><span>Male</span></label>
+              <label class="radio-item"><input type="radio" name="gender" value="female" /><span>Female</span></label>
+              <label class="radio-item"><input type="radio" name="gender" value="other" /><span>Other</span></label>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Bio</label>
+            <div class="input-wrapper no-icon">
+              <textarea placeholder="Tell us about your Erasmus plans..."></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-login" (click)="$event.preventDefault()">
+            <span>Join Community</span>
+            <lucide-icon [img]="ArrowRightIcon" [size]="18"></lucide-icon>
+          </button>
+        </form>
+
+        <div class="flex-spacer"></div>
+
+        <p class="footer-text">
+          Already have an account? <a routerLink="/login">Sign In</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
