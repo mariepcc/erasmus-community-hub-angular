@@ -4,6 +4,10 @@ import { RegisterComponent } from './pages/auth/register/register.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
+import { CountrySelectorComponent } from './pages/selector/country-selector/country-selector.component';
+import { CitySelectorComponent } from './pages/selector/city-selector/city-selector.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +21,14 @@ export const routes: Routes = [
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent,
+  },
+  {
+    path: 'country-selector',
+    component: CountrySelectorComponent,
+  },
+  {
+    path: 'city-selector',
+    component: CitySelectorComponent,
   },
   {
     path: 'home',

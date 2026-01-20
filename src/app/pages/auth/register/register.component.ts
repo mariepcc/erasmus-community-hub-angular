@@ -17,7 +17,7 @@ interface Country {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit {
   email: string = '';
@@ -31,17 +31,17 @@ export class RegisterComponent implements OnInit {
   acceptTerms: boolean = false;
   receiveNotifications: boolean = false;
   profileImage: string = '';
-  
+
   showEmailError: boolean = false;
   showFirstNameError: boolean = false;
   showLastNameError: boolean = false;
-  
+
   countries: Country[] = [];
   isLoadingCountries: boolean = true;
 
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
   ) {}
 
   ngOnInit() {
@@ -50,12 +50,13 @@ export class RegisterComponent implements OnInit {
 
   loadCountries() {
     this.isLoadingCountries = true;
-    
-    this.http.get<Country[]>('https://restcountries.com/v3.1/all?fields=name,cca2')
+
+    this.http
+      .get<Country[]>('https://restcountries.com/v3.1/all?fields=name,cca2')
       .subscribe({
         next: (data) => {
-          this.countries = data.sort((a, b) => 
-            a.name.common.localeCompare(b.name.common)
+          this.countries = data.sort((a, b) =>
+            a.name.common.localeCompare(b.name.common),
           );
           this.isLoadingCountries = false;
         },
@@ -63,13 +64,31 @@ export class RegisterComponent implements OnInit {
           console.error('Błąd podczas pobierania krajów:', error);
           this.isLoadingCountries = false;
           this.countries = [
-            { name: { common: 'Poland', official: 'Republic of Poland' }, cca2: 'PL' },
-            { name: { common: 'Germany', official: 'Federal Republic of Germany' }, cca2: 'DE' },
-            { name: { common: 'France', official: 'French Republic' }, cca2: 'FR' },
-            { name: { common: 'Spain', official: 'Kingdom of Spain' }, cca2: 'ES' },
-            { name: { common: 'Italy', official: 'Italian Republic' }, cca2: 'IT' }
+            {
+              name: { common: 'Poland', official: 'Republic of Poland' },
+              cca2: 'PL',
+            },
+            {
+              name: {
+                common: 'Germany',
+                official: 'Federal Republic of Germany',
+              },
+              cca2: 'DE',
+            },
+            {
+              name: { common: 'France', official: 'French Republic' },
+              cca2: 'FR',
+            },
+            {
+              name: { common: 'Spain', official: 'Kingdom of Spain' },
+              cca2: 'ES',
+            },
+            {
+              name: { common: 'Italy', official: 'Italian Republic' },
+              cca2: 'IT',
+            },
           ];
-        }
+        },
       });
   }
 
@@ -95,7 +114,12 @@ export class RegisterComponent implements OnInit {
   }
 
   get isPasswordValid(): boolean {
-    return this.passwordLength && this.hasLetters && this.hasNumbers && this.hasNoSpaces;
+    return (
+      this.passwordLength &&
+      this.hasLetters &&
+      this.hasNumbers &&
+      this.hasNoSpaces
+    );
   }
 
   onFileSelected(event: any) {
@@ -152,7 +176,7 @@ export class RegisterComponent implements OnInit {
       gender: this.gender,
       bio: this.bio,
       acceptTerms: this.acceptTerms,
-      receiveNotifications: this.receiveNotifications
+      receiveNotifications: this.receiveNotifications,
     });
   }
 

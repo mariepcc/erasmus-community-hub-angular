@@ -1,0 +1,42 @@
+<div class="gallery" #galleryWrapper>
+  <div class="header-container">
+  <h1>
+    Select the countries you are interested in for your 
+    <span class="highlight">Erasmus</span> exchange:
+  </h1>
+</div>
+  <ul class="cards" #cardsList>
+  <li #cardItem *ngFor="let country of countries" 
+      (click)="toggleCountry(country.name)"
+      [class.selected]="isSelected(country.name)"
+      [style.backgroundImage]="'url(' + country.img + ')'">
+    <div class="card-overlay">
+      <div class="card-content">
+        <span class="flag">{{ country.flag }}</span>
+        <h3 class="country-name">{{ country.name }}</h3>
+      </div>
+    </div>
+    <div class="selection-indicator" *ngIf="isSelected(country.name)">
+      <i class="check-icon">✓</i>
+    </div>
+  </li>
+</ul>
+ <div class="actions">
+  <button (click)="prev()" aria-label="Previous">
+    <span class="arrow">←</span>
+  </button>
+  <span class="text-label">
+    Explore
+  </span>
+  <button (click)="next()" aria-label="Next">
+    <span class="arrow">→</span>
+  </button>
+  </div>
+  <div class="next-step-container" *ngIf="selectedCountries.length > 0">
+    <button class="confirm-btn" (click)="confirmSelection()">
+      Continue with {{ selectedCountries.length }} 
+      {{ selectedCountries.length === 1 ? 'country' : 'countries' }}  
+  </button>
+  </div>
+  <div class="drag-proxy"></div>
+</div>

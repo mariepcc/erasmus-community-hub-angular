@@ -13,10 +13,10 @@ import { Post } from '../../core/models/post.model';
     CommonModule,
     CreatePostComponent,
     PostCardComponent,
-    CommentsModalComponent
+    CommentsModalComponent,
   ],
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss']
+  styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
   posts: Post[] = [];
@@ -38,7 +38,7 @@ export class MainPageComponent implements OnInit {
       error: (error) => {
         console.error('Error loading posts:', error);
         this.isLoading = false;
-      }
+      },
     });
   }
 }

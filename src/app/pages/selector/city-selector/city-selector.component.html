@@ -1,0 +1,32 @@
+<div class="selector-container">
+  <header class="header">
+    <div class="text-content">
+      <h1>Now, select specific cities from your chosen countries</h1>
+      <p>— places you want to learn more about from other students.</p>
+    </div>
+    <button class="next-btn" (click)="onNext()">Dalej</button>
+  </header>
+  <div class="countries-list">
+    <div *ngFor="let group of selectedGroups; let gIdx = index" class="country-row">
+            <div class="country-card">
+        <img [src]="group.image" [alt]="group.name">
+        <div class="country-label">{{ group.name }}</div>
+      </div>
+      <div class="cities-carousel">
+        <button class="arrow prev" (click)="scroll(viewport, -400)">⟨</button>
+            <div class="cities-viewport" #viewport>
+          <div 
+            *ngFor="let city of group.cities; let cIdx = index" 
+            class="city-card"
+            [class.selected]="city.selected"
+            (click)="toggleCity(gIdx, cIdx)"
+          >
+            <span class="city-name">{{ city.name }}</span>
+            <div class="check-icon" *ngIf="city.selected">✓</div>
+          </div>
+        </div>
+        <button class="arrow next" (click)="scroll(viewport, 400)">⟩</button>
+      </div>
+    </div>
+  </div>
+</div>
