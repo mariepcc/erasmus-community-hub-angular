@@ -25,12 +25,9 @@ export class PostService {
   }
 
   createPost(content: string, communityId: string, tags: string[] = []): void {
-    const currentUser = this.authService.getCurrentUser();
-    if (!currentUser) return;
-
     const newPost: Post = {
       id: Date.now().toString(),
-      author: currentUser,
+      author: 'User',
       content,
       timestamp: new Date(),
       likes: 0,
@@ -45,38 +42,13 @@ export class PostService {
     this.postsSubject.next([...this.posts]);
   }
 
-  likePost(postId: string): void {
-    const currentUser = this.authService.getCurrentUser();
-    if (!currentUser) return;
-
-    const post = this.posts.find((p) => p.id === postId);
-    if (!post) return;
-
-    if (post.likedBy?.includes(currentUser.id)) {
-      post.likedBy = post.likedBy.filter((id) => id !== currentUser.id);
-      post.likes--;
-    } else {
-      post.likedBy = [...(post.likedBy || []), currentUser.id];
-      post.likes++;
-    }
-
-    this.postsSubject.next([...this.posts]);
-  }
+  likePost(postId: string): void {}
 
   private initializeMockPosts(): void {
     this.posts = [
       {
         id: '1',
-        author: {
-          id: '2',
-          username: 'Sarah Johnson',
-          email: 'sarah@example.com',
-          avatar: 'https://i.pravatar.cc/150?img=5',
-          university: 'Complutense University',
-          country: 'Spain',
-          city: 'Madrid',
-          isOnline: true,
-        },
+        author: 'User',
         content:
           'Just arrived in Madrid! Any recommendations for the best tapas places? 🇪🇸',
         timestamp: new Date(Date.now() - 3600000),

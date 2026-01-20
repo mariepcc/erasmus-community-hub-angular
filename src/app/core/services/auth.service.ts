@@ -1,58 +1,64 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../models/user.model';
+import {
+  Auth,
+  browserSessionPersistence,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile,
+  signOut,
+  user,
+  User,
+} from '@angular/fire/auth';
+import { setPersistence } from 'firebase/auth';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
-  
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
-  public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
+  user$: Observable<User | null>;
 
-  constructor() {
-    // Auto-login mock user for testing
-    this.autoLogin();
+  constructor(private firebaseAuth: Auth) {
+    this.setSessionStoragePersistence();
+    this.user$ = user(this.firebaseAuth);
   }
 
-  private autoLogin(): void {
-    const mockUser: User = {
-      id: '1',
-      username: 'John Doe',
-      email: 'john@example.com',
-      avatar: 'https://i.pravatar.cc/150?img=1',
-      university: 'University of Technology',
-      country: 'Spain',
-      city: 'Barcelona',
-      isOnline: true
-    };
-    this.currentUserSubject.next(mockUser);
-    this.isAuthenticatedSubject.next(true);
+  private setSessionStoragePersistence(): void {
+    setPersistence(this.firebaseAuth, browserSessionPersistence);
   }
 
-  login(email: string, password: string): void {
-    const mockUser: User = {
-      id: '1',
-      username: 'John Doe',
-      email: email,
-      avatar: 'https://i.pravatar.cc/150?img=1',
-      university: 'University of Technology',
-      country: 'Spain',
-      city: 'Barcelona',
-      isOnline: true
-    };
-    this.currentUserSubject.next(mockUser);
-    this.isAuthenticatedSubject.next(true);
+  register(
+    email: string,
+    username: string,
+    password: string,
+  ): Observable<void> {
+    const promise = createUserWithEmailAndPassword(
+      this.firebaseAuth,
+      email,
+      password,
+    ).then((response) => {
+      updateProfile(response.user, { displayName: username });
+    });
+    return from(promise);
   }
 
-  logout(): void {
-    this.currentUserSubject.next(null);
-    this.isAuthenticatedSubject.next(false);
+  login(email: string, password: string): Observable<void> {
+    const promise = signInWithEmailAndPassword(
+      this.firebaseAuth,
+      email,
+      password,
+    ).then(() => {
+      //
+    });
+    return from(promise);
   }
 
-  getCurrentUser(): User | null {
-    return this.currentUserSubject.value;
+  logout(): Observable<void> {
+    const promise = signOut(this.firebaseAuth).then(() => {
+      sessionStorage.clear();
+    });
+    return from(promise);
   }
 }

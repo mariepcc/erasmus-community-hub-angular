@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, MapPin, Calendar, Mail, Edit, LayoutGrid, MessageSquare, Bookmark } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  MapPin,
+  Calendar,
+  Mail,
+  Edit,
+  LayoutGrid,
+  MessageSquare,
+  Bookmark,
+} from 'lucide-angular';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -8,7 +17,7 @@ import { AuthService } from '../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
   readonly MapPinIcon = MapPin;
@@ -24,9 +33,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.currentUser = this.authService.getCurrentUser();
-  }
+  ngOnInit(): void {}
 
   setTab(tab: 'posts' | 'comments' | 'saved') {
     this.activeTab = tab;

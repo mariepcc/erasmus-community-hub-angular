@@ -9,7 +9,7 @@ import { AuthService } from '../../../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.scss']
+  styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
   postContent = '';
@@ -18,24 +18,22 @@ export class CreatePostComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
-  ngOnInit(): void {
-    this.currentUser = this.authService.getCurrentUser();
-  }
+  ngOnInit(): void {}
 
   expandEditor(): void {
     this.isExpanded = true;
   }
 
   createPost(): void {
-  const trimmed = this.postContent.trim();
-  if (trimmed) {
-    this.postService.createPost(trimmed, 'public', []);
-    this.postContent = '';
+    const trimmed = this.postContent.trim();
+    if (trimmed) {
+      this.postService.createPost(trimmed, 'public', []);
+      this.postContent = '';
+    }
   }
-}
 
   cancel(): void {
     this.resetEditor();

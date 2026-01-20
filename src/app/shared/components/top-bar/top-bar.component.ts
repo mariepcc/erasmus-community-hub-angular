@@ -1,7 +1,25 @@
-import { Component, EventEmitter, Output, Input, OnInit, HostListener } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  Input,
+  OnInit,
+  HostListener,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { LucideAngularModule, Search, Bell, MessageCircle, Plus, Menu, ChevronDown, Moon, Sun, LogOut } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Search,
+  Bell,
+  MessageCircle,
+  Plus,
+  Menu,
+  ChevronDown,
+  Moon,
+  Sun,
+  LogOut,
+} from 'lucide-angular';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -9,15 +27,14 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './top-bar.component.html',
-  styleUrls: ['./top-bar.component.scss']
+  styleUrls: ['./top-bar.component.scss'],
 })
 export class TopBarComponent implements OnInit {
   @Output() toggleSidebar = new EventEmitter<void>();
   @Output() toggleChat = new EventEmitter<void>();
   @Output() toggleNotifications = new EventEmitter<void>();
   @Output() createPost = new EventEmitter<void>();
-  
-  // Dodane inputy żeby wiedzieć czy okna są otwarte
+
   @Input() isChatOpen = false;
   @Input() isNotificationsOpen = false;
 
@@ -38,15 +55,15 @@ export class TopBarComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
-  this.currentUser = this.authService.getCurrentUser();
-if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-  const data = localStorage.getItem('user');
-}  if (this.isDarkMode) document.body.classList.add('dark-mode');
-}
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      const data = localStorage.getItem('user');
+    }
+    if (this.isDarkMode) document.body.classList.add('dark-mode');
+  }
 
   onToggleSidebar(): void {
     this.toggleSidebar.emit();
@@ -69,11 +86,11 @@ if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
   }
 
   toggleDarkMode(): void {
-   this.isDarkMode = !this.isDarkMode;
-   document.body.classList.toggle('dark-mode', this.isDarkMode);
-   localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
-   this.isProfileOpen = false;
-}
+    this.isDarkMode = !this.isDarkMode;
+    document.body.classList.toggle('dark-mode', this.isDarkMode);
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+    this.isProfileOpen = false;
+  }
 
   logout(): void {
     this.authService.logout();
@@ -88,6 +105,4 @@ if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       this.isProfileOpen = false;
     }
   }
-
-  
 }

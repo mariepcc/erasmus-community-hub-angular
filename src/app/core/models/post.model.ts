@@ -2,7 +2,7 @@ import { User } from './user.model';
 
 export interface Post {
   id: string;
-  author: User;
+  author: string;
   content: string;
   imageUrl?: string;
   timestamp: Date;
@@ -10,7 +10,7 @@ export interface Post {
   comments: Comment[];
   community: string;
   likedBy: string[];
-  communityId: string; 
+  communityId: string;
   tags?: string[];
 }
 

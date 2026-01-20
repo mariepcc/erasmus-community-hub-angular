@@ -60,12 +60,9 @@ export class PostService {
   }
 
   createPost(content: string, communityId: string, tags: string[] = []): void {
-    const currentUser = this.authService.getCurrentUser();
-    if (!currentUser) return;
-
     const newPost: Post = {
       id: Date.now().toString(),
-      author: currentUser,
+      author: 'User',
       content,
       timestamp: new Date(),
       likes: 0,
@@ -81,17 +78,14 @@ export class PostService {
   }
 
   likePost(postId: string): void {
-    const currentUser = this.authService.getCurrentUser();
-    if (!currentUser) return;
-
     const post = this.posts.find((p) => p.id === postId);
     if (post) {
-      const index = post.likedBy.indexOf(currentUser.id);
+      const index = 1;
       if (index > -1) {
         post.likedBy.splice(index, 1);
         post.likes--;
       } else {
-        post.likedBy.push(currentUser.id);
+        post.likedBy.push();
         post.likes++;
       }
       this.postsSubject.next([...this.posts]);
