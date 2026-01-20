@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet, NavigationEnd } from '@angular/router'; // Dodano NavigationEnd
-import { filter } from 'rxjs/operators'; // Dodano filter
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { ChatWidgetComponent } from './shared/components/chat-widget/chat-widget.component';
@@ -24,13 +24,13 @@ import { AuthService } from './core/services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   isSidebarOpen = false;
   isChatOpen = false;
   isNotificationsOpen = false;
   isCreatePostOpen = false;
   isAuthenticated = false;
-  isNotFoundPage = false; // Nowa zmienna
+  isNotFoundPage = false;
 
   constructor(
     private authService: AuthService,
@@ -42,7 +42,6 @@ export class AppComponent {
       (isAuth) => (this.isAuthenticated = isAuth),
     );
 
-    // Sprawdzaj trasę przy każdej zmianie, aby ukryć paski na 404
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
@@ -56,5 +55,24 @@ export class AppComponent {
 
   toggleChat(): void {
     this.isChatOpen = !this.isChatOpen;
+    if (this.isChatOpen) this.isNotificationsOpen = false;
+  }
+
+  toggleNotifications(): void {
+    this.isNotificationsOpen = !this.isNotificationsOpen;
+    if (this.isNotificationsOpen) this.isChatOpen = false;
+  }
+
+  closeChat(): void {
+    this.isChatOpen = false;
+  }
+  closeNotifications(): void {
+    this.isNotificationsOpen = false;
+  }
+  openCreatePost(): void {
+    this.isCreatePostOpen = true;
+  }
+  closeCreatePost(): void {
+    this.isCreatePostOpen = false;
   }
 }

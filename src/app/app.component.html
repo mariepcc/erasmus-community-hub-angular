@@ -23,7 +23,6 @@
        (click)="toggleSidebar()">
   </div>
 </div>
-
 <ng-container *ngIf="!isNotFoundPage">
   <app-chat-widget [isOpen]="isChatOpen" (close)="closeChat()"></app-chat-widget>
   <app-notification-widget [isOpen]="isNotificationsOpen" (close)="closeNotifications()"></app-notification-widget>
