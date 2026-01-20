@@ -19,12 +19,12 @@ import { AuthService } from './core/services/auth.service';
     TopBarComponent,
     ChatWidgetComponent,
     NotificationWidgetComponent,
-    CreatePostModalComponent
+    CreatePostModalComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   isSidebarOpen = false;
   isChatOpen = false;
   isNotificationsOpen = false;
@@ -34,20 +34,20 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.authService.isAuthenticated$.subscribe(
-      isAuth => this.isAuthenticated = isAuth
+      (isAuth) => (this.isAuthenticated = isAuth),
     );
 
     // Sprawdzaj trasę przy każdej zmianie, aby ukryć paski na 404
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      this.isNotFoundPage = event.urlAfterRedirects === '/404';
-    });
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.isNotFoundPage = event.urlAfterRedirects === '/404';
+      });
   }
 
   toggleSidebar(): void {
@@ -56,16 +56,5 @@ export class AppComponent implements OnInit {
 
   toggleChat(): void {
     this.isChatOpen = !this.isChatOpen;
-    if (this.isChatOpen) this.isNotificationsOpen = false;
   }
-
-  toggleNotifications(): void {
-    this.isNotificationsOpen = !this.isNotificationsOpen;
-    if (this.isNotificationsOpen) this.isChatOpen = false;
-  }
-
-  closeChat(): void { this.isChatOpen = false; }
-  closeNotifications(): void { this.isNotificationsOpen = false; }
-  openCreatePost(): void { this.isCreatePostOpen = true; }
-  closeCreatePost(): void { this.isCreatePostOpen = false; }
 }

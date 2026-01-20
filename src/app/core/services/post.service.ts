@@ -4,7 +4,7 @@ import { Post } from '../models/post.model';
 import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostService {
   private posts: Post[] = [];
@@ -19,9 +19,9 @@ export class PostService {
   }
 
   getPostsByCommunity(communityId: string): Observable<Post[]> {
-    return this.postsSubject.asObservable().pipe(
-      map(posts => posts.filter(p => p.communityId === communityId))
-    );
+    return this.postsSubject
+      .asObservable()
+      .pipe(map((posts) => posts.filter((p) => p.communityId === communityId)));
   }
 
   createPost(content: string, communityId: string, tags: string[] = []): void {
@@ -38,7 +38,7 @@ export class PostService {
       community: communityId,
       communityId: communityId,
       tags: tags,
-      likedBy: []
+      likedBy: [],
     };
 
     this.posts.unshift(newPost);
@@ -49,11 +49,11 @@ export class PostService {
     const currentUser = this.authService.getCurrentUser();
     if (!currentUser) return;
 
-    const post = this.posts.find(p => p.id === postId);
+    const post = this.posts.find((p) => p.id === postId);
     if (!post) return;
 
     if (post.likedBy?.includes(currentUser.id)) {
-      post.likedBy = post.likedBy.filter(id => id !== currentUser.id);
+      post.likedBy = post.likedBy.filter((id) => id !== currentUser.id);
       post.likes--;
     } else {
       post.likedBy = [...(post.likedBy || []), currentUser.id];
@@ -75,17 +75,18 @@ export class PostService {
           university: 'Complutense University',
           country: 'Spain',
           city: 'Madrid',
-          isOnline: true
+          isOnline: true,
         },
-        content: 'Just arrived in Madrid! Any recommendations for the best tapas places? 🇪🇸',
+        content:
+          'Just arrived in Madrid! Any recommendations for the best tapas places? 🇪🇸',
         timestamp: new Date(Date.now() - 3600000),
         likes: 12,
         comments: [],
         community: 'Madrid',
         communityId: 'es-mad',
         tags: ['Advice'],
-        likedBy: []
-      }
+        likedBy: [],
+      },
     ];
     this.postsSubject.next(this.posts);
   }

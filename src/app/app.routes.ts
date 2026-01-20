@@ -1,38 +1,62 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
+import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
+
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
+    component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
   },
   {
     path: 'home',
-    loadComponent: () => import('./pages/main-page/main-page.component').then(m => m.MainPageComponent)
+    loadComponent: () =>
+      import('./pages/main-page/main-page.component').then(
+        (m) => m.MainPageComponent,
+      ),
   },
   {
     path: 'my-profile',
-    loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent)
+    loadComponent: () =>
+      import('./pages/profile/profile.component').then(
+        (m) => m.ProfileComponent,
+      ),
   },
   {
     path: 'friends',
-    loadComponent: () => import('./pages/friends/friends.component').then(m => m.FriendsComponent)
+    loadComponent: () =>
+      import('./pages/friends/friends.component').then(
+        (m) => m.FriendsComponent,
+      ),
   },
   {
     path: 'user/:id',
-    loadComponent: () => import('./pages/user/user.component').then(m => m.UserComponent)
+    loadComponent: () =>
+      import('./pages/user/user.component').then((m) => m.UserComponent),
   },
-  { 
-    path: 'community/:id', 
-    loadComponent: () => import('./pages/community/community.component').then(m => m.CommunityComponent) 
+  {
+    path: 'community/:id',
+    loadComponent: () =>
+      import('./pages/community/community.component').then(
+        (m) => m.CommunityComponent,
+      ),
   },
-  { 
-    path: '404', 
-    component: NotFoundComponent 
+  {
+    path: '404',
+    component: NotFoundComponent,
   },
-  { 
-    path: '**', 
-    redirectTo: '/404' 
-  }
+  {
+    path: '**',
+    redirectTo: '/404',
+  },
 ];

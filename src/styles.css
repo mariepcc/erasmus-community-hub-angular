@@ -1,11 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap');*
+@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
 * {
-  margin: 0;
-  padding: 0;
+
   box-sizing: border-box;
 }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: #f3f4f6;
+}
+
 
 :root {
   --primary-blue: #5D87FF;
