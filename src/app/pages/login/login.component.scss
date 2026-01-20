@@ -1,75 +1,38 @@
 .login-screen {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #f0f4ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  position: fixed; inset: 0; width: 100vw; height: 100vh;
+  background: #f0f4ff; display: flex; align-items: center; justify-content: center;
+  z-index: 9999; font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-y: auto; padding: 20px;
 }
 
 .login-card {
-  width: 1150px;
-  height: 820px;
-  background: white;
-  border-radius: 40px;
-  display: flex;
-  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  width: 100%; max-width: 1150px; min-height: 820px; background: white; 
+  border-radius: 40px; display: flex; box-shadow: 0 50px 100px rgba(0, 0, 0, 0.08); 
+  overflow: hidden; position: relative;
 }
 
 .card-left {
-  flex: 1.1;
-  background: linear-gradient(135deg, #5D87FF 0%, #3C63D9 100%);
-  padding: 60px;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
+  flex: 1.1; background: linear-gradient(135deg, #5D87FF 0%, #3C63D9 100%);
+  padding: 60px; color: white; display: flex; flex-direction: column; position: relative; overflow: hidden;
 
   .branding {
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    .brand-logo {
-      height: 42px;
-      width: auto;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));
-    }
-
-    .logo-text { 
-      font-size: 24px; 
-      font-weight: 800; 
-      span { color: rgba(255,255,255,0.6); } 
-    }
+    z-index: 20; display: flex; align-items: center; gap: 12px;
+    .brand-logo { height: 42px; width: auto; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1)); }
+    .logo-text { font-size: 24px; font-weight: 800; span { color: rgba(255,255,255,0.6); } }
   }
 
   .content-center {
-    margin-top: 60px;
-    z-index: 20;
+    margin-top: 60px; z-index: 20;
     h1 { font-size: 48px; font-weight: 900; line-height: 1.1; margin-bottom: 24px; }
     p { font-size: 18px; line-height: 1.6; opacity: 0.9; max-width: 440px; }
   }
 }
 
 .air-traffic {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-
+  position: absolute; inset: 0; z-index: 10; pointer-events: none;
   .plane {
-    position: absolute;
-    color: white;
-    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+    position: absolute; color: white; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
     lucide-icon { width: 100%; height: 100%; }
-
     &.p-extra-large { width: 280px; height: 280px; bottom: -90px; left: -70px; animation: float 11s infinite ease-in-out; opacity: 0.98; }
     &.p-large-1 { width: 180px; height: 180px; bottom: 40px; left: 15%; animation: float 9s infinite ease-in-out reverse; opacity: 0.8; }
     &.p-large-2 { width: 140px; height: 140px; bottom: -20px; left: 45%; animation: float 13s infinite ease-in-out; opacity: 0.7; }
@@ -79,12 +42,8 @@
     &.p-small-2 { width: 60px; height: 60px; bottom: 180px; left: 75%; animation: float 10s infinite ease-in-out reverse; opacity: 0.3; }
     &.p-tiny { width: 45px; height: 45px; bottom: 380px; left: 25%; animation: float 9s infinite ease-in-out; opacity: 0.2; }
   }
-
   .cloud {
-    position: absolute;
-    background: rgba(255,255,255,0.25);
-    filter: blur(50px);
-    border-radius: 50%;
+    position: absolute; background: rgba(255,255,255,0.25); filter: blur(50px); border-radius: 50%;
     &.c1 { width: 450px; height: 200px; bottom: -80px; left: -100px; }
     &.c2 { width: 300px; height: 150px; bottom: 50px; right: -50px; opacity: 0.4; }
   }
@@ -96,25 +55,14 @@
 }
 
 .card-right {
-  flex: 1;
-  background: white;
-  padding: 60px 80px;
-  display: flex;
-  justify-content: center;
-  overflow-y: auto;
+  flex: 1; background: white; padding: 60px 80px; display: flex; justify-content: center; overflow-y: auto; align-items: center;
 }
 
 .form-container {
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-
+  width: 100%; max-width: 400px; display: flex; flex-direction: column;
   .flex-spacer { flex-grow: 1; }
-
   .signin-header {
-    text-align: center;
-    margin-bottom: 40px;
+    text-align: center; margin-bottom: 40px;
     h2 { font-size: 42px; font-weight: 900; color: #1e293b; margin: 0; letter-spacing: -1.5px; }
     .accent-line { width: 50px; height: 7px; background: #5D87FF; border-radius: 10px; margin: 15px auto; }
     .subtitle { color: #94a3b8; font-weight: 500; font-size: 16px; margin: 0; }
@@ -136,7 +84,7 @@
 
 .form-options {
   display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;
-  .remember-me { display: flex; align-items: center; gap: 10px; font-weight: 600; color: #64748b; font-size: 14px; cursor: pointer; input { cursor: pointer; } }
+  .remember-me { display: flex; align-items: center; gap: 10px; font-weight: 600; color: #64748b; font-size: 14px; cursor: pointer; }
   .forgot-pass { color: #5D87FF; font-weight: 700; text-decoration: none; font-size: 14px; }
 }
 
@@ -165,6 +113,17 @@
   a { color: #5D87FF; text-decoration: none; font-weight: 800; } 
 }
 
-@media (max-width: 1150px) {
-  .login-card { width: 95vw; height: 90vh; }
+@media (max-width: 1024px) {
+  .login-card { flex-direction: column; min-height: 0; height: auto; border-radius: 30px; }
+  .card-left { padding: 40px; .content-center { margin-top: 30px; h1 { font-size: 32px; } p { font-size: 16px; } } }
+  .card-right { padding: 40px 30px; }
+  .air-traffic .plane.p-extra-large { width: 150px; height: 150px; left: -30px; bottom: -40px; }
+}
+
+@media (max-width: 480px) {
+  .login-screen { padding: 10px; }
+  .card-left { padding: 30px 20px; .branding .logo-text { font-size: 20px; } }
+  .form-container .signin-header h2 { font-size: 28px; }
+  .btn-login { padding: 16px; }
+  .social-login { flex-direction: column; gap: 10px; }
 }

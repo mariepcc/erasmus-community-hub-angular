@@ -32,17 +32,17 @@
         </div>
         <form class="login-form">
           <div class="input-group">
-            <label>Email Address</label>
+            <label for="loginEmail">Email Address</label>
             <div class="input-wrapper">
               <lucide-icon [img]="MailIcon" [size]="18"></lucide-icon>
-              <input type="email" placeholder="name@example.com" />
+              <input type="email" id="loginEmail" placeholder="name@example.com" title="Enter your email" />
             </div>
           </div>
           <div class="input-group">
-            <label>Password</label>
+            <label for="loginPassword">Password</label>
             <div class="input-wrapper">
               <lucide-icon [img]="LockIcon" [size]="18"></lucide-icon>
-              <input type="password" placeholder="••••••••" />
+              <input type="password" id="loginPassword" placeholder="••••••••" title="Enter your password" />
             </div>
           </div>
           <div class="form-options">
@@ -61,10 +61,10 @@
           <span>or login with</span>
         </div>
         <div class="social-login">
-          <button class="social-btn">
+          <button class="social-btn" type="button">
             <img src="https://www.google.com/favicon.ico" alt="Google" />
           </button>
-          <button class="social-btn">
+          <button class="social-btn" type="button">
             <img src="https://www.facebook.com/favicon.ico" alt="Facebook" />
           </button>
         </div>

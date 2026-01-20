@@ -38,44 +38,44 @@
 
         <form class="login-form">
           <div class="input-group">
-            <label>Email Address</label>
+            <label for="regEmail">Email Address</label>
             <div class="input-wrapper">
               <lucide-icon [img]="MailIcon" [size]="18"></lucide-icon>
-              <input type="email" placeholder="name@example.com" />
+              <input type="email" id="regEmail" placeholder="name@example.com" title="Enter your email address" />
             </div>
           </div>
 
           <div class="form-row">
             <div class="input-group">
-              <label>First Name</label>
+              <label for="firstName">First Name</label>
               <div class="input-wrapper">
                 <lucide-icon [img]="UserIcon" [size]="18"></lucide-icon>
-                <input type="text" placeholder="John" />
+                <input type="text" id="firstName" placeholder="John" title="Enter your first name" />
               </div>
             </div>
             <div class="input-group">
-              <label>Last Name</label>
+              <label for="lastName">Last Name</label>
               <div class="input-wrapper">
                 <lucide-icon [img]="UserIcon" [size]="18"></lucide-icon>
-                <input type="text" placeholder="Doe" />
+                <input type="text" id="lastName" placeholder="Doe" title="Enter your last name" />
               </div>
             </div>
           </div>
 
           <div class="input-group">
-            <label>Password</label>
+            <label for="regPass">Password</label>
             <div class="input-wrapper">
               <lucide-icon [img]="LockIcon" [size]="18"></lucide-icon>
-              <input type="password" placeholder="Min. 8 characters" />
+              <input type="password" id="regPass" placeholder="Min. 8 characters" title="Create a password" />
             </div>
           </div>
 
           <div class="form-row">
             <div class="input-group">
-              <label>Country</label>
+              <label for="countrySelect">Country</label>
               <div class="input-wrapper">
                 <lucide-icon [img]="GlobeIcon" [size]="18"></lucide-icon>
-                <select>
+                <select id="countrySelect" title="Select your country of origin">
                   <option value="" disabled selected>Select...</option>
                   <option value="pl">Poland</option>
                   <option value="es">Spain</option>
@@ -83,10 +83,10 @@
               </div>
             </div>
             <div class="input-group">
-              <label>University</label>
+              <label for="uniSelect">University</label>
               <div class="input-wrapper">
                 <lucide-icon [img]="SchoolIcon" [size]="18"></lucide-icon>
-                <select>
+                <select id="uniSelect" title="Select your university">
                   <option value="" disabled selected>Select...</option>
                   <option value="uw">UW</option>
                   <option value="pw">PW</option>
@@ -105,9 +105,9 @@
           </div>
 
           <div class="input-group">
-            <label>Bio</label>
+            <label for="userBio">Bio</label>
             <div class="input-wrapper no-icon">
-              <textarea placeholder="Tell us about your Erasmus plans..."></textarea>
+              <textarea id="userBio" placeholder="Tell us about your Erasmus plans..." title="Write something about yourself"></textarea>
             </div>
           </div>
 
