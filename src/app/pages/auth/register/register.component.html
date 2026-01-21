@@ -132,10 +132,38 @@
                 [class.input-error]="form.get('country')?.invalid && form.get('country')?.touched">
                 <lucide-icon [img]="GlobeIcon" [size]="18"></lucide-icon>
                 <select formControlName="country">
-                  <option value disabled>Select...</option>
-                  <option value="pl">Poland</option>
-                  <option value="es">Spain</option>
-                  <option value="it">Italy</option>
+                  <option value disabled selected>Select country...</option>
+                  <option value="Austria">Austria</option>
+                  <option value="Belgium">Belgium</option>
+                  <option value="Bulgaria">Bulgaria</option>
+                  <option value="Croatia">Croatia</option>
+                  <option value="Cyprus">Cyprus</option>
+                  <option value="Czech Republic">Czech Republic</option>
+                  <option value="Denmark">Denmark</option>
+                  <option value="Estonia">Estonia</option>
+                  <option value="Finland">Finland</option>
+                  <option value="France">France</option>
+                  <option value="Germany">Germany</option>
+                  <option value="Greece">Greece</option>
+                  <option value="Hungary">Hungary</option>
+                  <option value="Iceland">Iceland</option>
+                  <option value="Ireland">Ireland</option>
+                  <option value="Italy">Italy</option>
+                  <option value="Latvia">Latvia</option>
+                  <option value="Lithuania">Lithuania</option>
+                  <option value="Luxembourg">Luxembourg</option>
+                  <option value="Malta">Malta</option>
+                  <option value="Netherlands">Netherlands</option>
+                  <option value="Norway">Norway</option>
+                  <option value="Poland">Poland</option>
+                  <option value="Portugal">Portugal</option>
+                  <option value="Romania">Romania</option>
+                  <option value="Slovakia">Slovakia</option>
+                  <option value="Slovenia">Slovenia</option>
+                  <option value="Spain">Spain</option>
+                  <option value="Sweden">Sweden</option>
+                  <option value="Switzerland">Switzerland</option>
+                  <option value="Turkey">Turkey</option>
                 </select>
               </div>
             </div>
@@ -146,8 +174,10 @@
                 <lucide-icon [img]="SchoolIcon" [size]="18"></lucide-icon>
                 <select formControlName="university">
                   <option value disabled>Select...</option>
-                  <option value="uw">University of Warsaw</option>
-                  <option value="pw">Warsaw University of Technology</option>
+                  <option value="University of Warsaw">University of
+                    Warsaw</option>
+                  <option value="Warsaw University of Technology">Warsaw
+                    University of Technology</option>
                 </select>
               </div>
             </div>

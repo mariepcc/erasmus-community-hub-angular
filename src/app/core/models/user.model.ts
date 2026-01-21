@@ -1,11 +1,10 @@
 export interface User {
-  id: string;
+  uid: string;
   username: string;
-  email: string;
-  avatar?: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
   university: string;
   country: string;
-  city: string;
-  bio?: string;
-  isOnline?: boolean;
+  gender: string;
 }

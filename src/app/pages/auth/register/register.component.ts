@@ -17,8 +17,9 @@ import {
   School,
 } from 'lucide-angular';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
+import { UserService } from '../../../core/services/user.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -33,7 +34,7 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   readonly MailIcon = Mail;
   readonly LockIcon = Lock;
   readonly ArrowRightIcon = ArrowRight;
@@ -41,19 +42,13 @@ export class RegisterComponent {
   readonly UserIcon = User;
   readonly GlobeIcon = Globe;
   readonly SchoolIcon = School;
-  email: string = '';
-  username: string = '';
-  firstName: string = '';
-  lastName: string = '';
-  password: string = '';
-  country: string = '';
-  university: string = '';
-  gender: string = 'male';
 
   error: boolean = false;
   fb: FormBuilder = inject(FormBuilder);
   authService: AuthService = inject(AuthService);
+  userService: UserService = inject(UserService);
   router: Router = inject(Router);
+
   form = this.fb.nonNullable.group({
     username: ['', Validators.required],
     email: [
@@ -80,18 +75,45 @@ export class RegisterComponent {
     gender: ['', Validators.required],
   });
 
+  ngOnInit(): void {}
+
   onSubmit(): void {
-    const rawForm = this.form.getRawValue();
+    if (this.form.invalid) {
+      console.log('Formularz jest niepoprawny:', this.form.errors);
+      return;
+    }
+
+    const values = this.form.getRawValue();
+    console.log('1. Rozpoczynam rejestrację dla:', values.email);
+
     this.authService
-      .register(rawForm.email, rawForm.username, rawForm.password)
+      .register(values.email, values.username, values.password)
+      .pipe(
+        switchMap((userCredential) => {
+          const uid = userCredential.user.uid;
+          console.log('2. Konto Auth utworzone. UID:', uid);
+
+          console.log('3. Próbuję zapisać dane do Firestore...');
+          return this.userService.addUser({
+            uid,
+            email: values.email,
+            username: values.username,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            country: values.country,
+            university: values.university,
+            gender: values.gender,
+          });
+        }),
+      )
       .subscribe({
         next: () => {
-          console.log('Register successful!');
-          this.router.navigateByUrl('/country-selector');
+          console.log('4. SUKCES: Dane zapisane w Firestore, przekierowuję...');
+          this.router.navigate(['/']);
         },
-        error: (error) => {
+        error: (err) => {
+          console.error('BŁĄD na którymś z etapów:', err);
           this.error = true;
-          console.error('Email/Password Register error:', error);
         },
       });
   }

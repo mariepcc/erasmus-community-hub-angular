@@ -10,21 +10,22 @@
     <div class="friends-grid">
       <div *ngFor="let friend of friends" class="friend-card">
         <div class="friend-avatar-wrapper">
-          <img [src]="friend.avatar" [alt]="friend.username" class="friend-img" />
-          <span class="status-indicator" [class.online]="friend.isOnline"></span>
+          <img [src] [alt]="friend.username" class="friend-img" />
+          <span class="status-indicator" [class.online]=true></span>
         </div>
-        
+
         <div class="friend-info">
           <h3>{{ friend.username }}</h3>
-          <p class="location">{{ friend.city }}, {{ friend.country }}</p>
+          <p class="location"> {{ friend.country }}</p>
         </div>
-        
+
         <div class="friend-actions">
-          <button class="btn-action profile" (click)="navigateToProfile(friend.id)">
+          <button class="btn-action profile"
+            (click)="navigateToProfile(friend.uid)">
             <lucide-icon [img]="EyeIcon" [size]="16"></lucide-icon>
             <span>Profile</span>
           </button>
-          
+
           <button class="btn-action message" (click)="openChat(friend)">
             <lucide-icon [img]="MessageIcon" [size]="16"></lucide-icon>
             <span>Message</span>
@@ -39,7 +40,7 @@
   <div class="mini-chat-window">
     <div class="chat-header">
       <div class="user-info">
-        <img [src]="activeChatUser.avatar" alt="">
+        <img [src] alt>
         <div>
           <h4>{{ activeChatUser.username }}</h4>
           <span class="status-text">Active now</span>
@@ -51,8 +52,9 @@
     </div>
 
     <div class="chat-messages">
-      <div *ngFor="let msg of chatMessages" 
-           [ngClass]="{'sent': msg.isMine, 'received': !msg.isMine}" class="message">
+      <div *ngFor="let msg of chatMessages"
+        [ngClass]="{'sent': msg.isMine, 'received': !msg.isMine}"
+        class="message">
         <div class="bubble">
           {{ msg.content }}
         </div>
@@ -60,10 +62,10 @@
     </div>
 
     <div class="chat-footer">
-      <input type="text" 
-             placeholder="Type a message..." 
-             [(ngModel)]="newMessageContent" 
-             (keyup.enter)="sendMessage()">
+      <input type="text"
+        placeholder="Type a message..."
+        [(ngModel)]="newMessageContent"
+        (keyup.enter)="sendMessage()">
       <button class="send-btn" (click)="sendMessage()">
         <lucide-icon [img]="SendIcon" [size]="18"></lucide-icon>
       </button>

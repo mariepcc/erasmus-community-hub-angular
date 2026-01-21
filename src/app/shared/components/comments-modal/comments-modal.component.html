@@ -17,12 +17,13 @@
 
       <div class="comments-list">
         <div *ngFor="let comment of post.comments" class="comment-item">
-          <img [src]="comment.author.avatar" [alt]="comment.author.username" class="avatar">
+          <img [src] [alt]="comment.author.username" class="avatar">
           <div class="comment-wrapper">
             <div class="comment-bubble">
               <div class="comment-meta">
                 <span class="username">{{ comment.author.username }}</span>
-                <span class="date">{{ comment.timestamp | date:'shortTime' }}</span>
+                <span class="date">{{ comment.timestamp | date:'shortTime'
+                  }}</span>
               </div>
               <p class="content">{{ comment.content }}</p>
             </div>
@@ -45,14 +46,14 @@
     <div class="modal-footer">
       <img [src]="currentUser.avatar" class="user-avatar" *ngIf="currentUser">
       <div class="input-container">
-        <textarea 
-          [(ngModel)]="newCommentText" 
-          placeholder="Write a comment..." 
+        <textarea
+          [(ngModel)]="newCommentText"
+          placeholder="Write a comment..."
           (keyup.enter)="addComment()"
           rows="1">
         </textarea>
-        <button 
-          class="send-btn" 
+        <button
+          class="send-btn"
           [disabled]="!newCommentText.trim()"
           (click)="addComment()">
           <lucide-icon [img]="SendIcon" [size]="18"></lucide-icon>
