@@ -1,63 +1,112 @@
-<div class="h-screen flex overflow-hidden">
-  <div class="w-full lg:w-1/2 bg-white flex items-center justify-center p-8">
-    <div class="w-full max-w-[280px] xl:max-w-lg 2xl:max-w-xl">
-      <div class="mb-4">
-        <h1 class="text-gray-900 text-xl lg:text-2xl 2xl:text-3xl font-bold mb-1">Welcome back!</h1>
-        <p class="text-gray-500 text-xs lg:text-sm 2xl:text-base">Log in or create an account to meet other students</p>
+<div class="login-screen">
+  <div class="login-card">
+    <div class="card-left">
+      <div class="branding">
+        <img src="/images/logo.png" alt="Logo" class="brand-logo" />
+        <span class="logo-text">Erasmus <span>CommunityHub</span></span>
+      </div>
+      <div class="content-center">
+        <h1>Your Next Story Starts Here.</h1>
+        <p>Connect with students from all over the world and make memories that last forever.</p>
       </div>
       
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  
-  <div class="mb-3">
-    <label for="email" class="block text-gray-900 font-medium mb-1">E-mail</label>
-    <input
-      type="email"
-      id="email"
-      formControlName="email"
-      class="w-full px-4 py-2 rounded-md border border-gray-500 focus:border-blue-700 outline-none"
-    />
-    @if (form.get('email')?.invalid && form.get('email')?.touched) {
-      <p class="text-red-500 text-xs mt-1">Please enter a valid email.</p>
-    }
-  </div>
-
-  <div class="mb-1.5">
-    <label for="password" class="block text-gray-900 font-medium mb-1">Password</label>
-    <input
-      type="password"
-      id="password"
-      formControlName="password"
-      class="w-full px-4 py-2 rounded-md border border-gray-500 focus:border-blue-700 outline-none"
-    />
-  </div>
-
-  @if (error) {
-    <p class="text-red-600 text-sm mb-2 text-center font-bold">Invalid email or password.</p>
-  }
-
-  <div class="text-right mb-4">
-    <button type="button" (click)="onForgotPassword()" class="text-gray-600 text-xs underline">
-      Forgot password?
-    </button>
-  </div>
-
-  <button
-    type="submit"
-    [disabled]="form.invalid"
-    class="w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-2 rounded-md transition-colors disabled:bg-gray-400"
-  >
-    Log in
-  </button>
-  
-  </form>
+      <div class="air-traffic">
+        <div class="plane p-extra-large"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-large-1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-large-2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-medium-1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-medium-2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-small-1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-small-2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-tiny"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="cloud c1"></div>
+        <div class="cloud c2"></div>
+      </div>
     </div>
-  </div>
 
-  <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-500 to-blue-600 items-center justify-center overflow-hidden">
-    <img 
-      src="images/login_img.png"
-      alt="Erasmus students" 
-      class="w-full h-full object-cover"
-    />
+    <div class="card-right">
+      <div class="form-container">
+        <div class="flex-spacer"></div>
+        
+        <div class="signin-header">
+          <h2>Sign In</h2>
+          <div class="accent-line"></div>
+          <p class="subtitle">Welcome back! Please enter your details.</p>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+          <div class="input-group">
+            <label for="loginEmail">Email Address</label>
+            <div class="input-wrapper" [class.input-error]="form.get('email')?.invalid && form.get('email')?.touched">
+              <lucide-icon [img]="MailIcon" [size]="18"></lucide-icon>
+              <input 
+                type="email" 
+                id="loginEmail" 
+                formControlName="email"
+                placeholder="name@example.com" 
+              />
+            </div>
+            @if (form.get('email')?.invalid && form.get('email')?.touched) {
+              <p class="error-msg">Please enter a valid email.</p>
+            }
+          </div>
+
+          <div class="input-group">
+            <label for="loginPassword">Password</label>
+            <div class="input-wrapper">
+              <lucide-icon [img]="LockIcon" [size]="18"></lucide-icon>
+              <input 
+                type="password" 
+                id="loginPassword" 
+                formControlName="password"
+                placeholder="••••••••" 
+              />
+            </div>
+          </div>
+
+          @if (error) {
+            <p class="auth-error">Invalid email or password.</p>
+          }
+
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox" />
+              <span>Remember me</span>
+            </label>
+            <button type="button" (click)="onForgotPassword()" class="forgot-pass-btn">
+              Forgot Password?
+            </button>
+          </div>
+
+          <button 
+            type="submit" 
+            class="btn-login" 
+            [disabled]="form.invalid"
+          >
+            <span>Sign In</span>
+            <lucide-icon [img]="ArrowRightIcon" [size]="18"></lucide-icon>
+          </button>
+        </form>
+
+        <div class="divider">
+          <span>or login with</span>
+        </div>
+
+        <div class="social-login">
+          <button class="social-btn" type="button">
+            <img src="https://www.google.com/favicon.ico" alt="Google" />
+          </button>
+          <button class="social-btn" type="button">
+            <img src="https://www.facebook.com/favicon.ico" alt="Facebook" />
+          </button>
+        </div>
+
+        <div class="flex-spacer"></div>
+        
+        <p class="footer-text">
+          New here? <a routerLink="/register">Create account</a>
+        </p>
+      </div>
+    </div>
   </div>
 </div>

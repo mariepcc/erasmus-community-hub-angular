@@ -6,18 +6,41 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  LucideAngularModule,
+  Mail,
+  Lock,
+  ArrowRight,
+  Plane,
+  User,
+  Globe,
+  School,
+} from 'lucide-angular';
+import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    LucideAngularModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
+  readonly MailIcon = Mail;
+  readonly LockIcon = Lock;
+  readonly ArrowRightIcon = ArrowRight;
+  readonly PlaneIcon = Plane;
+  readonly UserIcon = User;
+  readonly GlobeIcon = Globe;
+  readonly SchoolIcon = School;
   email: string = '';
   firstName: string = '';
   lastName: string = '';
@@ -44,6 +67,11 @@ export class RegisterComponent {
       ],
     ],
     password: ['', Validators.required],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    country: ['', Validators.required],
+    university: ['', Validators.required],
+    gender: ['', Validators.required],
   });
 
   onSubmit(): void {
@@ -53,7 +81,7 @@ export class RegisterComponent {
       .subscribe({
         next: () => {
           console.log('Register successful!');
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/country-selector');
         },
         error: (error) => {
           this.error = true;

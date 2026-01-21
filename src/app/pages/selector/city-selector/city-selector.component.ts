@@ -111,7 +111,7 @@ export class CitySelectorComponent implements OnInit {
             id: `${country}-${city}`,
             name: city,
             selected: false,
-          })
+          }),
         ),
       }));
     });
@@ -138,6 +138,6 @@ export class CitySelectorComponent implements OnInit {
       .filter((g) => g.cities.length > 0);
 
     console.log('Final Selection:', finalSelection);
-    this.router.navigate(['/main-page'], { state: { data: finalSelection } });
+    this.router.navigate(['/'], { state: { data: finalSelection } });
   }
 }

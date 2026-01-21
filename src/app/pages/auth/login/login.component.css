@@ -1,0 +1,167 @@
+.login-screen {
+  position: fixed; inset: 0; width: 100vw; height: 100vh;
+  background: #f0f4ff; display: flex; align-items: center; justify-content: center;
+  z-index: 9999; font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-y: auto; padding: 20px;
+}
+
+.login-card {
+  width: 100%; max-width: 1300px; min-height: 900px; background: white; 
+  border-radius: 40px; display: flex; box-shadow: 0 50px 100px rgba(0, 0, 0, 0.08); 
+  overflow: hidden; position: relative;
+}
+
+.card-left {
+  flex: 1.1; background: linear-gradient(135deg, #5D87FF 0%, #3C63D9 100%);
+  padding: 60px; color: white; display: flex; flex-direction: column; position: relative; overflow: hidden;
+}
+
+.card-left .branding {
+  z-index: 20; display: flex; align-items: center; gap: 12px;
+}
+
+.card-left .branding .brand-logo { height: 42px; width: auto; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1)); }
+.card-left .branding .logo-text { font-size: 24px; font-weight: 800; }
+.card-left .branding .logo-text span { color: rgba(255,255,255,0.6); }
+
+.card-left .content-center {
+  margin-top: 60px; z-index: 20;
+}
+
+.card-left .content-center h1 { font-size: 48px; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: white; }
+.card-left .content-center p { font-size: 20px; line-height: 1.6; opacity: 0.9; max-width: 440px; color: white; }
+
+/* Animacje samolotów */
+.air-traffic {
+  position: absolute; inset: 0; z-index: 10; pointer-events: none;
+}
+
+.air-traffic .plane {
+  position: absolute; color: white; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+}
+
+.air-traffic .plane lucide-icon { width: 100%; height: 100%; display: block; }
+
+.air-traffic .plane.p-extra-large { width: 280px; height: 280px; bottom: -90px; left: -70px; animation: float 11s infinite ease-in-out; opacity: 0.98; }
+.air-traffic .plane.p-large-1 { width: 180px; height: 180px; bottom: 40px; left: 15%; animation: float 9s infinite ease-in-out reverse; opacity: 0.8; }
+.air-traffic .plane.p-large-2 { width: 140px; height: 140px; bottom: -20px; left: 45%; animation: float 13s infinite ease-in-out; opacity: 0.7; }
+.air-traffic .plane.p-medium-1 { width: 110px; height: 110px; bottom: 140px; left: 5%; animation: float 10s infinite ease-in-out; opacity: 0.6; }
+.air-traffic .plane.p-medium-2 { width: 100px; height: 100px; bottom: 60px; left: 60%; animation: float 12s infinite ease-in-out reverse; opacity: 0.5; }
+.air-traffic .plane.p-small-1 { width: 70px; height: 70px; bottom: 280px; left: 12%; animation: float 14s infinite ease-in-out; opacity: 0.4; }
+.air-traffic .plane.p-small-2 { width: 60px; height: 60px; bottom: 180px; left: 75%; animation: float 10s infinite ease-in-out reverse; opacity: 0.3; }
+.air-traffic .plane.p-tiny { width: 45px; height: 45px; bottom: 380px; left: 25%; animation: float 9s infinite ease-in-out; opacity: 0.2; }
+
+.air-traffic .cloud {
+  position: absolute; background: rgba(255,255,255,0.25); filter: blur(50px); border-radius: 50%;
+}
+.air-traffic .cloud.c1 { width: 450px; height: 200px; bottom: -80px; left: -100px; }
+.air-traffic .cloud.c2 { width: 300px; height: 150px; bottom: 50px; right: -50px; opacity: 0.4; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(-15deg); }
+  50% { transform: translate(20px, -30px) rotate(-10deg); }
+}
+
+/* Prawa strona */
+.card-right {
+  flex: 1; background: white; padding: 60px 80px; display: flex; justify-content: center; overflow-y: auto; align-items: center;
+}
+
+.form-container {
+  width: 100%; max-width: 400px; display: flex; flex-direction: column;
+}
+
+.form-container .flex-spacer { flex-grow: 1; }
+
+.signin-header {
+  text-align: center; margin-bottom: 40px;
+}
+.signin-header h2 { font-size: 42px; font-weight: 900; color: #1e293b; margin: 0; letter-spacing: -1.5px; }
+.signin-header .accent-line { width: 50px; height: 7px; background: #5D87FF; border-radius: 10px; margin: 15px auto; }
+.signin-header .subtitle { color: #94a3b8; font-weight: 500; font-size: 16px; margin: 0; }
+
+.login-form { width: 100%; }
+
+.input-group {
+  margin-bottom: 25px;
+}
+.input-group label { display: block; font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1.5px; }
+
+.input-wrapper {
+  position: relative;
+}
+.input-wrapper lucide-icon { 
+  position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #94a3b8; 
+}
+.input-wrapper input {
+  width: 100%; padding: 18px 18px 18px 54px; background: #f8fafc; border: 2px solid #f1f5f9; border-radius: 18px; font-size: 18px; transition: 0.3s;
+}
+.input-wrapper input:focus { outline: none; border-color: #5D87FF; background: white; box-shadow: 0 10px 25px rgba(93, 135, 255, 0.08); }
+
+.input-wrapper.input-error input {
+  border-color: #ef4444;
+  background: #fffafa;
+}
+.error-msg {
+  color: #ef4444; font-size: 12px; margin-top: 8px; font-weight: 600;
+}
+.auth-error {
+  color: #ef4444; text-align: center; font-weight: 700; margin-bottom: 20px; font-size: 14px;
+}
+
+.form-options {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;
+}
+.form-options .remember-me { display: flex; align-items: center; gap: 10px; font-weight: 600; color: #64748b; font-size: 14px; cursor: pointer; }
+
+.forgot-pass-btn { 
+  background: none; border: none; padding: 0;
+  color: #5D87FF; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;
+}
+.forgot-pass-btn:hover { text-decoration: underline; }
+
+.btn-login {
+  width: 100%; background: #5D87FF; color: white; border: none; padding: 20px; border-radius: 20px; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; transition: 0.3s;
+}
+.btn-login:hover:not(:disabled) { background: #3C63D9; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(93, 135, 255, 0.25); }
+.btn-login:disabled { background: #cbd5e1; cursor: not-allowed; transform: none; }
+
+.divider {
+  margin: 35px 0; position: relative; text-align: center;
+}
+.divider::before { content: ""; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: #f1f5f9; }
+.divider span { position: relative; background: white; padding: 0 20px; color: #cbd5e1; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+
+.social-login {
+  display: flex; gap: 20px;
+}
+.social-login .social-btn {
+  flex: 1; height: 60px; background: white; border: 2px solid #f1f5f9; border-radius: 18px; display: flex; align-items: center; justify-content: center; transition: 0.2s; cursor: pointer;
+}
+.social-login .social-btn img { width: 22px; }
+.social-login .social-btn:hover { background: #f8fafc; border-color: #e2e8f0; }
+
+.footer-text { 
+  text-align: center; color: #64748b; font-weight: 600; font-size: 15px; margin-top: 40px;
+}
+.footer-text a { color: #5D87FF; text-decoration: none; font-weight: 800; cursor: pointer; }
+.footer-text a:hover { text-decoration: underline; }
+
+@media (max-width: 1024px) {
+  .login-card { flex-direction: column; min-height: 0; height: auto; border-radius: 30px; }
+  .card-left { padding: 40px; }
+  .card-left .content-center { margin-top: 30px; }
+  .card-left .content-center h1 { font-size: 32px; }
+  .card-left .content-center p { font-size: 16px; }
+  .card-right { padding: 40px 30px; }
+  .air-traffic .plane.p-extra-large { width: 150px; height: 150px; left: -30px; bottom: -40px; }
+}
+
+@media (max-width: 480px) {
+  .login-screen { padding: 10px; }
+  .card-left { padding: 30px 20px; }
+  .card-left .branding .logo-text { font-size: 20px; }
+  .form-container .signin-header h2 { font-size: 28px; }
+  .btn-login { padding: 16px; }
+  .social-login { flex-direction: column; gap: 10px; }
+}

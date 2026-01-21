@@ -1,50 +1,140 @@
-<div class="h-screen flex overflow-hidden relative">
-  <div class="absolute inset-0">
-    <img src="images/register_background.png" alt="Background" class="w-full h-full object-cover" />
-  </div>
-
-  <div class="relative z-10 w-full flex items-start justify-center overflow-y-auto">
-    <div class="bg-white w-full max-w-md lg:max-w-xl min-h-screen p-8">
-      <div class="mb-6">
-        <h1 class="text-gray-900 text-2xl font-bold mb-2">Create an account</h1>
-        <p class="text-gray-600 text-sm">Join the Erasmus student community!</p>
+<div class="login-screen">
+  <div class="login-card">
+    <div class="card-left">
+      <div class="branding">
+        <img src="/images/logo.png" alt="Logo" class="brand-logo" />
+        <span class="logo-text">Erasmus <span>CommunityHub</span></span>
       </div>
       
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="mb-4">
-          <label class="block text-gray-900 text-sm font-medium mb-1.5">Username (Display Name)</label>
-          <input type="text" formControlName="username" class="w-full px-4 py-2 border rounded-md" required />
+      <div class="content-center">
+        <h1>Start Your Adventure.</h1>
+        <p>Join thousands of students and start sharing your global experiences today.</p>
+      </div>
+
+      <div class="air-traffic">
+        <div class="plane p1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p3"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p4"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p5"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p6"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p7"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p8"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p9"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="cloud c1"></div>
+        <div class="cloud c2"></div>
+        <div class="cloud c3"></div>
+      </div>
+    </div>
+
+    <div class="card-right">
+      <div class="form-container">
+        <div class="signin-header">
+          <h2>Create Account</h2>
+          <div class="accent-line"></div>
         </div>
 
-        <div class="mb-4">
-          <label class="block text-gray-900 text-sm font-medium mb-1.5">Email address</label>
-          <input type="email" formControlName="email" class="w-full px-4 py-2 border rounded-md" required />
-        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+          <div class="form-row">
+            <div class="input-group">
+              <label>Email Address</label>
+              <div class="input-wrapper" [class.input-error]="form.get('email')?.invalid && form.get('email')?.touched">
+                <lucide-icon [img]="MailIcon" [size]="18"></lucide-icon>
+                <input type="email" formControlName="email" placeholder="name@example.com" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label>Username</label>
+              <div class="input-wrapper" [class.input-error]="form.get('username')?.invalid && form.get('username')?.touched">
+                <lucide-icon [img]="UserIcon" [size]="18"></lucide-icon>
+                <input type="text" formControlName="username" placeholder="unique_id" />
+              </div>
+            </div>
+          </div>
 
-        <div class="mb-6">
-          <label class="block text-gray-900 text-sm font-medium mb-1.5">Password</label>
-          <input type="password" formControlName="password" class="w-full px-4 py-2 border rounded-md" required />
-        </div>
+          <div class="form-row">
+            <div class="input-group">
+              <label>First Name</label>
+              <div class="input-wrapper">
+                <lucide-icon [img]="UserIcon" [size]="18"></lucide-icon>
+                <input type="text" formControlName="firstName" placeholder="John" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label>Last Name</label>
+              <div class="input-wrapper">
+                <lucide-icon [img]="UserIcon" [size]="18"></lucide-icon>
+                <input type="text" formControlName="lastName" placeholder="Doe" />
+              </div>
+            </div>
+          </div>
 
-        @if (error) {
-          <p class="text-red-600 text-sm mb-4 font-medium">Registration failed. Please try again.</p>
-        }
+          <div class="input-group">
+            <label>Password</label>
+            <div class="input-wrapper" [class.input-error]="form.get('password')?.invalid && form.get('password')?.touched">
+              <lucide-icon [img]="LockIcon" [size]="18"></lucide-icon>
+              <input type="password" formControlName="password" placeholder="Min. 8 characters" />
+            </div>
+          </div>
 
-        <button
-          type="submit"
-          [disabled]="form.invalid"
-          class="w-full bg-blue-900 hover:bg-blue-950 text-white font-semibold py-3 rounded-lg transition-colors disabled:bg-gray-400"
-        >
-          Sign up
-        </button>
+          <div class="form-row">
+            <div class="input-group">
+              <label>Country</label>
+              <div class="input-wrapper">
+                <lucide-icon [img]="GlobeIcon" [size]="18"></lucide-icon>
+                <select formControlName="country">
+                  <option value="" disabled>Select...</option>
+                  <option value="pl">Poland</option>
+                  <option value="es">Spain</option>
+                  <option value="it">Italy</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>University</label>
+              <div class="input-wrapper">
+                <lucide-icon [img]="SchoolIcon" [size]="18"></lucide-icon>
+                <select formControlName="university">
+                  <option value="" disabled>Select...</option>
+                  <option value="uw">University of Warsaw</option>
+                  <option value="pw">Warsaw University of Technology</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
-        <div class="text-center mt-6">
-          <p class="text-sm text-gray-600">
-            Already have an account? 
-            <button type="button" (click)="goToLogin()" class="text-blue-700 font-semibold underline">Log in</button>
-          </p>
-        </div>
-      </form>
+          <div class="input-group">
+            <label>Gender</label>
+            <div class="gender-selection">
+              <label class="gender-btn">
+                <input type="radio" formControlName="gender" value="male" />
+                <span class="gender-label">Male</span>
+              </label>
+              <label class="gender-btn">
+                <input type="radio" formControlName="gender" value="female" />
+                <span class="gender-label">Female</span>
+              </label>
+              <label class="gender-btn">
+                <input type="radio" formControlName="gender" value="other" />
+                <span class="gender-label">Other</span>
+              </label>
+            </div>
+          </div>
+
+          @if (error) {
+            <p class="auth-error">Registration failed. Please check your data.</p>
+          }
+
+          <button type="submit" class="btn-login" [disabled]="form.invalid">
+            <span>Sign Up</span>
+            <lucide-icon [img]="ArrowRightIcon" [size]="20"></lucide-icon>
+          </button>
+        </form>
+
+        <p class="footer-text">
+          Already have an account? <a routerLink="/login">Sign In</a>
+        </p>
+      </div>
     </div>
   </div>
 </div>

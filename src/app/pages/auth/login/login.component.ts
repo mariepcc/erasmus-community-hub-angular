@@ -5,17 +5,28 @@ import {
   ReactiveFormsModule,
   FormBuilder,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  LucideAngularModule,
+  Mail,
+  Lock,
+  ArrowRight,
+  Plane,
+} from 'lucide-angular';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-user-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [RouterLink, FormsModule, ReactiveFormsModule, LucideAngularModule],
   templateUrl: './login.component.html',
-  styles: '',
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  readonly MailIcon = Mail;
+  readonly LockIcon = Lock;
+  readonly ArrowRightIcon = ArrowRight;
+  readonly PlaneIcon = Plane;
   error: boolean = false;
   fb: FormBuilder = inject(FormBuilder);
   authService: AuthService = inject(AuthService);
@@ -85,7 +96,7 @@ async googleLogin(): Promise<void> {
     this.router.navigate(['/forgot-password']);
   }
 
-  onSignUp() {
+  goToRegister() {
     this.router.navigate(['/register']);
   }
 }

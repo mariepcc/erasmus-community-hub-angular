@@ -1,0 +1,87 @@
+.login-screen {
+  position: fixed; inset: 0; width: 100vw; height: 100vh;
+  background: #f0f4ff; display: flex; align-items: center; justify-content: center;
+  z-index: 9999; font-family: 'Plus Jakarta Sans', sans-serif; padding: 20px;
+}
+
+.login-card {
+  width: 100%; max-width: 1250px; height: 820px; background: white;
+  border-radius: 40px; display: flex; box-shadow: 0 50px 100px rgba(0, 0, 0, 0.08); overflow: hidden;
+}
+
+.card-left {
+  flex: 1.1; background: linear-gradient(135deg, #5D87FF 0%, #3C63D9 100%);
+  padding: 60px; color: white; display: flex; flex-direction: column; position: relative; overflow: hidden;
+}
+
+.branding { z-index: 20; display: flex; align-items: center; gap: 12px; }
+.brand-logo { height: 40px; width: auto; }
+.logo-text { font-size: 26px; font-weight: 800; }
+.logo-text span { color: rgba(255,255,255,0.5); }
+
+.content-center { margin-top: 80px; z-index: 20; }
+.content-center h1 { font-size: 52px; font-weight: 900; line-height: 1.1; margin-bottom: 25px; letter-spacing: -1.5px; }
+.content-center p { font-size: 19px; line-height: 1.6; opacity: 0.9; max-width: 440px; }
+
+.air-traffic { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+.plane { position: absolute; color: white; opacity: 0.25; }
+
+.p1 { width: 280px; height: 280px; bottom: -80px; left: -60px; opacity: 0.6; animation: float 15s infinite ease-in-out; }
+.p2 { width: 140px; height: 140px; top: 5%; right: 10%; animation: float 10s infinite ease-in-out reverse; }
+.p3 { width: 100px; height: 100px; top: 40%; right: 5%; animation: float 12s infinite ease-in-out; }
+.p4 { width: 80px; height: 80px; bottom: 20%; right: 20%; animation: float 18s infinite ease-in-out; }
+.p5 { width: 110px; height: 110px; bottom: 10%; left: 40%; animation: float 14s infinite ease-in-out reverse; }
+.p6 { width: 60px; height: 60px; top: 20%; left: 45%; animation: float 11s infinite ease-in-out; }
+.p7 { width: 50px; height: 50px; bottom: 40%; left: 5%; animation: float 13s infinite ease-in-out; }
+.p8 { width: 120px; height: 120px; top: 60%; left: 60%; opacity: 0.15; animation: float 16s infinite ease-in-out reverse; }
+.p9 { width: 70px; height: 70px; top: 10%; left: 20%; animation: float 9s infinite ease-in-out; }
+
+.cloud { position: absolute; background: rgba(255,255,255,0.2); filter: blur(50px); border-radius: 50%; }
+.cloud.c1 { width: 450px; height: 220px; bottom: -90px; left: -100px; }
+.cloud.c2 { width: 350px; height: 180px; top: -40px; right: -40px; }
+.cloud.c3 { width: 200px; height: 100px; top: 50%; left: 50%; opacity: 0.15; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(-15deg); }
+  50% { transform: translate(25px, -35px) rotate(-10deg); }
+}
+
+.card-right { flex: 1.2; background: white; padding: 40px 70px; display: flex; justify-content: center; align-items: center; }
+.form-container { width: 100%; max-width: 480px; }
+
+.signin-header { text-align: center; margin-bottom: 30px; }
+.signin-header h2 { font-size: 38px; font-weight: 900; color: #1e293b; letter-spacing: -1.5px; margin: 0; }
+.accent-line { width: 50px; height: 6px; background: #5D87FF; border-radius: 10px; margin: 12px auto; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.input-group { margin-bottom: 18px; }
+.input-group label { display: block; font-size: 12px; font-weight: 800; color: #64748b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+
+.input-wrapper { position: relative; }
+.input-wrapper lucide-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+.input-wrapper input, .input-wrapper select {
+  width: 100%; padding: 14px 14px 14px 50px; background: #f8fafc; border: 2px solid #f1f5f9; border-radius: 15px; font-size: 16px; transition: 0.3s;
+}
+.input-wrapper input:focus, .input-wrapper select:focus { outline: none; border-color: #5D87FF; background: white; }
+.input-wrapper.input-error input { border-color: #ef4444; }
+
+.gender-selection { display: flex; gap: 10px; }
+.gender-btn { flex: 1; cursor: pointer; }
+.gender-btn input { display: none; }
+.gender-label {
+  display: block; padding: 14px; background: #f8fafc; border: 2px solid #f1f5f9; border-radius: 14px;
+  text-align: center; font-weight: 700; color: #64748b; transition: 0.2s; font-size: 15px;
+}
+.gender-btn input:checked + .gender-label { background: #5D87FF; border-color: #5D87FF; color: white; }
+
+.btn-login {
+  width: 100%; background: #5D87FF; color: white; border: none; padding: 18px; border-radius: 16px;
+  font-size: 18px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; transition: 0.3s;
+}
+.btn-login:hover:not(:disabled) { background: #3C63D9; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(93, 135, 255, 0.2); }
+
+.footer-text { text-align: center; color: #64748b; font-weight: 600; font-size: 16px; margin-top: 30px; }
+.footer-text a { 
+  color: #5D87FF; text-decoration: none; font-weight: 800; display: inline-block; transition: 0.3s;
+}
+.footer-text a:hover { color: #3C63D9; transform: scale(1.1) translateY(-1px); }
