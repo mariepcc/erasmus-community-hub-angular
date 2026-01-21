@@ -7,18 +7,27 @@
       </div>
       <div class="content-center">
         <h1>Your Next Story Starts Here.</h1>
-        <p>Connect with students from all over the world and make memories that last forever.</p>
+        <p>Connect with students from all over the world and make memories that
+          last forever.</p>
       </div>
-      
+
       <div class="air-traffic">
-        <div class="plane p-extra-large"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
-        <div class="plane p-large-1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
-        <div class="plane p-large-2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
-        <div class="plane p-medium-1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
-        <div class="plane p-medium-2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
-        <div class="plane p-small-1"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
-        <div class="plane p-small-2"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
-        <div class="plane p-tiny"><lucide-icon [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-extra-large"><lucide-icon
+            [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-large-1"><lucide-icon
+            [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-large-2"><lucide-icon
+            [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-medium-1"><lucide-icon
+            [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-medium-2"><lucide-icon
+            [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-small-1"><lucide-icon
+            [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-small-2"><lucide-icon
+            [img]="PlaneIcon"></lucide-icon></div>
+        <div class="plane p-tiny"><lucide-icon
+            [img]="PlaneIcon"></lucide-icon></div>
         <div class="cloud c1"></div>
         <div class="cloud c2"></div>
       </div>
@@ -27,7 +36,7 @@
     <div class="card-right">
       <div class="form-container">
         <div class="flex-spacer"></div>
-        
+
         <div class="signin-header">
           <h2>Sign In</h2>
           <div class="accent-line"></div>
@@ -37,17 +46,17 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
           <div class="input-group">
             <label for="loginEmail">Email Address</label>
-            <div class="input-wrapper" [class.input-error]="form.get('email')?.invalid && form.get('email')?.touched">
+            <div class="input-wrapper"
+              [class.input-error]="form.get('email')?.invalid && form.get('email')?.touched">
               <lucide-icon [img]="MailIcon" [size]="18"></lucide-icon>
-              <input 
-                type="email" 
-                id="loginEmail" 
+              <input
+                type="email"
+                id="loginEmail"
                 formControlName="email"
-                placeholder="name@example.com" 
-              />
+                placeholder="Your email" />
             </div>
             @if (form.get('email')?.invalid && form.get('email')?.touched) {
-              <p class="error-msg">Please enter a valid email.</p>
+            <p class="error-msg">Please enter a valid email.</p>
             }
           </div>
 
@@ -55,17 +64,16 @@
             <label for="loginPassword">Password</label>
             <div class="input-wrapper">
               <lucide-icon [img]="LockIcon" [size]="18"></lucide-icon>
-              <input 
-                type="password" 
-                id="loginPassword" 
+              <input
+                type="password"
+                id="loginPassword"
                 formControlName="password"
-                placeholder="••••••••" 
-              />
+                placeholder="Your password" />
             </div>
           </div>
 
           @if (error) {
-            <p class="auth-error">Invalid email or password.</p>
+          <p class="auth-error">Invalid email or password.</p>
           }
 
           <div class="form-options">
@@ -73,16 +81,16 @@
               <input type="checkbox" />
               <span>Remember me</span>
             </label>
-            <button type="button" (click)="onForgotPassword()" class="forgot-pass-btn">
+            <button type="button" (click)="onForgotPassword()"
+              class="forgot-pass-btn">
               Forgot Password?
             </button>
           </div>
 
-          <button 
-            type="submit" 
-            class="btn-login" 
-            [disabled]="form.invalid"
-          >
+          <button
+            type="submit"
+            class="btn-login"
+            [disabled]="form.invalid">
             <span>Sign In</span>
             <lucide-icon [img]="ArrowRightIcon" [size]="18"></lucide-icon>
           </button>
@@ -102,7 +110,7 @@
         </div>
 
         <div class="flex-spacer"></div>
-        
+
         <p class="footer-text">
           New here? <a routerLink="/register">Create account</a>
         </p>

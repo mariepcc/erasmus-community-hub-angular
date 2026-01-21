@@ -57,13 +57,26 @@
 .input-group { margin-bottom: 18px; }
 .input-group label { display: block; font-size: 12px; font-weight: 800; color: #64748b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
 
-.input-wrapper { position: relative; }
-.input-wrapper lucide-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+.input-wrapper { position: relative; display: flex; align-items: center; }
+.input-wrapper lucide-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #94a3b8; z-index: 10; pointer-events: none; }
+
 .input-wrapper input, .input-wrapper select {
   width: 100%; padding: 14px 14px 14px 50px; background: #f8fafc; border: 2px solid #f1f5f9; border-radius: 15px; font-size: 16px; transition: 0.3s;
+  appearance: none; -webkit-appearance: none; -moz-appearance: none;
 }
-.input-wrapper input:focus, .input-wrapper select:focus { outline: none; border-color: #5D87FF; background: white; }
-.input-wrapper.input-error input { border-color: #ef4444; }
+
+.input-wrapper select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 40px;
+}
+
+.input-wrapper input:focus, .input-wrapper select:focus { outline: none; border-color: #5D87FF; background: white; box-shadow: 0 0 0 4px rgba(93, 135, 255, 0.1); }
+.input-wrapper.input-error input, .input-wrapper.input-error select { border-color: #ef4444 !important; background-color: #fffafa; }
+
+.error-msg { color: #ef4444; font-size: 11px; font-weight: 700; margin-top: 5px; margin-left: 5px; animation: slideIn 0.2s ease-out; }
 
 .gender-selection { display: flex; gap: 10px; }
 .gender-btn { flex: 1; cursor: pointer; }
@@ -79,9 +92,9 @@
   font-size: 18px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; transition: 0.3s;
 }
 .btn-login:hover:not(:disabled) { background: #3C63D9; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(93, 135, 255, 0.2); }
+.btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .footer-text { text-align: center; color: #64748b; font-weight: 600; font-size: 16px; margin-top: 30px; }
-.footer-text a { 
-  color: #5D87FF; text-decoration: none; font-weight: 800; display: inline-block; transition: 0.3s;
-}
-.footer-text a:hover { color: #3C63D9; transform: scale(1.1) translateY(-1px); }
+.footer-text a { color: #5D87FF; text-decoration: none; font-weight: 800; display: inline-block; transition: 0.3s; }
+
+@keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }

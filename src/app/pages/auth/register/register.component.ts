@@ -42,16 +42,13 @@ export class RegisterComponent {
   readonly GlobeIcon = Globe;
   readonly SchoolIcon = School;
   email: string = '';
+  username: string = '';
   firstName: string = '';
   lastName: string = '';
   password: string = '';
   country: string = '';
   university: string = '';
   gender: string = 'male';
-  bio: string = '';
-  acceptTerms: boolean = false;
-  receiveNotifications: boolean = false;
-  profileImage: string = '';
 
   error: boolean = false;
   fb: FormBuilder = inject(FormBuilder);
@@ -66,7 +63,16 @@ export class RegisterComponent {
         Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
       ],
     ],
-    password: ['', Validators.required],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        ),
+      ],
+    ],
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     country: ['', Validators.required],
