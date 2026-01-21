@@ -1,5 +1,6 @@
-<div class="profile-page">
-  <div class="cover-photo">
+<div class="profile-page" *ngIf="userProfile$ | async as user">
+  <div class="cover-photo"
+    [style.background-image]="user.coverUrl ? 'url(' + user.coverUrl + ')' : null">
     <button class="edit-cover-btn">
       <lucide-icon [img]="EditIcon" [size]="18"></lucide-icon>
       Edit Cover
@@ -9,18 +10,30 @@
   <div class="profile-container">
     <div class="profile-header">
       <div class="avatar-section">
-        <img [src]="currentUser?.avatar" [alt]="currentUser?.username" class="profile-avatar" />
+        <img [src]="user.avatarUrl || defaultAvatar" [alt]="user.username"
+          class="profile-avatar" />
         <button class="edit-avatar-btn">
           <lucide-icon [img]="EditIcon" [size]="16"></lucide-icon>
         </button>
       </div>
 
       <div class="profile-info">
-        <h1>{{ currentUser?.username }}</h1>
+        <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+        <p class="username">&commat;{{ user.username }}</p>
+
         <div class="profile-meta">
-          <div class="meta-item"><lucide-icon [img]="MapPinIcon" [size]="16"></lucide-icon><span>Warsaw, Poland</span></div>
-          <div class="meta-item"><lucide-icon [img]="CalendarIcon" [size]="16"></lucide-icon><span>Joined Jan 2025</span></div>
-          <div class="meta-item"><lucide-icon [img]="MailIcon" [size]="16"></lucide-icon><span>{{ currentUser?.email }}</span></div>
+          <div class="meta-item">
+            <lucide-icon [img]="MapPinIcon" [size]="16"></lucide-icon>
+            <span>{{ user.country }}</span>
+          </div>
+          <div class="meta-item">
+            <lucide-icon [img]="CalendarIcon" [size]="16"></lucide-icon>
+            <span>Joined {{ user.joinedDate || 'Jan 2026' }}</span>
+          </div>
+          <div class="meta-item">
+            <lucide-icon [img]="MailIcon" [size]="16"></lucide-icon>
+            <span>{{ user.email }}</span>
+          </div>
         </div>
       </div>
 
@@ -32,53 +45,26 @@
 
     <div class="profile-stats">
       <div class="stat-card">
-        <span class="stat-value">42</span>
+        <span class="stat-value">{{ user.stats?.postsCount || 0 }}</span>
         <span class="stat-label">Posts</span>
       </div>
       <div class="stat-card">
-        <span class="stat-value">1.2k</span>
+        <span class="stat-value">{{ user.stats?.followersCount || 0 }}</span>
         <span class="stat-label">Followers</span>
       </div>
       <div class="stat-card">
-        <span class="stat-value">156</span>
+        <span class="stat-value">{{ user.stats?.followingCount || 0 }}</span>
         <span class="stat-label">Following</span>
       </div>
       <div class="stat-card">
-        <span class="stat-value">8</span>
+        <span class="stat-value">{{ user.stats?.communitiesCount || 0 }}</span>
         <span class="stat-label">Communities</span>
       </div>
     </div>
 
     <div class="about-section">
       <h2>About</h2>
-      <p>Erasmus student exploring Europe and making international connections! 🌍✈️</p>
+      <p>{{ user.bio ||
+        'No description yet. Click edit to add something about yourself!' }}</p>
     </div>
-
-    <div class="profile-tabs">
-      <button class="tab-item" [class.active]="activeTab === 'posts'" (click)="setTab('posts')">
-        <lucide-icon [img]="PostsIcon" [size]="18"></lucide-icon>
-        <span>Posts</span>
-      </button>
-      <button class="tab-item" [class.active]="activeTab === 'comments'" (click)="setTab('comments')">
-        <lucide-icon [img]="CommentsIcon" [size]="18"></lucide-icon>
-        <span>Comments</span>
-      </button>
-      <button class="tab-item" [class.active]="activeTab === 'saved'" (click)="setTab('saved')">
-        <lucide-icon [img]="SavedIcon" [size]="18"></lucide-icon>
-        <span>Saved</span>
-      </button>
-    </div>
-
-    <div class="tab-content">
-      <div *ngIf="activeTab === 'posts'" class="empty-tab">
-        <p>No posts yet. Share your first Erasmus story!</p>
-      </div>
-      <div *ngIf="activeTab === 'comments'" class="empty-tab">
-        <p>You haven't commented on anything yet.</p>
-      </div>
-      <div *ngIf="activeTab === 'saved'" class="empty-tab">
-        <p>Your saved posts will appear here.</p>
-      </div>
-    </div>
-  </div>
-</div>
+  </div> </div>

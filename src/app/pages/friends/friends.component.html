@@ -10,7 +10,8 @@
     <div class="friends-grid">
       <div *ngFor="let friend of friends" class="friend-card">
         <div class="friend-avatar-wrapper">
-          <img [src] [alt]="friend.username" class="friend-img" />
+          <img [src]="friend.avatarUrl" [alt]="friend.username"
+            class="friend-img" />
           <span class="status-indicator" [class.online]=true></span>
         </div>
 

@@ -84,16 +84,16 @@ export class RegisterComponent implements OnInit {
     }
 
     const values = this.form.getRawValue();
-    console.log('1. Rozpoczynam rejestrację dla:', values.email);
+    const now = new Date();
+    const month = now.toLocaleString('en-US', { month: 'short' });
+    const year = now.getFullYear();
+    const joinedDate = `${month} ${year}`;
 
     this.authService
       .register(values.email, values.username, values.password)
       .pipe(
         switchMap((userCredential) => {
           const uid = userCredential.user.uid;
-          console.log('2. Konto Auth utworzone. UID:', uid);
-
-          console.log('3. Próbuję zapisać dane do Firestore...');
           return this.userService.addUser({
             uid,
             email: values.email,
@@ -103,16 +103,18 @@ export class RegisterComponent implements OnInit {
             country: values.country,
             university: values.university,
             gender: values.gender,
+            joinedDate: joinedDate,
+            avatarUrl: '',
+            coverUrl: '',
+            bio: '',
           });
         }),
       )
       .subscribe({
         next: () => {
-          console.log('4. SUKCES: Dane zapisane w Firestore, przekierowuję...');
-          this.router.navigate(['/']);
+          this.router.navigate(['/country-selector']);
         },
         error: (err) => {
-          console.error('BŁĄD na którymś z etapów:', err);
           this.error = true;
         },
       });

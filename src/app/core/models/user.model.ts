@@ -19,5 +19,10 @@ export interface User {
   university: string;
   country: string;
   gender: string;
+  joinedDate: string;
+  avatarUrl: string;
+  coverUrl: string;
+  bio: string;
   groups?: UserDestination[];
+  stats?: UserStats;
 }

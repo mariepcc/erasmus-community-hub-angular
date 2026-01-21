@@ -1,4 +1,4 @@
-<header class="top-bar">
+<header class="top-bar" *ngIf="currentUser$ | async as user">
   <div class="top-bar-left">
     <button class="menu-toggle" (click)="onToggleSidebar()">
       <lucide-icon [img]="MenuIcon" [size]="24"></lucide-icon>
@@ -14,21 +14,23 @@
 
   <div class="top-bar-center">
     <div class="search-bar">
-      <lucide-icon [img]="SearchIcon" class="search-icon" [size]="20"></lucide-icon>
+      <lucide-icon [img]="SearchIcon" class="search-icon"
+        [size]="20"></lucide-icon>
       <input type="text" placeholder="Search communities, people, events..." />
     </div>
   </div>
 
   <div class="top-bar-right">
-    <button class="action-btn create-btn" (click)="onCreatePost()" title="Create Post">
+    <button class="action-btn create-btn" (click)="onCreatePost()"
+      title="Create Post">
       <lucide-icon [img]="PlusIcon" [size]="20"></lucide-icon>
       <span class="btn-text">Create</span>
     </button>
 
-    <button 
-      class="action-btn icon-btn" 
+    <button
+      class="action-btn icon-btn"
       [class.active]="isNotificationsOpen"
-      (click)="onToggleNotifications()" 
+      (click)="onToggleNotifications()"
       title="Notifications">
       <lucide-icon [img]="BellIcon" [size]="22"></lucide-icon>
       <span class="notification-badge" *ngIf="notificationCount > 0">
@@ -36,25 +38,27 @@
       </span>
     </button>
 
-    <button 
-      class="action-btn icon-btn" 
+    <button
+      class="action-btn icon-btn"
       [class.active]="isChatOpen"
-      (click)="onToggleChat()" 
+      (click)="onToggleChat()"
       title="Messages">
       <lucide-icon [img]="MessageCircleIcon" [size]="22"></lucide-icon>
     </button>
 
     <div class="profile-dropdown" [class.open]="isProfileOpen">
       <button class="profile-btn" (click)="toggleProfile()">
-        <img [src]="currentUser?.avatar || '/images/default-avatar.png'" 
-             [alt]="currentUser?.username" 
-             class="user-avatar" />
-        <lucide-icon [img]="ChevronDownIcon" class="chevron" [size]="18"></lucide-icon>
+        <img [src]="user.avatarUrl"
+          [alt]="user.username"
+          class="user-avatar" />
+        <lucide-icon [img]="ChevronDownIcon" class="chevron"
+          [size]="18"></lucide-icon>
       </button>
 
       <div class="dropdown-menu" *ngIf="isProfileOpen">
         <button class="dropdown-item" (click)="toggleDarkMode()">
-          <lucide-icon [img]="isDarkMode ? SunIcon : MoonIcon" [size]="18"></lucide-icon>
+          <lucide-icon [img]="isDarkMode ? SunIcon : MoonIcon"
+            [size]="18"></lucide-icon>
           <span>{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</span>
         </button>
         <div class="dropdown-divider"></div>

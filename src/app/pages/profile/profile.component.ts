@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   LucideAngularModule,
@@ -10,7 +10,9 @@ import {
   MessageSquare,
   Bookmark,
 } from 'lucide-angular';
-import { AuthService } from '../../core/services/auth.service';
+import { UserService } from '../../core/services/user.service';
+import { Observable } from 'rxjs';
+import { User } from '../../core/models/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +22,8 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  private userService = inject(UserService);
+
   readonly MapPinIcon = MapPin;
   readonly CalendarIcon = Calendar;
   readonly MailIcon = Mail;
@@ -28,10 +32,12 @@ export class ProfileComponent implements OnInit {
   readonly CommentsIcon = MessageSquare;
   readonly SavedIcon = Bookmark;
 
-  currentUser: any = null;
-  activeTab: 'posts' | 'comments' | 'saved' = 'posts';
+  userProfile$: Observable<User | null> = this.userService.currentUserProfile$;
 
-  constructor(private authService: AuthService) {}
+  defaultAvatar =
+    'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png';
+
+  activeTab: 'posts' | 'comments' | 'saved' = 'posts';
 
   ngOnInit(): void {}
 

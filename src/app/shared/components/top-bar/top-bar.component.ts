@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
   HostListener,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -21,6 +22,9 @@ import {
   LogOut,
 } from 'lucide-angular';
 import { AuthService } from '../../../core/services/auth.service';
+import { Observable, take } from 'rxjs';
+import { UserService } from '../../../core/services/user.service';
+import { User } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-top-bar',
@@ -30,6 +34,8 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrls: ['./top-bar.component.scss'],
 })
 export class TopBarComponent implements OnInit {
+  private userService = inject(UserService);
+
   @Output() toggleSidebar = new EventEmitter<void>();
   @Output() toggleChat = new EventEmitter<void>();
   @Output() toggleNotifications = new EventEmitter<void>();
@@ -48,8 +54,8 @@ export class TopBarComponent implements OnInit {
   readonly SunIcon = Sun;
   readonly LogOutIcon = LogOut;
 
-  currentUser: any = null;
-  notificationCount = 3;
+  currentUser$: Observable<User | null> = this.userService.currentUserProfile$;
+  notificationCount = 2;
   isProfileOpen = false;
   isDarkMode = false;
 
@@ -83,6 +89,10 @@ export class TopBarComponent implements OnInit {
 
   toggleProfile(): void {
     this.isProfileOpen = !this.isProfileOpen;
+    this.currentUser$.pipe(take(1)).subscribe((user) => {
+      console.log('Dane użytkownika:', user);
+      console.log('URL awatara:', user?.avatarUrl);
+    });
   }
 
   toggleDarkMode(): void {

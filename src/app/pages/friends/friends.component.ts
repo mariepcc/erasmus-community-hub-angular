@@ -36,24 +36,32 @@ export class FriendsComponent {
       username: 'Sarah Johnson',
       country: 'Spain',
       university: 'UAM',
+      avatarUrl:
+        'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
     },
     {
       uid: '2',
       username: 'Mike Chen',
       country: 'Spain',
       university: 'UB',
+      avatarUrl:
+        'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
     },
     {
       uid: '3',
       username: 'Emma Wilson',
       country: 'France',
       university: 'Sorbonne',
+      avatarUrl:
+        'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
     },
     {
       uid: '4',
       username: 'Alex Martinez',
       country: 'Italy',
       university: 'Sapienza',
+      avatarUrl:
+        'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
     },
   ];
 
@@ -80,7 +88,7 @@ export class FriendsComponent {
   openChat(user: Partial<User>): void {
     this.activeChatUser = user;
     this.newMessageContent = '';
-    console.log('Opening chat with:', user.username); // Debugging
+    console.log('Opening chat with:', user.username);
   }
 
   closeChat(): void {

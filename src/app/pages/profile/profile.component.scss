@@ -1,3 +1,9 @@
+$primary: #5D87FF;
+$dark: #1e293b;
+$slate: #64748b;
+$light-slate: #94a3b8;
+$border: #f1f5f9;
+
 .profile-page {
   max-width: 1000px;
   margin: 0 auto;
@@ -14,52 +20,46 @@
   align-items: flex-end;
   justify-content: flex-end;
   padding: 24px;
-  margin-top: 0;
 
   .edit-cover-btn {
-    background: rgba(30, 41, 59, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    -webkit-backdrop-filter: blur(10px) saturate(150%);
-    backdrop-filter: blur(10px) saturate(150%);
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
     padding: 10px 18px;
     border-radius: 12px;
     color: #ffffff;
-    font-family: 'DM Sans', sans-serif;
     font-weight: 600;
     font-size: 14px;
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     z-index: 2;
 
     &:hover {
-      background: rgba(30, 41, 59, 0.7);
+      background: rgba(30, 41, 59, 0.6);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
   }
 }
 
 .profile-container {
   padding: 0 32px 32px;
-  margin-top: -60px;
+  margin-top: -80px;
   position: relative;
   z-index: 10;
 }
 
-/* Header */
 .profile-header {
   display: flex;
   align-items: flex-end;
-  gap: 28px;
+  justify-content: space-between; 
+  gap: 24px;
   margin-bottom: 40px;
 
   .avatar-section {
     position: relative;
-    z-index: 15;
     flex-shrink: 0;
 
     .profile-avatar {
@@ -68,26 +68,25 @@
       border-radius: 50%;
       border: 6px solid white; 
       object-fit: cover;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       background: white;
     }
 
     .edit-avatar-btn {
       position: absolute;
-      bottom: 10px;
-      right: 10px;
+      bottom: 8px;
+      right: 8px;
       width: 38px;
       height: 38px;
       border-radius: 50%;
       border: 3px solid white;
-      background: #5D87FF;
+      background: $primary;
       color: white;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 16;
+      transition: all 0.2s ease;
 
       &:hover { transform: scale(1.1); }
     }
@@ -95,52 +94,64 @@
 
   .profile-info {
     flex: 1;
-    padding-bottom: 15px;
-    padding-top: 55px; 
+    padding-top: 80px; 
+    min-width: 0; 
 
     h1 { 
-      font-size: 2.6rem; 
-      font-weight: 900; 
-      color: #1e293b; 
-      margin: 0 0 6px 0;
-      line-height: 1.1;
-      letter-spacing: -1px;
+      font-size: 2.2rem; 
+      font-weight: 800; 
+      color: $dark; 
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .username {
+      font-size: 16px;
+      color: $slate;
+      font-weight: 500;
+      margin: 2px 0 12px 0; 
     }
 
     .profile-meta {
       display: flex;
-      gap: 18px;
+      gap: 20px;
       flex-wrap: wrap;
 
       .meta-item {
         display: flex;
         align-items: center;
         gap: 6px;
-        color: #64748b;
-        font-size: 15px;
+        color: $slate;
+        font-size: 14px;
         font-weight: 500;
-        lucide-icon { color: #5D87FF; }
+
+        lucide-icon { 
+          color: $primary; 
+          opacity: 0.8;
+        }
       }
     }
   }
 
   .btn-primary {
-    margin-bottom: 15px;
+    align-self: flex-end; 
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     padding: 12px 24px;
-    border-radius: 14px;
+    border-radius: 12px;
     font-weight: 700;
-    background: #5D87FF;
+    background: $primary;
     color: white;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap; 
 
     &:hover {
-      background: #4a6ee0;
-      box-shadow: 0 8px 20px rgba(93, 135, 255, 0.25);
+      background: darken($primary, 8%);
+      box-shadow: 0 8px 20px rgba($primary, 0.2);
     }
   }
 }
@@ -153,9 +164,9 @@
 
   .stat-card {
     background: white;
-    padding: 20px;
+    padding: 24px 16px;
     border-radius: 20px;
-    border: 1px solid #f1f5f9;
+    border: 1px solid $border;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -163,103 +174,58 @@
 
     &:hover {
       transform: translateY(-4px);
-      border-color: #5D87FF40;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+      border-color: rgba($primary, 0.2);
     }
 
     .stat-value {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
-      color: #1e293b;
+      color: $dark;
+      margin-bottom: 2px;
     }
 
     .stat-label {
       font-size: 11px;
-      color: #94a3b8;
+      color: $light-slate;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
   }
 }
 
 .about-section {
   background: white;
-  padding: 28px;
+  padding: 32px;
   border-radius: 24px;
-  border: 1px solid #f1f5f9;
-  margin-bottom: 40px;
-  h2 { font-size: 20px; font-weight: 800; color: #1e293b; margin-bottom: 12px; }
-  p { color: #475569; font-size: 16px; line-height: 1.7; }
+  border: 1px solid $border;
+  
+  h2 { font-size: 18px; font-weight: 800; color: $dark; margin-bottom: 12px; }
+  p { color: #475569; font-size: 15px; line-height: 1.6; margin: 0; }
 }
 
-.profile-tabs {
-  display: flex;
-  gap: 10px;
-  border-bottom: 2px solid #f1f5f9;
-  margin-bottom: 24px;
-
-  .tab-item {
-    background: none;
-    border: none;
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #94a3b8;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.2s ease;
-
-    &:hover { color: #64748b; }
-
-    &.active {
-      color: #5D87FF;
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: #5D87FF;
-        border-radius: 3px;
-      }
-    }
-  }
-}
-
-.empty-tab {
-  text-align: center;
-  padding: 80px 40px;
-  color: #94a3b8;
-  background: white;
-  border-radius: 32px;
-  border: 2px dashed #e2e8f0;
-  p { font-size: 16px; font-weight: 500; }
-}
-
-@media (max-width: 768px) {
-  .profile-stats { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 850px) {
   .profile-header {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin-top: -40px;
     gap: 16px;
-    
+
     .profile-info {
-      padding-top: 10px;
-      h1 { font-size: 2rem; }
-      .profile-meta { justify-content: center; }
+      padding-bottom: 0;
+      .profile-meta { justify-content: center; gap: 12px; }
     }
-    
-    .avatar-section .profile-avatar { 
-      width: 130px; 
-      height: 130px; 
+
+    .btn-primary { 
+      align-self: center; 
+      width: 100%; 
+      justify-content: center; 
     }
-    
-    .btn-primary { align-self: center; }
+  }
+
+  .profile-stats {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
