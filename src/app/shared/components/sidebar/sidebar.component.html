@@ -4,13 +4,13 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a routerLink="/" 
-   routerLinkActive="active" 
-   [routerLinkActiveOptions]="{exact: true}" 
-   class="nav-item">
-  <lucide-icon [img]="HomeIcon" class="icon"></lucide-icon>
-  <span>Home</span>
-</a>
+    <a routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+      class="nav-item">
+      <lucide-icon [img]="HomeIcon" class="icon"></lucide-icon>
+      <span>Home</span>
+    </a>
     <a routerLink="/my-profile" routerLinkActive="active" class="nav-item">
       <lucide-icon [img]="UserIcon" class="icon"></lucide-icon>
       <span>My Profile</span>
@@ -30,25 +30,40 @@
     </div>
 
     <div class="communities-list">
-      <div *ngFor="let country of countries" class="community-item">
-        <div class="country-header" (click)="toggleCountry(country.code)" [class.active]="country.isExpanded">
+      @for (country of countries; track country.name) {
+      <div class="community-item">
+        <div class="country-header" (click)="toggleCountry(country.name)"
+          [class.active]="country.isExpanded">
           <div class="country-info">
-            <img [src]="'https://hatscripts.github.io/circle-flags/flags/' + country.code.toLowerCase() + '.svg'" class="flag" />
+            <img
+              [src]="'https://hatscripts.github.io/circle-flags/flags/' + country.code.toLowerCase() + '.svg'"
+              class="flag"
+              [alt]="country.name + ' flag'" />
             <span class="country-name">{{ country.name }}</span>
           </div>
-          <lucide-icon [img]="ChevronRightIcon" class="toggle-icon" [class.expanded]="country.isExpanded" [size]="16"></lucide-icon>
+          <lucide-icon [img]="ChevronRightIcon"
+            class="toggle-icon"
+            [class.expanded]="country.isExpanded"
+            [size]="16">
+          </lucide-icon>
         </div>
 
-        <div class="cities-list" *ngIf="country.isExpanded">
-          <a *ngFor="let city of country.cities" 
-             [routerLink]="['/community', city.name.toLowerCase()]" 
-             routerLinkActive="city-active"
-             class="city-item">
+        @if (country.isExpanded) {
+        <div class="cities-list">
+          @for (city of country.cities; track city.name) {
+          <a [routerLink]="['/community', city.name.toLowerCase()]"
+            routerLinkActive="city-active"
+            class="city-item">
             <span class="city-name">{{ city.name }}</span>
             <span class="member-count">{{ city.memberCount }}</span>
           </a>
+          }
         </div>
+        }
       </div>
+      } @empty {
+      <p class="no-data">No communities selected yet.</p>
+      }
     </div>
   </div>
 </aside>

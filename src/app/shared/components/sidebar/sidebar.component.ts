@@ -1,11 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { LucideAngularModule, Home, User, Users, Plus, ChevronRight } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Home,
+  User,
+  Users,
+  Plus,
+  ChevronRight,
+} from 'lucide-angular';
+import { UserService } from '../../../core/services/user.service'; // sprawdź ścieżkę
+import { map } from 'rxjs';
 
 interface City {
   name: string;
-  memberCount: string;
+  memberCount: string; // Na razie damy '0', dopóki nie wdrożymy liczników
 }
 
 interface Country {
@@ -20,62 +29,61 @@ interface Country {
   standalone: true,
   imports: [CommonModule, RouterModule, LucideAngularModule],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent {
-  @Input() isOpen = false; 
-  
+export class SidebarComponent implements OnInit {
+  @Input() isOpen = false;
+
+  private userService = inject(UserService);
+
   readonly HomeIcon = Home;
   readonly UserIcon = User;
   readonly UsersIcon = Users;
   readonly PlusIcon = Plus;
   readonly ChevronRightIcon = ChevronRight;
 
-  countries: Country[] = [
-    {
-      code: 'ES',
-      name: 'Spain',
-      isExpanded: false,
-      cities: [
-        { name: 'Madrid', memberCount: '1.2k' },
-        { name: 'Barcelona', memberCount: '980' },
-        { name: 'Valencia', memberCount: '450' }
-      ]
-    },
-    {
-      code: 'FR',
-      name: 'France',
-      isExpanded: false,
-      cities: [
-        { name: 'Paris', memberCount: '1.5k' },
-        { name: 'Lyon', memberCount: '620' },
-        { name: 'Marseille', memberCount: '530' }
-      ]
-    },
-    {
-      code: 'IT',
-      name: 'Italy',
-      isExpanded: false,
-      cities: [
-        { name: 'Rome', memberCount: '890' },
-        { name: 'Milan', memberCount: '750' },
-        { name: 'Florence', memberCount: '420' }
-      ]
-    },
-    {
-      code: 'DE',
-      name: 'Germany',
-      isExpanded: false,
-      cities: [
-        { name: 'Berlin', memberCount: '1.1k' },
-        { name: 'Munich', memberCount: '680' },
-        { name: 'Hamburg', memberCount: '540' }
-      ]
-    }
-  ];
+  COUNTRY_ISO_MAP: Record<string, string> = {
+    Poland: 'pl',
+    Spain: 'es',
+    Italy: 'it',
+    Germany: 'de',
+    France: 'fr',
+    Netherlands: 'nl',
+    Portugal: 'pt',
+    Sweden: 'se',
+    'Czech Republic': 'cz',
+    Greece: 'gr',
+    Turkey: 'tr',
+    Austria: 'at',
+    Belgium: 'be',
+  };
 
-  toggleCountry(countryCode: string): void {
-    const country = this.countries.find(c => c.code === countryCode);
+  countries: Country[] = [];
+
+  ngOnInit(): void {
+    this.userService.currentUserProfile$
+      .pipe(
+        map((user) => {
+          if (!user || !user.groups) return [];
+
+          return user.groups.map((dest) => ({
+            code: this.COUNTRY_ISO_MAP[dest.country] || 'eu',
+            name: dest.country,
+            isExpanded: false,
+            cities: dest.cities.map((cityName) => ({
+              name: cityName,
+              memberCount: '0',
+            })),
+          }));
+        }),
+      )
+      .subscribe((mappedCountries) => {
+        this.countries = mappedCountries;
+      });
+  }
+
+  toggleCountry(name: string): void {
+    const country = this.countries.find((c) => c.name === name);
     if (country) {
       country.isExpanded = !country.isExpanded;
     }
