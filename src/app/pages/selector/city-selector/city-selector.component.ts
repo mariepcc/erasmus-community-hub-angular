@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../../core/services/user.service';
+import { take } from 'rxjs';
 
 interface City {
   id: string;
@@ -22,7 +24,10 @@ interface CountryGroup {
   styleUrls: ['./city-selector.component.css'],
 })
 export class CitySelectorComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+  ) {}
   private router = inject(Router);
 
   allCities: Record<string, string[]> = {
@@ -138,6 +143,22 @@ export class CitySelectorComponent implements OnInit {
       .filter((g) => g.cities.length > 0);
 
     console.log('Final Selection:', finalSelection);
-    this.router.navigate(['/'], { state: { data: finalSelection } });
+
+    this.userService.currentUserProfile$.pipe(take(1)).subscribe((user) => {
+      if (user) {
+        this.userService
+          .updateUser({
+            ...user,
+            groups: finalSelection,
+          } as any)
+          .subscribe({
+            next: () => {
+              console.log('Selection saved to Firestore!');
+              this.router.navigate(['/']);
+            },
+            error: (err) => console.error('Error saving selection:', err),
+          });
+      }
+    });
   }
 }
