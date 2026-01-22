@@ -59,15 +59,15 @@ export class TopBarComponent implements OnInit {
   isProfileOpen = false;
   isDarkMode = false;
 
+  readonly defaultAvatar =
+    'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png';
+
   constructor(
     private authService: AuthService,
     private router: Router,
   ) {}
 
   ngOnInit(): void {
-    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      const data = localStorage.getItem('user');
-    }
     if (this.isDarkMode) document.body.classList.add('dark-mode');
   }
 
@@ -89,10 +89,6 @@ export class TopBarComponent implements OnInit {
 
   toggleProfile(): void {
     this.isProfileOpen = !this.isProfileOpen;
-    this.currentUser$.pipe(take(1)).subscribe((user) => {
-      console.log('Dane użytkownika:', user);
-      console.log('URL awatara:', user?.avatarUrl);
-    });
   }
 
   toggleDarkMode(): void {

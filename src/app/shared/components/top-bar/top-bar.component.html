@@ -48,7 +48,7 @@
 
     <div class="profile-dropdown" [class.open]="isProfileOpen">
       <button class="profile-btn" (click)="toggleProfile()">
-        <img [src]="user.avatarUrl"
+        <img [src]="user.avatarUrl || defaultAvatar"
           [alt]="user.username"
           class="user-avatar" />
         <lucide-icon [img]="ChevronDownIcon" class="chevron"
