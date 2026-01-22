@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
 import {
   FormsModule,
   Validators,
@@ -14,6 +14,8 @@ import {
 } from 'lucide-angular';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { isPlatformServer } from '@angular/common';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-user-login',
@@ -27,6 +29,9 @@ export class LoginComponent {
   readonly LockIcon = Lock;
   readonly ArrowRightIcon = ArrowRight;
   readonly PlaneIcon = Plane;
+
+  isServer = false;
+  isUser = signal(true);
   error: boolean = false;
   fb: FormBuilder = inject(FormBuilder);
   authService: AuthService = inject(AuthService);
@@ -41,6 +46,21 @@ export class LoginComponent {
     ],
     password: ['', Validators.required],
   });
+
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.isServer = isPlatformServer(platformId);
+
+    this.authService.user$.subscribe({
+      next: (user) => {
+        if (!user) {
+          this.isUser.set(false);
+        } else {
+          this.isUser.set(true);
+        }
+      },
+      error: () => this.isUser.set(false),
+    });
+  }
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
