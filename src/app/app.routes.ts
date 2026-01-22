@@ -7,8 +7,16 @@ import { LayoutComponent } from './shared/components/layout/layout.component';
 import { CountrySelectorComponent } from './pages/selector/country-selector/country-selector.component';
 import { CitySelectorComponent } from './pages/selector/city-selector/city-selector.component';
 import { authGuard } from '../guards/auth.guard';
+import { MainPageComponent } from './pages/main-page/main-page.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { FriendsComponent } from './pages/friends/friends.component';
+import { UserComponent } from './pages/user/user.component';
+import { CommunityComponent } from './pages/community/community.component';
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   {
     path: '',
     component: LayoutComponent,
@@ -16,45 +24,24 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('./pages/main-page/main-page.component').then(
-            (m) => m.MainPageComponent,
-          ),
+        component: MainPageComponent,
       },
       {
-        path: 'my-profile',
-        loadComponent: () =>
-          import('./pages/profile/profile.component').then(
-            (m) => m.ProfileComponent,
-          ),
+        path: 'profile',
+        component: ProfileComponent,
       },
       {
         path: 'friends',
-        loadComponent: () =>
-          import('./pages/friends/friends.component').then(
-            (m) => m.FriendsComponent,
-          ),
+        component: FriendsComponent,
       },
       {
         path: 'user/:id',
-        loadComponent: () =>
-          import('./pages/user/user.component').then((m) => m.UserComponent),
+        component: UserComponent,
       },
       {
         path: 'community/:id',
-        loadComponent: () =>
-          import('./pages/community/community.component').then(
-            (m) => m.CommunityComponent,
-          ),
+        component: CommunityComponent,
       },
-    ],
-  },
-  {
-    path: '',
-    children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'forgot-password', component: ForgotPasswordComponent },
     ],
   },
   {
@@ -65,13 +52,6 @@ export const routes: Routes = [
       { path: 'city-selector', component: CitySelectorComponent },
     ],
   },
-
-  {
-    path: '404',
-    component: NotFoundComponent,
-  },
-  {
-    path: '**',
-    redirectTo: '/404',
-  },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' },
 ];

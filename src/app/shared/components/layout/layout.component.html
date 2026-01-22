@@ -1,7 +1,8 @@
 <div class="app-container">
-  <app-sidebar [isOpen]="isSidebarOpen" [class.open]="isSidebarOpen"></app-sidebar>
+  <app-sidebar [isOpen]="isSidebarOpen"
+    [class.open]="isSidebarOpen"></app-sidebar>
   <div class="main-content">
-    <app-top-bar 
+    <app-top-bar
       (toggleSidebar)="toggleSidebar()"
       (toggleChat)="toggleChat()"
       (toggleNotifications)="toggleNotifications()"
@@ -9,13 +10,12 @@
     </app-top-bar>
     <main class="content-area">
       <router-outlet></router-outlet>
-  </main>
-  </div>
-  <div class="mobile-overlay" 
-       [class.active]="isSidebarOpen"
-       (click)="toggleSidebar()">
+    </main>
   </div>
 </div>
+
 <app-chat-widget [isOpen]="isChatOpen" (close)="closeChat()"></app-chat-widget>
-<app-notification-widget [isOpen]="isNotificationsOpen" (close)="closeNotifications()"></app-notification-widget>
-<app-create-post-modal *ngIf="isCreatePostOpen" (close)="closeCreatePost()"></app-create-post-modal>
+<app-notification-widget [isOpen]="isNotificationsOpen"
+  (close)="closeNotifications()"></app-notification-widget>
+<app-create-post-modal *ngIf="isCreatePostOpen"
+  (close)="closeCreatePost()"></app-create-post-modal>

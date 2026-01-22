@@ -28,6 +28,9 @@ export class PostCardComponent {
   readonly BookmarkIcon = Bookmark;
   readonly BookmarkCheckIcon = BookmarkCheck;
 
+  linkPhoto: string =
+    'https://imgix.bustle.com/uploads/getty/2025/12/9/39401eb1/london-england-october-18.jpg?w=414&h=580&fit=crop&crop=focalpoint&dpr=2&fp-x=0.4735&fp-y=0.3824';
+
   isSaved: boolean = false;
 
   constructor(private authService: AuthService) {}

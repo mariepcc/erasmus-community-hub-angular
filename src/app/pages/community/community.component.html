@@ -1,9 +1,10 @@
-<div class="community-container" *ngIf="city">
+<div class="community-container">
   <header class="community-header">
     <div class="header-content">
       <div class="header-left">
-        <div class="city-badge"><span class="dot"></span> Erasmus Destination</div>
-        <h1>r/{{ city.name }}</h1>
+        <div class="city-badge"><span class="dot"></span> Erasmus
+          Destination</div>
+        <h1>e/{{ city.name }}</h1>
         <p class="subtitle">{{ city.country }} Community Hub</p>
       </div>
       <div class="header-actions">
@@ -11,8 +12,10 @@
           <lucide-icon [img]="PlusIcon" [size]="18"></lucide-icon>
           Create Post
         </button>
-        <button class="btn-join" [class.joined]="isJoined" (click)="toggleJoin()">
-          <lucide-icon [img]="isJoined ? CheckIcon : PlusIcon" [size]="18"></lucide-icon>
+        <button class="btn-join" [class.joined]="isJoined"
+          (click)="toggleJoin()">
+          <lucide-icon [img]="isJoined ? CheckIcon : PlusIcon"
+            [size]="18"></lucide-icon>
           {{ isJoined ? 'Joined' : 'Join' }}
         </button>
       </div>
@@ -38,24 +41,23 @@
             <lucide-icon [img]="InboxIcon" [size]="64"></lucide-icon>
             <h3>No posts yet in {{ city.name }}</h3>
             <p>Be the first to share your Erasmus experience!</p>
-            <p class="hint">Click "Create Post" above to start the conversation.</p>
           </div>
 
           <div *ngFor="let post of posts" class="post-card-simple">
             <div class="post-header-info">
-              <img [src]="" class="mini-avatar">
-              <span class="post-author">User</span>
-              <span class="post-time">• {{ post.timestamp | date:'shortTime' }}</span>
+              <img [src]="post.author || 'assets/default-avatar.png'"
+                class="mini-avatar">
+              <span class="post-author">{{ post.author || 'Student'
+                }}</span>
+              <span class="post-time">• {{ post.timestamp | date:'short'
+                }}</span>
             </div>
             <p class="post-content">{{ post.content }}</p>
-            <div class="post-tags" *ngIf="post.tags?.length">
-              <span *ngFor="let tag of post.tags" class="mini-tag">#{{ tag }}</span>
-            </div>
           </div>
         </ng-container>
 
         <ng-template #loading>
-          <div class="loading-state">Loading posts...</div>
+          <div class="loading-state">Looking for stories...</div>
         </ng-template>
       </div>
     </main>
@@ -66,35 +68,34 @@
           <lucide-icon [img]="InfoIcon" [size]="20"></lucide-icon>
           <h3>About Community</h3>
         </div>
-        <p class="community-desc">{{ city.description }}</p>
+        <p class="community-desc">
+          {{ city.description || 'Welcome to the ' + city.name +
+          ' Erasmus hub! Connect with others and share your journey.' }}
+        </p>
         <div class="stats-grid">
           <div class="stat-box">
-            <span class="stat-value">1.6k</span>
-            <span class="stat-label">Erasmus</span>
+            <span class="stat-value">1.2k</span>
+            <span class="stat-label">Members</span>
           </div>
           <div class="stat-box">
-            <span class="stat-value">42</span>
+            <span class="stat-value">15</span>
             <span class="stat-label">Online</span>
           </div>
         </div>
         <div class="community-meta">
           <div class="meta-item">
             <lucide-icon [img]="CalendarIcon" [size]="16"></lucide-icon>
-            <span>Created Jan 18, 2026</span>
-          </div>
-          <div class="meta-item">
-            <lucide-icon [img]="ShieldIcon" [size]="16"></lucide-icon>
-            <span>Public Community</span>
+            <span>Public Group</span>
           </div>
         </div>
       </div>
     </aside>
   </div>
 
-  <app-community-create-post 
-    *ngIf="isCreateModalOpen" 
-    [communityId]="city.id" 
-    [communityName]="city.name"
+  <app-community-create-post
+    *ngIf="isCreateModalOpen"
+    [communityId]="city.id || ''"
+    [communityName]="city.name || ''"
     (close)="closeCreateModal($event)">
   </app-community-create-post>
 </div>

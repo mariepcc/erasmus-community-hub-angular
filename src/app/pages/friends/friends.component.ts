@@ -33,35 +33,41 @@ export class FriendsComponent {
   friends: Partial<User>[] = [
     {
       uid: '1',
-      username: 'Sarah Johnson',
-      country: 'Spain',
+      username: 'Sara Piątek ',
+      country: 'Poland',
       university: 'UAM',
+      joinedDate: 'Dec 2025',
+
       avatarUrl:
-        'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
+        'https://label-magazine.com/images/article/2023/06-czerwiec/PORSCHExIGA_1.jpg',
     },
     {
       uid: '2',
       username: 'Mike Chen',
-      country: 'Spain',
+      country: 'China',
       university: 'UB',
+      joinedDate: 'Feb 2024',
       avatarUrl:
-        'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
+        'https://static0.cbrimages.com/wordpress/wp-content/uploads/2025/01/squid-game-season-2-thanos.JPG?w=1200&h=675&fit=crop',
     },
     {
       uid: '3',
       username: 'Emma Wilson',
       country: 'France',
       university: 'Sorbonne',
+      joinedDate: 'Jun 2024',
+
       avatarUrl:
-        'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
+        'https://ocdn.eu/pulscms-transforms/1/EK_k9kuTURBXy8wMzlkMmNjMS1lODIwLTQzNjEtYWRjMy1kNmRjMzMyM2U2N2QuanBlZ5GVAs0EsADDw94AAaEwBQ',
     },
     {
       uid: '4',
       username: 'Alex Martinez',
       country: 'Italy',
       university: 'Sapienza',
-      avatarUrl:
-        'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
+      joinedDate: 'Jan 2026',
+
+      avatarUrl: 'https://pbs.twimg.com/media/EWtQHpMWsAQXp1T.jpg',
     },
   ];
 
@@ -108,7 +114,12 @@ export class FriendsComponent {
     this.newMessageContent = '';
   }
 
-  navigateToProfile(friendId?: string): void {
-    if (friendId) this.router.navigate(['/user', friendId]);
+  navigateToProfile(user: Partial<User>): void {
+    console.log('Kliknięto użytkownika:', user);
+    if (user && user.uid) {
+      this.router.navigate(['/user', user.uid], {
+        state: { userData: user },
+      });
+    }
   }
 }

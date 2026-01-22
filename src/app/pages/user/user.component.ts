@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { 
-  LucideAngularModule, 
-  MapPin, 
-  Calendar, 
-  MessageSquare, 
-  UserPlus, 
-  Heart, 
-  MessageCircle, 
-  Share2, 
-  Activity, 
-  Layout, 
-  Send, 
-  X 
+import {
+  LucideAngularModule,
+  MapPin,
+  Calendar,
+  MessageSquare,
+  UserPlus,
+  Heart,
+  MessageCircle,
+  Share2,
+  Activity,
+  Layout,
+  Send,
+  X,
 } from 'lucide-angular';
 
 @Component({
@@ -22,7 +22,7 @@ import {
   standalone: true,
   imports: [CommonModule, LucideAngularModule, FormsModule],
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
   readonly MapPinIcon = MapPin;
@@ -41,26 +41,52 @@ export class UserComponent implements OnInit {
   newMessageContent: string = '';
 
   chatMessages: any[] = [
-    { id: 'm1', content: 'Hey! I saw your activity in the Madrid group. Welcome!', isMine: false, timestamp: new Date() },
-    { id: 'm2', content: 'Thanks! Happy to be here.', isMine: true, timestamp: new Date() }
+    {
+      id: 'm1',
+      content: 'Hey! I saw your activity in the Madrid group. Welcome!',
+      isMine: false,
+      timestamp: new Date(),
+    },
+    {
+      id: 'm2',
+      content: 'Thanks! Happy to be here.',
+      isMine: true,
+      timestamp: new Date(),
+    },
   ];
 
   activities = [
-    { text: 'liked a post in Spain Community', date: '2 hours ago', icon: Heart },
-    { text: 'commented on "Best Tapas in Madrid"', date: '5 hours ago', icon: MessageCircle },
-    { text: 'joined the Erasmus Italy group', date: 'Yesterday', icon: Share2 }
+    {
+      text: 'liked a post in Spain Community',
+      date: '2 hours ago',
+      icon: Heart,
+    },
+    {
+      text: 'commented on "Best Tapas in Madrid"',
+      date: '5 hours ago',
+      icon: MessageCircle,
+    },
+    { text: 'joined the Erasmus Italy group', date: 'Yesterday', icon: Share2 },
   ];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
+    const state = window.history.state;
+    if (state && state.userData) {
+      this.user = state.userData;
+    }
+  }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('uid');
     this.user = {
       id: id,
-      name: id === '1' ? 'Sarah Johnson' : 'Erasmus Student',
-      location: 'Madrid, Spain',
-      avatar: `https://i.pravatar.cc/150?img=${id}`,
-      email: 'student@erasmus.com'
+      name: this.user.username,
+      location: this.user.country,
+      avatar: this.user.avatarUrl,
+      joinedDate: this.user.joinedDate,
     };
   }
 
@@ -83,7 +109,7 @@ export class UserComponent implements OnInit {
       id: Date.now().toString(),
       content: this.newMessageContent,
       isMine: true,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
     this.newMessageContent = '';
   }

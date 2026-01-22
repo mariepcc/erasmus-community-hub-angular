@@ -1,45 +1,46 @@
 <div class="post-card">
   <div class="post-header">
-    <img [src]="" 
-         class="author-avatar" />
+    <img [src]="linkPhoto"
+      class="author-avatar" />
     <div class="author-info">
-      <h4 class="author-name">User</h4>
+      <h4 class="author-name">Josh</h4>
       <span class="post-time">{{ post.timestamp | date: 'short' }}</span>
     </div>
   </div>
 
   <div class="post-content">
-    <p>{{ post.content }}</p> 
+    <p>{{ post.content }}</p>
   </div>
 
   <div class="post-actions">
-    <button 
-      class="action-btn like-btn" 
+    <button
+      class="action-btn like-btn"
       [class.active]="isLiked"
       (click)="toggleLike()">
       <lucide-icon [img]="HeartIcon" [size]="20"></lucide-icon>
       <span>{{ post.likes || 0 }}</span>
     </button>
 
-    <button 
-      class="action-btn comment-btn" 
+    <button
+      class="action-btn comment-btn"
       (click)="openComments()">
       <lucide-icon [img]="MessageCircleIcon" [size]="20"></lucide-icon>
       <span>{{ post.comments.length || 0 }}</span>
     </button>
 
-    <button 
-      class="action-btn share-btn" 
+    <button
+      class="action-btn share-btn"
       (click)="sharePost()">
       <lucide-icon [img]="Share2Icon" [size]="20"></lucide-icon>
       <span>Share</span>
     </button>
 
-    <button 
-      class="action-btn save-btn" 
+    <button
+      class="action-btn save-btn"
       [class.saved]="isSaved"
       (click)="toggleSave()">
-      <lucide-icon [img]="isSaved ? BookmarkCheckIcon : BookmarkIcon" [size]="20"></lucide-icon>
+      <lucide-icon [img]="isSaved ? BookmarkCheckIcon : BookmarkIcon"
+        [size]="20"></lucide-icon>
       <span>{{ isSaved ? 'Saved' : 'Save' }}</span>
     </button>
   </div>

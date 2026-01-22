@@ -9,12 +9,12 @@ import {
   Plus,
   ChevronRight,
 } from 'lucide-angular';
-import { UserService } from '../../../core/services/user.service'; // sprawdź ścieżkę
+import { UserService } from '../../../core/services/user.service';
 import { map } from 'rxjs';
 
 interface City {
   name: string;
-  memberCount: string; // Na razie damy '0', dopóki nie wdrożymy liczników
+  memberCount: string;
 }
 
 interface Country {
@@ -66,11 +66,11 @@ export class SidebarComponent implements OnInit {
         map((user) => {
           if (!user || !user.groups) return [];
 
-          return user.groups.map((dest) => ({
+          return user.groups.map((dest: any) => ({
             code: this.COUNTRY_ISO_MAP[dest.country] || 'eu',
             name: dest.country,
             isExpanded: false,
-            cities: dest.cities.map((cityName) => ({
+            cities: dest.cities.map((cityName: string) => ({
               name: cityName,
               memberCount: '0',
             })),
@@ -85,6 +85,9 @@ export class SidebarComponent implements OnInit {
   toggleCountry(name: string): void {
     const country = this.countries.find((c) => c.name === name);
     if (country) {
+      this.countries.forEach((c) => {
+        if (c.name !== name) c.isExpanded = false;
+      });
       country.isExpanded = !country.isExpanded;
     }
   }
